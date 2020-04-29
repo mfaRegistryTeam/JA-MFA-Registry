@@ -1,0 +1,413 @@
+<!-- Author : Tevin Taylor & Shane Okukenu-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Database Personal Query</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="colorlib.com">
+
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.css">
+
+    <link rel="stylesheet" href="static/querystyle.css">
+    <link rel="stylesheet" href="static/dropdownStyle.css"/>
+    <link rel="icon" href="static/flag.jpg" sizes="16x16">
+</head>
+
+<body>
+    <div class="wrapper">
+        <form action="{{ url_for('query')}}" method="post" id="wizard">
+            <h2></h2>
+            <section>
+                <div class="inner">
+                    <div class="image-holder">
+                        <img src="images/form-wizard-1.jpg" alt="">
+                    </div>
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h3>Query Wizard</h3>
+                        </div>
+                        <p>Please complete as much fields as possible. If unsure leave blank</p>
+                        <div class="form-row">
+                            <div class="form-holder">
+                                <input type="text" name ="firstname-search" placeholder="First Name" class="form-control">
+                            </div>
+                            <div class="form-holder">
+                                <input type="text" name ="middlename-search" placeholder="Middle Name" class="form-control">
+                            </div>
+                            <div class="form-holder">
+                                <input type="text" name ="lastname-search" placeholder="Last Name" class="form-control">
+                            </div>
+                            <div class="form-holder">
+                                <input type="number" name ="BBID-search" placeholder="Barbados ID" class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-holder">
+                                <input type="email"  name ="email-search" placeholder="Enter Email Address" class="form-control">
+                            </div>
+                            <div class="form-holder">
+                                <input type="text" name="phone-search" placeholder="Phone Number" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-holder">
+                                <input type="date" name= "dob-search" placeholder="Date of Birth" class="form-control">
+                            </div>
+                            <div class="form-holder" style="align-self: flex-end; transform: translateY(4px);">
+                                <div class="checkbox-tick">
+                                    <label class="male">
+                                        <input type="radio" name="gender-search" value="Male" checked> Male<br>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="female">
+                                        <input type="radio" name="gender-search" value="Female"> Female<br>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkbox-circle">
+                            <label>
+                                <input type="checkbox" checked> Nor again is there anyone who loves or pursues or
+                                desires to obtaini.
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <h2></h2>
+            <section>
+                <div class="inner">
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h3>Query Wizard</h3>
+                        </div>
+                        <p>Please complete as much fields as possible. If unsure leave blank</p>
+                        <div class="form-row">
+                            <div class="form-holder w-100">
+                                <input type="text" name="address-search" placeholder="Address" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-holder">
+                                <input type="text" name="city-town-search" placeholder="City or Town" class="form-control">
+                            </div>
+                            <div class="form-holder">
+                                <input type="text" placeholder="Zip Code" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="select">
+                                <div class="form-holder">
+                                    <div class="select-control">Select Country</div>
+                                    <i class="zmdi zmdi-caret-down"></i>
+                                </div>
+                                <ul class="dropdown">
+                                    <!-- <li rel="- -">None</li> -->
+                                    <li rel="Canada">Canada</li>
+                                    <li rel="United Kingdom">United Kingdom</li>
+                                    <li rel="United States of America">United States of America</li>
+
+                                    <li rel="Afganistan">Afghanistan</li>
+                                    <li rel="Albania">Albania</li>
+                                    <li rel="Algeria">Algeria</li>
+                                    <li rel="American Samoa">American Samoa</li>
+                                    <li rel="Andorra">Andorra</li>
+                                    <li rel="Angola">Angola</li>
+                                    <li rel="Anguilla">Anguilla</li>
+                                    <li rel="Antigua & Barbuda">Antigua & Barbuda</li>
+                                    <li rel="Argentina">Argentina</li>
+                                    <li rel="Armenia">Armenia</li>
+                                    <li rel="Aruba">Aruba</li>
+                                    <li rel="Australia">Australia</li>
+                                    <li rel="Austria">Austria</li>
+                                    <li rel="Azerbaijan">Azerbaijan</li>
+                                    <li rel="Bahamas">Bahamas</li>
+                                    <li rel="Bahrain">Bahrain</li>
+                                    <li rel="Bangladesh">Bangladesh</li>
+                                    <li rel="Barbados">Barbados</li>
+                                    <li rel="Belarus">Belarus</li>
+                                    <li rel="Belgium">Belgium</li>
+                                    <li rel="Belize">Belize</li>
+                                    <li rel="Benin">Benin</li>
+                                    <li rel="Bermuda">Bermuda</li>
+                                    <li rel="Bhutan">Bhutan</li>
+                                    <li rel="Bolivia">Bolivia</li>
+                                    <li rel="Bonaire">Bonaire</li>
+                                    <li rel="Bosnia & Herzegovina">Bosnia & Herzegovina</li>
+                                    <li rel="Botswana">Botswana</li>
+                                    <li rel="Brazil">Brazil</li>
+                                    <li rel="British Indian Ocean Ter">British Indian Ocean Ter</li>
+                                    <li rel="Brunei">Brunei</li>
+                                    <li rel="Bulgaria">Bulgaria</li>
+                                    <li rel="Burkina Faso">Burkina Faso</li>
+                                    <li rel="Burundi">Burundi</li>
+                                    <li rel="Cambodia">Cambodia</li>
+                                    <li rel="Cameroon">Cameroon</li>                                    
+                                    <li rel="Canary Islands">Canary Islands</li>
+                                    <li rel="Cape Verde">Cape Verde</li>
+                                    <li rel="Cayman Islands">Cayman Islands</li>
+                                    <li rel="Central African Republic">Central African Republic</li>
+                                    <li rel="Chad">Chad</li>
+                                    <li rel="Channel Islands">Channel Islands</li>
+                                    <li rel="Chile">Chile</li>
+                                    <li rel="China">China</li>
+                                    <li rel="Christmas Island">Christmas Island</li>
+                                    <li rel="Cocos Island">Cocos Island</li>
+                                    <li rel="Colombia">Colombia</li>
+                                    <li rel="Comoros">Comoros</li>
+                                    <li rel="Congo">Congo</li>
+                                    <li rel="Cook Islands">Cook Islands</li>
+                                    <li rel="Costa Rica">Costa Rica</li>
+                                    <li rel="Cote DIvoire">Cote DIvoire</li>
+                                    <li rel="Croatia">Croatia</li>
+                                    <li rel="Cuba">Cuba</li>
+                                    <li rel="Curaco">Curacao</li>
+                                    <li rel="Cyprus">Cyprus</li>
+                                    <li rel="Czech Republic">Czech Republic</li>
+                                    <li rel="Denmark">Denmark</li>
+                                    <li rel="Djibouti">Djibouti</li>
+                                    <li rel="Dominica">Dominica</li>
+                                    <li rel="Dominican Republic">Dominican Republic</li>
+                                    <li rel="East Timor">East Timor</li>
+                                    <li rel="Ecuador">Ecuador</li>
+                                    <li rel="Egypt">Egypt</li>
+                                    <li rel="El Salvador">El Salvador</li>
+                                    <li rel="Equatorial Guinea">Equatorial Guinea</li>
+                                    <li rel="Eritrea">Eritrea</li>
+                                    <li rel="Estonia">Estonia</li>
+                                    <li rel="Ethiopia">Ethiopia</li>
+                                    <li rel="Falkland Islands">Falkland Islands</li>
+                                    <li rel="Faroe Islands">Faroe Islands</li>
+                                    <li rel="Fiji">Fiji</li>
+                                    <li rel="Finland">Finland</li>
+                                    <li rel="France">France</li>
+                                    <li rel="French Guiana">French Guiana</li>
+                                    <li rel="French Polynesia">French Polynesia</li>
+                                    <li rel="French Southern Ter">French Southern Ter</li>
+                                    <li rel="Gabon">Gabon</li>
+                                    <li rel="Gambia">Gambia</li>
+                                    <li rel="Georgia">Georgia</li>
+                                    <li rel="Germany">Germany</li>
+                                    <li rel="Ghana">Ghana</li>
+                                    <li rel="Gibraltar">Gibraltar</li>
+                                    <li rel="Greece">Greece</li>
+                                    <li rel="Greenland">Greenland</li>
+                                    <li rel="Grenada">Grenada</li>
+                                    <li rel="Guadeloupe">Guadeloupe</li>
+                                    <li rel="Guam">Guam</li>
+                                    <li rel="Guatemala">Guatemala</li>
+                                    <li rel="Guinea">Guinea</li>
+                                    <li rel="Guyana">Guyana</li>
+                                    <li rel="Haiti">Haiti</li>
+                                    <li rel="Honduras">Honduras</li>
+                                    <li rel="Hong Kong">Hong Kong</li>
+                                    <li rel="Hungary">Hungary</li>
+                                    <li rel="Iceland">Iceland</li>
+                                    <li rel="Indonesia">Indonesia</li>
+                                    <li rel="India">India</li>
+                                    <li rel="Iran">Iran</li>
+                                    <li rel="Iraq">Iraq</li>
+                                    <li rel="Ireland">Ireland</li>
+                                    <li rel="Isle of Man">Isle of Man</li>
+                                    <li rel="Israel">Israel</li>
+                                    <li rel="Italy">Italy</li>
+                                    <li rel="Jamaica">Jamaica</li>
+                                    <li rel="Japan">Japan</li>
+                                    <li rel="Jordan">Jordan</li>
+                                    <li rel="Kazakhstan">Kazakhstan</li>
+                                    <li rel="Kenya">Kenya</li>
+                                    <li rel="Kiribati">Kiribati</li>
+                                    <li rel="Korea North">Korea North</li>
+                                    <li rel="Korea Sout">Korea South</li>
+                                    <li rel="Kuwait">Kuwait</li>
+                                    <li rel="Kyrgyzstan">Kyrgyzstan</li>
+                                    <li rel="Laos">Laos</li>
+                                    <li rel="Latvia">Latvia</li>
+                                    <li rel="Lebanon">Lebanon</li>
+                                    <li rel="Lesotho">Lesotho</li>
+                                    <li rel="Liberia">Liberia</li>
+                                    <li rel="Libya">Libya</li>
+                                    <li rel="Liechtenstein">Liechtenstein</li>
+                                    <li rel="Lithuania">Lithuania</li>
+                                    <li rel="Luxembourg">Luxembourg</li>
+                                    <li rel="Macau">Macau</li>
+                                    <li rel="Macedonia">Macedonia</li>
+                                    <li rel="Madagascar">Madagascar</li>
+                                    <li rel="Malaysia">Malaysia</li>
+                                    <li rel="Malawi">Malawi</li>
+                                    <li rel="Maldives">Maldives</li>
+                                    <li rel="Mali">Mali</li>
+                                    <li rel="Malta">Malta</li>
+                                    <li rel="Marshall Islands">Marshall Islands</li>
+                                    <li rel="Martinique">Martinique</li>
+                                    <li rel="Mauritania">Mauritania</li>
+                                    <li rel="Mauritius">Mauritius</li>
+                                    <li rel="Mayotte">Mayotte</li>
+                                    <li rel="Mexico">Mexico</li>
+                                    <li rel="Midway Islands">Midway Islands</li>
+                                    <li rel="Moldova">Moldova</li>
+                                    <li rel="Monaco">Monaco</li>
+                                    <li rel="Mongolia">Mongolia</li>
+                                    <li rel="Montserrat">Montserrat</li>
+                                    <li rel="Morocco">Morocco</li>
+                                    <li rel="Mozambique">Mozambique</li>
+                                    <li rel="Myanmar">Myanmar</li>
+                                    <li rel="Nambia">Nambia</li>
+                                    <li rel="Nauru">Nauru</li>
+                                    <li rel="Nepal">Nepal</li>
+                                    <li rel="Netherland Antilles">Netherland Antilles</li>
+                                    <li rel="Netherlands">Netherlands (Holland, Europe)</li>
+                                    <li rel="Nevis">Nevis</li>
+                                    <li rel="New Caledonia">New Caledonia</li>
+                                    <li rel="New Zealand">New Zealand</li>
+                                    <li rel="Nicaragua">Nicaragua</li>
+                                    <li rel="Niger">Niger</li>
+                                    <li rel="Nigeria">Nigeria</li>
+                                    <li rel="Niue">Niue</li>
+                                    <li rel="Norfolk Island">Norfolk Island</li>
+                                    <li rel="Norway">Norway</li>
+                                    <li rel="Oman">Oman</li>
+                                    <li rel="Pakistan">Pakistan</li>
+                                    <li rel="Palau Island">Palau Island</li>
+                                    <li rel="Palestine">Palestine</li>
+                                    <li rel="Panama">Panama</li>
+                                    <li rel="Papua New Guinea">Papua New Guinea</li>
+                                    <li rel="Paraguay">Paraguay</li>
+                                    <li rel="Peru">Peru</li>
+                                    <li rel="Phillipines">Philippines</li>
+                                    <li rel="Pitcairn Island">Pitcairn Island</li>
+                                    <li rel="Poland">Poland</li>
+                                    <li rel="Portugal">Portugal</li>
+                                    <li rel="Puerto Rico">Puerto Rico</li>
+                                    <li rel="Qatar">Qatar</li>
+                                    <li rel="Republic of Montenegro">Republic of Montenegro</li>
+                                    <li rel="Republic of Serbia">Republic of Serbia</li>
+                                    <li rel="Reunion">Reunion</li>
+                                    <li rel="Romania">Romania</li>
+                                    <li rel="Russia">Russia</li>
+                                    <li rel="Rwanda">Rwanda</li>
+                                    <li rel="St Barthelemy">St Barthelemy</li>
+                                    <li rel="St Eustatius">St Eustatius</li>
+                                    <li rel="St Helena">St Helena</li>
+                                    <li rel="St Kitts-Nevis">St Kitts-Nevis</li>
+                                    <li rel="St Lucia">St Lucia</li>
+                                    <li rel="St Maarten">St Maarten</li>
+                                    <li rel="St Pierre & Miquelon">St Pierre & Miquelon</li>
+                                    <li rel="St Vincent & Grenadines">St Vincent & Grenadines</li>
+                                    <li rel="Saipan">Saipan</li>
+                                    <li rel="Samoa">Samoa</li>
+                                    <li rel="Samoa American">Samoa American</li>
+                                    <li rel="San Marino">San Marino</li>
+                                    <li rel="Sao Tome & Principe">Sao Tome & Principe</li>
+                                    <li rel="Saudi Arabia">Saudi Arabia</li>
+                                    <li rel="Senegal">Senegal</li>
+                                    <li rel="Seychelles">Seychelles</li>
+                                    <li rel="Sierra Leone">Sierra Leone</li>
+                                    <li rel="Singapore">Singapore</li>
+                                    <li rel="Slovakia">Slovakia</li>
+                                    <li rel="Slovenia">Slovenia</li>
+                                    <li rel="Solomon Islands">Solomon Islands</li>
+                                    <li rel="Somalia">Somalia</li>
+                                    <li rel="South Africa">South Africa</li>
+                                    <li rel="Spain">Spain</li>
+                                    <li rel="Sri Lanka">Sri Lanka</li>
+                                    <li rel="Sudan">Sudan</li>
+                                    <li rel="Suriname">Suriname</li>
+                                    <li rel="Swaziland">Swaziland</li>
+                                    <li rel="Sweden">Sweden</li>
+                                    <li rel="Switzerland">Switzerland</li>
+                                    <li rel="Syria">Syria</li>
+                                    <li rel="Tahiti">Tahiti</li>
+                                    <li rel="Taiwan">Taiwan</li>
+                                    <li rel="Tajikistan">Tajikistan</li>
+                                    <li rel="Tanzania">Tanzania</li>
+                                    <li rel="Thailand">Thailand</li>
+                                    <li rel="Togo">Togo</li>
+                                    <li rel="Tokelau">Tokelau</li>
+                                    <li rel="Tonga">Tonga</li>
+                                    <li rel="Trinidad & Tobago">Trinidad & Tobago</li>
+                                    <li rel="Tunisia">Tunisia</li>
+                                    <li rel="Turkey">Turkey</li>
+                                    <li rel="Turkmenistan">Turkmenistan</li>
+                                    <li rel="Turks & Caicos Is">Turks & Caicos Is</li>
+                                    <li rel="Tuvalu">Tuvalu</li>
+                                    <li rel="Uganda">Uganda</li>                                    
+                                    <li rel="Ukraine">Ukraine</li>
+                                    <li rel="United Arab Erimates">United Arab Emirates</li>                                    
+                                    <li rel="Uraguay">Uruguay</li>
+                                    <li rel="Uzbekistan">Uzbekistan</li>
+                                    <li rel="Vanuatu">Vanuatu</li>
+                                    <li rel="Vatican City State">Vatican City State</li>
+                                    <li rel="Venezuela">Venezuela</li>
+                                    <li rel="Vietnam">Vietnam</li>
+                                    <li rel="Virgin Islands (Brit)">Virgin Islands (Brit)</li>
+                                    <li rel="Virgin Islands (USA)">Virgin Islands (USA)</li>
+                                    <li rel="Wake Island">Wake Island</li>
+                                    <li rel="Wallis & Futana Is">Wallis & Futana Is</li>
+                                    <li rel="Yemen">Yemen</li>
+                                    <li rel="Zaire">Zaire</li>
+                                    <li rel="Zambia">Zambia</li>
+                                    <li rel="Zimbabwe">Zimbabwe</li>                                   
+                                </ul>
+                            </div>
+                            <div class="form-holder"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <h2></h2>
+            <section>
+                <div class="inner">
+                    <div class="image-holder">
+                        <img src="images/form-wizard-3.jpg" alt="">
+                    </div>
+                    <div class="form-content">
+                        <div class="form-header">
+                            <h3>Query Wizard</h3>
+                        </div>
+                        <p>Send an optional message</p>
+                        <div class="form-row">
+                            <div class="form-holder w-100">
+                                <textarea name="" id="" placeholder="Your messagere here!" class="form-control"
+                                    style="height: 99px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="checkbox-circle mt-24">
+                            <label>
+                                <input type="checkbox" checked> Please accept <a href="#">terms and conditions ?</a>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+
+    <script src="static/jquery-3.3.1.min.js" type="ac45e3168d71f433bc4f60f1-text/javascript"></script>
+
+    <script src="static/jquery.steps.js" type="ac45e3168d71f433bc4f60f1-text/javascript"></script>
+    <script src="static/query.js" type="ac45e3168d71f433bc4f60f1-text/javascript"></script>
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
+        type="ac45e3168d71f433bc4f60f1-text/javascript"></script>
+    <script type="ac45e3168d71f433bc4f60f1-text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+    <script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js"
+        data-cf-settings="ac45e3168d71f433bc4f60f1-|49" defer=""></script>
+</body>
+
+</html>

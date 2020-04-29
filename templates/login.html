@@ -1,0 +1,27 @@
+
+<!-- Author: Jason Charles & Shane Okukenu -->
+<!-- Not real login page. for demo purposes only -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/flag.jpg" sizes="16x16">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>  
+
+    <form action="{{ url_for('login')}}" method="post">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <a href="/home">Click this link to go to new page</a>
+</body>
+</html>
