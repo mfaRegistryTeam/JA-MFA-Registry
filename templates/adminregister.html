@@ -1,0 +1,43 @@
+<!-- Author Shane Okukenu -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/flag.jpg" sizes="16x16">
+    <title>Admin Register</title>
+</head>
+<body>
+<h1>Admin Registration</h1>  
+
+    <form action="{{ url_for('AdminRegister')}}" method="post">
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br>
+        
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+
+        <label for="confirm_password">Confirm Password:</label><br>
+        <input type="password" id="confirm_password" name="confirm_password"><br><br>
+
+        <label for="permission">Permissions Allowed:</label><br>
+        
+        <input type="checkbox" id="perm1" name="perm1" value="read"><label for="perm1"> Read data and make Queries</label><br>
+        
+        <input type="checkbox" id="perm2" name="perm2" value="create"><label for="perm2"> Creation of Records in the Database</label><br>
+        
+        <input type="checkbox" id="perm3" name="perm3" value="edit"><label for="perm3"> Editing of Records in the Database</label><br>        
+
+        <input type="checkbox" id="perm4" name="perm4" value="appoint_admin"><label for="perm4">Appointment of other Administrators</label><br><br>
+        
+
+        <input type="submit" value="Submit">
+
+
+    </form>
+    
+</body>
+</html>
