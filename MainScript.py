@@ -12,6 +12,7 @@ from Keywords import Variables
 from Methods import Queries, EmailVerification 
 import os, pprint,bcrypt
 import datetime
+from flask.helpers import flash
 
 
 app = Flask(__name__) 
@@ -46,34 +47,23 @@ else:
 @app.route('/')
 def index():
      if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username']}) is not None:
-         return redirect(url_for("account"))
+         return redirect(url_for("Account"))
      else:
          #Landing page
-         return render_template('landing.html')   
+         return render_template('landing.html') 
+           
 
-
+# existing_user=Queries.SiteQuery()        
+        # result=existing_user.find_existing_user2()
+        # #Next Two lines for testing purposes --already in insertuser function
+        # password=request.form.get('password')
+        # hashpass=bcrypt.hashpw(password.encode('UTF-8'), bcrypt.gensalt() ) 
+        # 
 @app.route('/register', methods=['POST','GET'])
-def SignUp(): 
+def Register():
     if  request.method =='POST':
-        existing_user=Queries.SiteQuery()        
-        result=existing_user.find_existing_user2()
-        #Next Two lines for testing purposes --already in insertuser function
-        password=request.form.get('password')
-        hashpass=bcrypt.hashpw(password.encode('UTF-8'), bcrypt.gensalt() )
-
-        if result is None:
-            if request.form.get('password')==request.form.get('confirm_password'): 
-                EmailVerification.Register(request.form.get('email'),request.form.get('password'),
-                request.form.get('username'))
-                # EmailVerification.Register(result[Variables.databaseLabels.EmailAddress],result[Variables.databaseLabels.Password],
-                # result[Variables.databaseLabels.Username])
-                database=Models.DatabaseStruct()
-                database.InsertFormData()
-               
-
-                return redirect(url_for('login'))
-            #error regarding password matching or email verification
-        return redirect(url_for('error'))
+        database=Models.DatabaseStruct()
+        database.InsertFormData()               
         
     return render_template('register.html')
 
@@ -84,26 +74,49 @@ def emailVerificationhandler(token):
 
 
 @app.route('/login', methods=['POST','GET'])
-def login():
+def Login():
     if 'username' in session:
         return redirect(url_for('index'))
     user_exists=Queries.SiteQuery()
-    result=user_exists.find_existing_user2()       
-    
+    result=user_exists.find_existing_user()     
     if result :
         if bcrypt.checkpw(request.form.get('password').encode('UTF-8'), result[Variables.databaseLabels.Password]):
             session['username'] = result[Variables.databaseLabels.Username]
-            return redirect(url_for('account'))
-        
+            session['email']= result[Variables.databaseLabels.EmailAddress]
+            return redirect(url_for('Account'))        
         else:
-            return redirect( url_for('error'))
-            
+            return redirect( url_for('Error'))            
     else:
+        flash("Incorrect Username or Password")
         return render_template('login.html')
 
+
+
+
+@app.route('/signup', methods=['POST','GET'])
+def SigningUp():
+    if 'username' in session:
+        return redirect(url_for('index'))
+        
+    user_exists=Queries.SiteQuery()
+    result=user_exists.find_existing_user()     
+    if result is None:
+        if request.form.get('password')==request.form.get('confirm_password') and request.form.get('password')  is not None:
+             EmailVerification.Register(request.form.get('email'),request.form.get('password'),request.form.get('username'))
+             return render_template('login.html')
+        else:
+            return render_template('signup.html') 
+    else:
+
+        return render_template('error.html')
+    
+
+
 @app.route("/myaccount")
-def account():
+def Account():
     if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username']}) is not None:
+        query=Queries.SiteQuery()
+        result=query.find_existing_registered()
         return render_template("account.html")
     else:
         #Landing page
@@ -111,14 +124,15 @@ def account():
 
 
 @app.route("/error")
-def error():
+def Error():
     return render_template("error.html")
 
 
 @app.route('/logout')
 def logout():
     if 'username' in session:
-        session.pop('username', None)        
+        session.pop('username', None)
+        session.pop('email', None)        
         return redirect(url_for('index'))         
     else:
         #Landing page

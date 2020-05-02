@@ -2,7 +2,7 @@
 
 from Keywords import Variables
 from bson import ObjectId
-from flask import Flask,request
+from flask import Flask,request,session
 import bcrypt,datetime
 from Models import Models
 
@@ -11,20 +11,22 @@ class SiteQuery:
     def __init__(self):
        pass
 
+    
+    
     def find_existing_user(self):
         model=Models.MyMongoDB()
-        diasporaList = model.db.diasporaList
-        a = diasporaList.find_one({Variables.databaseLabels().Username : request.form.get('username')})
-        #using username only to find document for testing purposes SHOULD BE BOTH THAT AND EMAIL
-        return a
-    
-    def find_existing_user2(self):
-        model=Models.MyMongoDB()
         userList = model.db.users
-        a = userList.find_one({Variables.databaseLabels().Username: request.form.get('username'),
-        Variables.databaseLabels().EmailAddress:request.form.get('email')})
+        a = userList.find_one({Variables.databaseLabels().EmailAddress:request.form.get('email')})
         #using username to find document for testing purposes
         return a
+
+    def find_existing_registered(self):
+        model=Models.MyMongoDB()
+        registeredList = model.db.diasporaList
+        a = registeredList.find_one({Variables.databaseLabels().EmailAddress:session['email']})
+        #using username to find document for testing purposes
+        return a
+    
 
     def find_admin(self):
         model=Models.MyMongoDB()

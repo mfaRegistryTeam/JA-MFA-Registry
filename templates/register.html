@@ -1,79 +1,34 @@
-﻿<!-- Author : Ron Alexis -->
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<title>Barbadian Citizen Online Registration Portal</title>
-
 	<!-- Mobile Specific Metas -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
 	<!-- Font-->
 	<link rel="stylesheet" type="text/css" href="static/sourcesanspro-font.css">
-
 	<!-- Main Style Css -->
-	<link rel="stylesheet" href="static/style.css" />
-	<!-- <link rel="stylesheet" href="static/dropdownStyle.css" /> -->
+	<link rel="stylesheet" href="static/styleneo.css"/>
 	<link rel="icon" href="static/flag.jpg" sizes="16x16">
+	<!-- <link rel="icon" href="demo_icon.gif" type="image/gif" sizes="16x16"> -->
 
 </head>
-
 <body class="form-v8">
 	<div class="page-content">
 		<div class="form-v8-content">
 			<div class="form-right">
 				<div class="tab">
 					<div class="tab-inner">
-						<button class="tablinks" onclick="openCity(event, 'sign-up')" id="defaultOpen">Barbados
-							Registration Portal</button>
+						<button class="tablinks">Barbados Registration Portal</button>
 					</div>
 				</div>
-				<form class="form-detail" action="{{ url_for('SignUp')}}" method="post">
+				<form class="form-detail" action="{{ url_for('Register')}}" method="post">
 					<div class="tabcontent" id="sign-up">
 
+						<div id="London" class="npage">
 						<div class="tab">
 							<div class="tab-inner">
-								<button class="tablinksnew" onclick="openCity(event, 'sign-up')"
-									id="defaultOpen">Account Information</button>
-							</div>
-						</div>
-
-						<div class="form-row">
-							<label class="form-row-inner">
-								<input type="text" name="username" id="username" class="input-text" required>
-								<span class="label">Username</span>
-								<span class="border"></span>
-							</label>
-						</div>
-
-						<div class="form-row">
-							<label class="form-row-inner">
-								<input type="email" name="email" id="your-email" class="input-text" required>
-								<span class="label">E-Mail</span>
-								<span class="border"></span>
-							</label>
-						</div>
-						<div class="form-row">
-							<label class="form-row-inner">
-								<input type="password" name="password" id="password" class="input-text" required>
-								<span class="label">Password</span>
-								<span class="border"></span>
-							</label>
-						</div>
-						<div class="form-row">
-							<label class="form-row-inner">
-								<input type="password" name="confirm_password" id="confirm_password" class="input-text"
-									required>
-								<span class="label">Confirm Password</span>
-								<span class="border"></span>
-							</label>
-						</div>
-
-						<div class="tab">
-							<div class="tab-inner">
-								<button class="tablinksnew" onclick="openCity(event, 'sign-up')"
-									id="defaultOpen">Personal Information</button>
+								<button class="tablinksnew" id="defaultOpen">Personal Information</button>
 							</div>
 						</div>
 
@@ -102,82 +57,27 @@
 						</div>
 
 						<div class="date">
-							<label for="date"> Date of Birth</label><br>
+							<label for="date"> Date of Birth:</label><br><br>
+							
 							<input type="date" name="DOB"><br><br>
 						</div>
 
-						<br>
-						<br>
 						<div class="date">
-							<label for="Gender">Gender:</label>
-							<select name="gender" class="dropMenu">
-								<option value="">
-									Select Gender
-									<!-- -->
-								</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-							</select>
-						</div>
-
-
-						<h2>Occupation Information</h2>
-						<label class="containern">
-							Student <input type="checkbox" name="occupation" id="myCheck" value="Student"
-								onclick="myFunction()">
-							<span class="checkmarkn"></span>
-						</label>
-
-						<label id="textme" style="display:none" class="form-row-inner"> Please enter your field of
-							study:
-							<input type="text" name="field-study" id="field-study" class="input-text">
-							<span class="label"></span>
-							<span class="border"></span>
-
-							Please enter the name of the Educational Institution:
-							<input type="text" name="edu-inst" id="edu-inst" class="input-text">
-							<span class="label"></span>
-							<span class="border"></span>
-						</label>
-
-						<label class="containern">
-							Employed <input type="checkbox" name="occupation" id="myCheckn" value="Employed"
-								onclick="myFunctionw()">
-							<span class="checkmarkn"></span>
-						</label>
-
-						<label id="text" style="display:none" class="form-row-inner">Please enter your job title:
-							<input type="text" name="job-title" id="job-title" class="input-text">
-							<span class="label"></span>
-							<span class="border"></span>
-							Please enter the workplace name:
-							<input type="text" name="workplace-name" id="workplace-name" class="input-text">
-							<span class="label"></span>
-							<span class="border"></span>
-						</label>
-						<br>
-						<div class="tab">
-							<div class="tab-inner">
-								<button class="tablinksnew" onclick="openCity(event, 'sign-up')"
-									id="defaultOpen">Barbadian Information</button>
+							<div class="form-row">
+								<label class="form-row-inner">
+									<label for="Gender">Gender:</label>
+									<select id="Gender">
+										<option value="">
+											Select Gender
+											<!-- -->
+										</option>
+										<option value="Male">Male</option>
+										<option value="Female">Female</option>
+									</select>
+								</label>
 							</div>
 						</div>
-						<div class="form-row">
-							<label class="form-row-inner">
-								<input type="text" name="BId-num" id="BId-num" class="input-text" required>
-								<span class="label">Barbados ID Number</span>
-								<span class="border"></span>
-							</label>
-						</div>
-						<div class="form-row">
-							<label class="form-row-inner">
-								<input type="number" name="phone-num" id="phone-num" class="input-text" required>
-								<span class="label">Phone Number</span>
-								<span class="border"></span>
-							</label>
-						</div>
-
-
+<br>
 						<!-- drop down for Nationality -->
 						<div class="date">
 							<label for="country">Nationality:</label>
@@ -429,10 +329,56 @@
 								<option value="Zimbabwe">Zimbabwe</option>
 							</select>
 						</div>
+						
+						<h2>Occupation Information</h2>
+						<label class="containern">
+						Student <input type="checkbox" name="occupation" id="myCheck" value="Student" onclick="myFunction()">
+						<span class="checkmarkn"></span>
+					</label>
+
+<label id="textme" style="display:none" class="form-row-inner"> Please enter your field of study:
+								<input type="text" name="field-study" id="field-study" class="input-text" >
+								<span class="label"></span>
+								<span class="border"></span>
+
+								Please enter the name of the Education Institution:
+								<input type="text" name="edu-inst" id="edu-inst" class="input-text" >
+								<span class="label"></span>
+								<span class="border"></span>
+							</label>
+
+							<label class="containern">
+Employed <input type="checkbox" name="occupation" id="myCheckn"  onclick="myFunctionw()" value="Employed">
+<span class="checkmarkn"></span>
+</label>
+
+<label id="text" style="display:none" class="form-row-inner">Please enter your job title:
+								<input type="text" name="job-title" id="job-title" class="input-text" >
+								<span class="label"></span>
+								<span class="border"></span>
+								Please enter the workplace name:
+								<input type="text" name="workplace-name" id="workplace-name" class="input-text" >
+								<span class="label"></span>
+								<span class="border"></span>
+							</label>
 
 						<br>
-						<br>
-						<br>
+						
+						
+						<div class="form-row">
+							<label class="form-row-inner">
+								<input type="text" name="BId-num" id="BId-num" class="input-text" required>
+								<span class="label">Identification Number</span>
+								<span class="border"></span>
+							</label>
+						</div>
+						<div class="form-row">
+							<label class="form-row-inner">
+								<input type="number" name="phone-num" id="phone-num" class="input-text" required>
+								<span class="label">Phone Number</span>
+								<span class="border"></span>
+							</label>
+						</div>
 
 						<div class="form-row">
 							<label class="form-row-inner">
@@ -448,19 +394,22 @@
 								<span class="border"></span>
 							</label>
 						</div>
+						</div>
+						<div id="Paris" class="npage">
+
 						<div class="tab">
 							<div class="tab-inner">
-								<button class="tablinksnew" onclick="openCity(event, 'sign-up')" id="defaultOpen">Travel Information</button>
+								<button class="tablinksnew">How to reach me while abroad</button>
 							</div>
 						</div>
 
-						<h2>Purpose of Travel</h2>
+						<h2>Purpose of travel</h2>
 						<div class="some-class">
 
 							<label class="container" for="Business">
 								Business
 								<input type="radio" checked="checked" name="radio" value="Business" id="Business">
-								<span class="checkmark"></span>
+								<span class="checkmark" ></span>
 							</label>
 							<label class="container" for="Study">
 								Study
@@ -479,7 +428,8 @@
 							</label>
 						</div>
 
-						<!-- drop down for Country -->
+
+						<!-- drop down for Nationality -->
 						<div class="date">
 							<label for="country-abroad">Country:</label>
 							<select name="country-abroad" class="dropMenu">
@@ -730,19 +680,15 @@
 								<option value="Zimbabwe">Zimbabwe</option>
 							</select>
 						</div>
-						<br>
-						<br>
-						<br>
-
+<br>
+<br>
 						<div class="form-row">
 							<label class="form-row-inner">
-								<input type="text" name="address-abroad" id="address-abroad" class="input-text"
-									required>
+								<input type="text" name="address-abroad" id="address-abroad" class="input-text" required>
 								<span class="label">Street Address</span>
 								<span class="border"></span>
 							</label>
 						</div>
-
 						<div class="form-row">
 							<label class="form-row-inner">
 								<input type="text" name="city-town" id="city-town" class="input-text" required>
@@ -751,9 +697,14 @@
 							</label>
 						</div>
 
+						
+						<div class="tab">
+							<div class="tab-inner">
+								<button class="tablinksnew">Travel Information:
+								</button>
+							</div>
+						</div>
 
-						<h2>Contact while Abroad:</h2>
-						<br>
 						<div class="form-row">
 							<label class="form-row-inner">
 								<input type="number" name="abroad-phone" id="abroad-phone" class="input-text" required>
@@ -772,16 +723,13 @@
 
 						<div class="tab">
 							<div class="tab-inner">
-								<button class="tablinksnew" onclick="openCity(event, 'sign-up')"
-									id="defaultOpen">Emergency
-									Contact</button>
+								<button class="tablinksnew">Emergency Contact</button>
 							</div>
 						</div>
 
 						<div class="form-row">
 							<label class="form-row-inner">
-								<input type="text" name="emerg-firstname" id="emerg-firstname" class="input-text"
-									required>
+								<input type="text" name="emerg-firstname" id="emerg-firstname" class="input-text" required>
 								<span class="label">First Name</span>
 								<span class="border"></span>
 							</label>
@@ -789,8 +737,7 @@
 
 						<div class="form-row">
 							<label class="form-row-inner">
-								<input type="text" name="emerg-lastname" id="emerg-lastname" class="input-text"
-									required>
+								<input type="text" name="emerg-lastname" id="emerg-lastname" class="input-text" required>
 								<span class="label">Last Name</span>
 								<span class="border"></span>
 							</label>
@@ -818,20 +765,24 @@
 								<span class="border"></span>
 							</label>
 						</div>
-
+						
 						<div class="form-row-last">
-							<input type="submit" name="register" style="float: right" class="register" value="Submit">
+							<input type="submit" name="register" class="register" style="position: absolute; right: 0;" value="Submit">
 						</div>
 
 					</div>
-				</form>
+					</div>
 
+					<div class="tabpage">
+						<button class="pagelinks" onclick="openCity(event, 'London')" id="first">1</button>
+						<button class="pagelinks" onclick="openCity(event, 'Paris')">2</button>
+					</div>
+				</form>				
 			</div>
 		</div>
 	</div>
-
+	
 	<script src="static/RegisterScript.js"></script>
 
 </body>
-
 </html>

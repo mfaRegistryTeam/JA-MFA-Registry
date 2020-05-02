@@ -1,6 +1,6 @@
 # Author Jason Charles & Shane Okukenu
 
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template,redirect
 from flask_mail import Mail, Message 
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from bson import ObjectId
@@ -9,6 +9,7 @@ from Keywords import Variables
 from datetime import datetime
 from Models import Models
 import smtplib
+
 
 app = Flask(__name__)
 
@@ -51,7 +52,7 @@ def confirmToken(token):
     user_instance =Models.DatabaseStruct()      
     user_instance.InsertUser(info[0],info[1],info[2])
     
-    return render_template("login.html")
+    return redirect(url_for('Login'))
 
 
 def Register(email,password,username):
