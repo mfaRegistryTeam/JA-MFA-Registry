@@ -19,26 +19,20 @@ function myFunction() {
 	}
 	
   }
+  
+function openCity(evt, cityName) {
+	var i, tabcontent, tablinks;
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+	tablinks = document.getElementsByClassName("tablinks");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	}
+	document.getElementById(cityName).style.display = "block";
+	evt.currentTarget.className += " active";
+}
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
-
-document.body.onload = function () {
-	openCity(event, 'London');
-	document.getElementById("first").className += " active";
-};
-
-function openCity(evt, cityName) {
-var i, npage, pagelinks;
-npage = document.getElementsByClassName("npage");
-for (i = 0; i < npage.length; i++) {
-npage[i].style.display = "none";
-}
-pagelinks = document.getElementsByClassName("pagelinks");
-for (i = 0; i < pagelinks.length; i++) {
-pagelinks[i].className = pagelinks[i].className.replace(" active", "");
-}
-document.getElementById(cityName).style.display = "block";
-evt.currentTarget.className += " active";
-}
-

@@ -11,8 +11,15 @@ from Models import Models
 from Keywords import Variables
 from Methods import Queries, EmailVerification 
 import os, pprint,bcrypt
-import datetime
+import datetime,json
+from datetime import timedelta
 from flask.helpers import flash
+import geocoder
+from geopy.geocoders import Nominatim
+
+
+
+
 
 
 app = Flask(__name__) 
@@ -35,12 +42,11 @@ elif 'users' not in model.db.list_collection_names():
     user=model.db["users"]
 elif 'diasporaList' not in model.db.list_collection_names():
     diasporaList=model.db["diasporaList"]
+elif 'Historical' not in model.db.list_collection_names():
+    history=model.db["Historical"]
+        
 else:
     pass
-
-#  = mongo.db.adminuser
-# user= mongo.db.users  
-# = mongo.db.diasporaList
 
 
 # Main routing modules
@@ -50,22 +56,39 @@ def index():
          return redirect(url_for("Account"))
      else:
          #Landing page
-         return render_template('landing.html') 
-           
+         return render_template('landing.html')            
 
-# existing_user=Queries.SiteQuery()        
-        # result=existing_user.find_existing_user2()
-        # #Next Two lines for testing purposes --already in insertuser function
-        # password=request.form.get('password')
-        # hashpass=bcrypt.hashpw(password.encode('UTF-8'), bcrypt.gensalt() ) 
-        # 
+
 @app.route('/register', methods=['POST','GET'])
 def Register():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+        
+    r=Queries.SiteQuery()
+    result=r.find_existing_user()
+    if result  is not None:
+        return redirect(url_for('Account'))
+    
     if  request.method =='POST':
         database=Models.DatabaseStruct()
         database.InsertFormData()               
         
     return render_template('register.html')
+
+@app.route('/update', methods=['POST','GET'])
+def Update():
+    if 'username' not in session:
+        return redirect(url_for('index'))        
+    r=Queries.SiteQuery()
+    result=r.find_existing_registered()    
+    if result is not None:
+        return redirect(url_for('Account'))
+    
+    if  request.method =='POST':
+        database=Models.DatabaseStruct()
+        database.UpdateFormData()            
+        
+    return render_template('update.html')
 
 
 @app.route('/confirm_email/<token>')
@@ -82,14 +105,13 @@ def Login():
     if result :
         if bcrypt.checkpw(request.form.get('password').encode('UTF-8'), result[Variables.databaseLabels.Password]):
             session['username'] = result[Variables.databaseLabels.Username]
+            session['email']= result[Variables.databaseLabels.EmailAddress]
             return redirect(url_for('Account'))        
         else:
             return redirect( url_for('Error'))            
     else:
-        flash("Incorrect Username or Password")
+        
         return render_template('login.html')
-
-
 
 
 @app.route('/signup', methods=['POST','GET'])
@@ -107,14 +129,15 @@ def SigningUp():
             return render_template('signup.html') 
     else:
 
-        return render_template('error.html')
-    
+        return render_template('error.html')    
 
 
 @app.route("/myaccount")
 def Account():
     if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username']}) is not None:
-        return render_template("account.html")
+        
+        return render_template("account.html")            
+        
     else:
         #Landing page
         return redirect(url_for("index")) 
@@ -128,11 +151,13 @@ def Error():
 @app.route('/logout')
 def logout():
     if 'username' in session:
-        session.pop('username', None)        
+        session.pop('username', None)    
+        session.pop('email', None)    
         return redirect(url_for('index'))         
     else:
         #Landing page
         return redirect(url_for('index'))
+
 
 #-------------------------------------------------------
 @app.route("/admin")
@@ -148,13 +173,14 @@ def adminindex():
 def adminlogin():
     if 'adminuser' in session and model.db.user_admin.find_one({Variables.databaseLabels.Username:session['adminuser']}) is not None:
         return redirect(url_for('admindashboard'))
-
     admin_exists=Queries.SiteQuery()
     result=admin_exists.find_admin()      
     
     if result :
         if bcrypt.checkpw(request.form.get('password').encode('UTF-8'), result[Variables.databaseLabels.Password]):
             session['adminuser'] = result[Variables.databaseLabels.Username]
+            Queries.AdminQuery.Indexing()
+            Queries.AdminQuery.AutoEmail()
             return redirect(url_for('admindashboard'))
         
         else:
@@ -192,7 +218,9 @@ def admindashboard():
 @app.route("/adminquerywizard")
 def query():
     if 'adminuser' in session:
-        return render_template('query.html')
+        adminquery=Queries.AdminQuery()  
+        result=adminquery.MasterQuery()
+        return render_template('query.html',result=result)
     else:
         #Landing page
         return redirect(url_for('adminindex'))       
@@ -201,4 +229,4 @@ def query():
 # -------------------------------------------------------------
 
 if __name__ == "__main__":      
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
