@@ -1,0 +1,1 @@
+web: gunicorn MainScript:app --log-file=-
