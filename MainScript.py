@@ -52,11 +52,12 @@ else:
 # Main routing modules
 @app.route('/')
 def index():
-     if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username']}) is not None:
-         return redirect(url_for("Account"))
-     else:
-         #Landing page
-         return render_template('landing.html')            
+    print("ABDRHEE")
+    if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username']}) is not None:
+        return redirect(url_for("Account"))
+    else:
+        #Landing page
+        return render_template('landing.html')            
 
 
 @app.route('/register', methods=['POST','GET'])
