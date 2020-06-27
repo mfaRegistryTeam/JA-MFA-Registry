@@ -12,14 +12,11 @@ from Keywords import Variables
 from Methods import Queries, EmailVerification 
 import os, pprint,bcrypt
 import datetime,json
+import threading
 from datetime import timedelta
 from flask.helpers import flash
 import geocoder
 from geopy.geocoders import Nominatim
-
-
-
-
 
 
 app = Flask(__name__) 
@@ -43,21 +40,23 @@ elif 'users' not in model.db.list_collection_names():
 elif 'diasporaList' not in model.db.list_collection_names():
     diasporaList=model.db["diasporaList"]
 elif 'Historical' not in model.db.list_collection_names():
-    history=model.db["Historical"]
-        
+    history=model.db["Historical"]        
 else:
     pass
+
+#Cleans Unverified Users
+r=Queries.AdminQuery()
+r.CleanUserList()
 
 
 # Main routing modules
 @app.route('/')
 def index():
-    print("ABDRHEE")
-    # if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username']}) is not None:
-    #     return redirect(url_for("Account"))
-    # else:
-    #     #Landing page
-    return render_template('landing.html')            
+     if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username'],'Status':True}) is not None:
+         return redirect(url_for("Account"))
+     else:
+         #Landing page
+         return render_template('landing.html')            
 
 
 @app.route('/register', methods=['POST','GET'])
@@ -66,13 +65,13 @@ def Register():
         return redirect(url_for('index'))
         
     r=Queries.SiteQuery()
-    result=r.find_existing_user()
+    result=r.find_existing_registered()
     if result  is not None:
         return redirect(url_for('Account'))
     
     if  request.method =='POST':
         database=Models.DatabaseStruct()
-        database.InsertFormData()               
+        database.InsertFormData()          
         
     return render_template('register.html')
 
@@ -115,6 +114,56 @@ def Login():
         return render_template('login.html')
 
 
+@app.route('/PasswordReset', methods=['POST','GET'])
+def password():
+    if 'username' in session:
+        return redirect(url_for('index'))    
+    email=request.form.get('email') 
+    if email is not None:
+        user=Queries.SiteQuery
+        result=user.find_existing_user
+        if result is not None:
+            EmailVerification.ChangePassword(email)
+            return redirect(url_for('index'))
+    else:
+        return render_template('pchange1.html')  
+
+    return render_template('error.html')
+
+
+
+@app.route('/PasswordReset2/<token>')
+def PasswordChangehandler(token):
+    if 'username' in session:
+        return redirect(url_for('index'))
+   
+    return EmailVerification.confirm_password(token)   
+
+
+#refers to Password change
+@app.route('/Change', methods=['POST'])
+def FinalSteps():
+    email = request.form['email']
+    password = request.form['password']
+    confirm = request.form['confirm_password']
+    model=Models.MyMongoDB()
+    r=Queries.SiteQuery()
+    result1=r.find_existing_user()
+
+    if password==confirm  and result1 and password is not None :
+        hashpass=bcrypt.hashpw(password.encode('UTF-8'), bcrypt.gensalt())
+
+        model.db.diasporaList.update_one(
+            {Variables.databaseLabels().EmailAddress : email},
+            {'$set':{Variables.databaseLabels().Password:hashpass}})
+
+        model.db.users.update_one(
+            {Variables.databaseLabels().EmailAddress : email},
+            {'$set':{Variables.databaseLabels().Password:hashpass}})     
+
+    return redirect(url_for('Login'))
+
+
 @app.route('/signup', methods=['POST','GET'])
 def SigningUp():
     if 'username' in session:
@@ -125,6 +174,7 @@ def SigningUp():
     if result is None:
         if request.form.get('password')==request.form.get('confirm_password') and request.form.get('password')  is not None:
              EmailVerification.Register(request.form.get('email'),request.form.get('password'),request.form.get('username'))
+             
              return render_template('login.html')
         else:
             return render_template('signup.html') 
@@ -135,13 +185,15 @@ def SigningUp():
 
 @app.route("/myaccount")
 def Account():
-    if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username']}) is not None:
+    if 'username' in session and model.db.users.find_one({Variables.databaseLabels.Username:session['username'],'Status':True}) is not None:
         
         return render_template("account.html")            
         
     else:
         #Landing page
         return redirect(url_for("index")) 
+
+
 
 
 @app.route("/error")
@@ -226,9 +278,8 @@ def query():
         #Landing page
         return redirect(url_for('adminindex'))       
 
-
+    
 # -------------------------------------------------------------
 
-if __name__ == "__main__":     
-    app.run('0.0.0.0', 80) 
-    # app.run(debug=True, port=5000)
+if __name__ == "__main__":      
+    app.run(debug=True)

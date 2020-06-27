@@ -69,6 +69,8 @@ class databaseLabels:
 
     BarbadosAddress='Address-in-Barbados'
 
+    EmergDetails='Emergency-Contact'
+
     EmergDetailsAbroad='Emergency-Contact-Abroad'
 
     TravelDates ='Travel-Date-Details'

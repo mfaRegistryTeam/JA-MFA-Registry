@@ -7,6 +7,8 @@ import bcrypt,datetime,json,re
 from _datetime import timedelta
 from collections import Counter
 from Models import Models
+from Methods import EmailVerification
+import threading
 
 
 
@@ -14,7 +16,6 @@ from Models import Models
 class SiteQuery:
     def __init__(self):
        pass
-
     
     
     def find_existing_user(self):
@@ -24,7 +25,7 @@ class SiteQuery:
             if session['email'] is not None:
                 a = userList.find_one({Variables.databaseLabels().EmailAddress:session['email']})                  
         except KeyError:
-            a = userList.find_one({Variables.databaseLabels().EmailAddress:request.form.get('email')})
+            a = userList.find_one({Variables.databaseLabels().EmailAddress:request.form.get('email'),'Status':True})
 
         return a
 
@@ -53,45 +54,67 @@ class AdminQuery:
     def __init__(self):
         pass
 
+    def CleanUserList(self):
+        threading.Timer(60.0, self.CleanUserList).start()        
+        model=Models.MyMongoDB()  
+        cur_date=datetime.datetime.now()
+        fifteen_minutes_ago=cur_date-timedelta(minutes=5)   
+
+        a=model.db.users.find().count()         
+        if a >0 :
+            model.db.users.remove({'Added':{'$lte':fifteen_minutes_ago},'Status':False})
+
+
     def AutoEmail(self):
         model=Models.MyMongoDB()
         cur_date=datetime.datetime.now()
         six_months_ago=cur_date-timedelta(weeks=26)
-        a=model.diasporaList.find({'Date-Last-Updated':{'$lte':six_months_ago}}).limit(5000)
+        four_days_ago=cur_date-timedelta(days=4)
+
+      
+        a=model.db.diasporaList.find({'Date-Last-Updated':{'$lte':six_months_ago},'Emailed_last':{'$lte':cur_date-four_days_ago}}).limit(5000)
         result=list(a)
         email_list=[]
         for x in result:
             b=x[Variables.databaseLabels().EmailAddress]
             email_list.append(b)
-        for y in email_list:
-            #send_email_to(y)
-            pass
+
+        for thisemail in email_list:             
+            EmailVerification.EmailReminder(thisemail)
+            model.db.diasporaList.update_one(
+                    {Variables.databaseLabels().EmailAddress : thisemail},
+                    {'$set':{'Emailed_last':cur_date}})
+
+
+            
+            
+            
 
 
     def Indexing(self):
         model=Models.MyMongoDB()        
         #1
-        model.diasporaList.createIndex( { 'Name.Last': 1, 'Name.First' : 1 },
+        model.db.diasporaList.createIndex( { 'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "LastNameCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #2
-        model.diasporaList.createIndex( { 'Gender': 1,'Name.Last': 1, 'Name.First' : 1 },
+        model.db.diasporaList.createIndex( { 'Gender': 1,'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "GenderNamesCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #3
-        model.diasporaList.createIndex( { 'Nationality':1 ,'Gender': 1,'Name.Last': 1, 'Name.First' : 1},
+        model.db.diasporaList.createIndex( { 'Nationality':1 ,'Gender': 1,'Name.Last': 1, 'Name.First' : 1},
                                         { 'name': "NatGenderNamesNatCompIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #4       
-        model.diasporaList.createIndex( { 'Classification': 1,'Nationality': 1, 'Name.Last' : 1,'Name.First':1 },
+        model.db.diasporaList.createIndex( { 'Classification': 1,'Nationality': 1, 'Name.Last' : 1,'Name.First':1 },
                                         { 'name': "ClassifactionCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #5                               
-        model.diasporaList.createIndex( { 'Address.Country':1,'Classification': 1,'Nationality': 1,'Gender':1,'Name.Last': 1,
+        model.db.diasporaList.createIndex( { 'Address.Country':1,'Classification': 1,'Nationality': 1,'Gender':1,'Name.Last': 1,
                                           'Name.First' : 1 },
                                         { 'name': "CountryAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
@@ -99,51 +122,51 @@ class AdminQuery:
         
         
         #6
-        model.diasporaList.createIndex( { 'Occupation.Type':1,'Address.Country':1,'Classification': 1,'Nationality': 1,
+        model.db.diasporaList.createIndex( { 'Occupation.Type':1,'Address.Country':1,'Classification': 1,'Nationality': 1,
                                           'Gender':1,'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "OccupationAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )      
         #7
-        model.diasporaList.createIndex( { 'Occupation.Job-Class':1,'Occupation.Type':1,'Address.Country':1,'Classification': 1,'Nationality': 1,
+        model.db.diasporaList.createIndex( { 'Occupation.Job-Class':1,'Occupation.Type':1,'Address.Country':1,'Classification': 1,'Nationality': 1,
                                           'Gender':1,'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "OccupationJobsAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )    
         #8
-        model.diasporaList.createIndex( { 'Address-in-Barbados.Parish':1,'Destination-Address.Country':1,
+        model.db.diasporaList.createIndex( { 'Address-in-Barbados.Parish':1,'Destination-Address.Country':1,
                                           'Purpose-of-Travel':1,'Classification': 1,'Nationality': 1,
                                           'Gender':1,'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "AddressAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #9
-        model.diasporaList.createIndex( { 'Destination-Address.Country':1,'Address-in-Barbados.Parish':1,'Purpose-of-Travel':1,
+        model.db.diasporaList.createIndex( { 'Destination-Address.Country':1,'Address-in-Barbados.Parish':1,'Purpose-of-Travel':1,
                                           'Classification': 1,'Nationality': 1,'Gender':1,'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "CitizenAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #10                          
-        model.diasporaList.createIndex( { 'Purpose-of-Travel':1,'Destination-Address.Country':1,'Address-in-Barbados.Parish':1,
+        model.db.diasporaList.createIndex( { 'Purpose-of-Travel':1,'Destination-Address.Country':1,'Address-in-Barbados.Parish':1,
                                           'Classification': 1,'Nationality': 1,'Gender':1,'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "DestinationAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #11
-        model.diasporaList.createIndex( { 'Residence-Abroad-Address.Country':1,'Areas-of-Interest':1,'Classification': 1,
+        model.db.diasporaList.createIndex( { 'Residence-Abroad-Address.Country':1,'Areas-of-Interest':1,'Classification': 1,
                                           'Nationality': 1,'Gender':1,'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "ResidentAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )
         #12
-        model.diasporaList.createIndex( { 'Areas-of-Interest-fr':1,'Classification': 1,'Nationality': 1,'Gender':1,
+        model.db.diasporaList.createIndex( { 'Areas-of-Interest-fr':1,'Classification': 1,'Nationality': 1,'Gender':1,
                                           'Name.Last': 1, 'Name.First' : 1 },
                                         { 'name': "AOIAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
                                         { 'background': True} )      
 
         #13
-        model.diasporaList.createIndex( { 'Knowledge-of-BB':1,'Classification': 1,'Nationality': 1,'Gender':1,'Name.Last': 1,
+        model.db.diasporaList.createIndex( { 'Knowledge-of-BB':1,'Classification': 1,'Nationality': 1,'Gender':1,'Name.Last': 1,
                                           'Name.First' : 1 },
                                         { 'name': "KBBAllCompoundIndex"},
                                         { 'collation': { 'locale': 'en', 'strength': 2 }},
@@ -278,13 +301,11 @@ class AdminQuery:
 
         # If you trace and follow along I know you can see the logic
 
-        result = list(model.diasporaList.find({'$and': query}).collation({'locale': "en", 'strength': 2}))
+        result = list(model.db.diasporaList.find({'$and': query}).collation({'locale': "en", 'strength': 2}))
 
         histlist=AdminQuery.GetHistory(array_found=result)
         
-        return (result, histlist)
-
-        
+        return (result, histlist)        
 
     
 
@@ -292,32 +313,32 @@ class AdminQuery:
     def DatabaseTotal(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a = model.diasporaList.count()
+            a = model.db.diasporaList.count()
         return a
     
     def DatabaseFriendsBB(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a =model.diasporaList.find({'Classification':'Friend'}).collation({'locale': "en", 'strength': 2}).count()            
+            a =model.db.diasporaList.find({'Classification':'Friend'}).collation({'locale': "en", 'strength': 2}).count()            
         return a
 
     def DatabaseCitizensTravellingBB(self):        
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a = model.diasporaList.find({'Classification':'CitizenTO'}).collation({'locale': "en", 'strength': 2}).count()            
+            a = model.db.diasporaList.find({'Classification':'CitizenTO'}).collation({'locale': "en", 'strength': 2}).count()            
         return a
 
     def DatabaseOverseasResidentBB(self):
        
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a =model.diasporaList.find({'Classification':'ResidentO'}).collation({'locale': "en", 'strength': 2}).count()            
+            a =model.db.diasporaList.find({'Classification':'ResidentO'}).collation({'locale': "en", 'strength': 2}).count()            
         return a
     
     def NAmericaResidentBB(self):
         if 'adminuser' in session:           
             model=Models.MyMongoDB()
-            a=model.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':7,'$lte':84},
+            a=model.db.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':7,'$lte':84},
             'Resident-Abroad-Address.Location.1':{'$gte':-180,'$lte':-20}}).collation({'locale': "en", 'strength': 2}).count() 
                                   
         return a
@@ -325,14 +346,14 @@ class AdminQuery:
     def EUResidentBB(self):
         if 'adminuser' in session:           
             model=Models.MyMongoDB()
-            a=model.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':35,'$lte':72},
+            a=model.db.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':35,'$lte':72},
             'Resident-Abroad-Address.Location.1':{'$gte':-25,'$lte':65}}).collation({'locale': "en", 'strength': 2}).count()                                   
         return a
     
     def AsiaResidentBB(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a=model.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':-10,'$lte':80},
+            a=model.db.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':-10,'$lte':80},
             'Resident-Abroad-Address.Location.1':{'$gte':-170,'$lte':25}}).collation({'locale': "en", 'strength': 2}).count() 
                                               
         return a
@@ -340,7 +361,7 @@ class AdminQuery:
     def AfricaResidentBB(self):       
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a=model.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':-37,'$lte':35},
+            a=model.db.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':-37,'$lte':35},
             'Resident-Abroad-Address.Location.1':{'$gte':-17,'$lte':50}}).collation({'locale': "en", 'strength': 2}).count() 
 
         return a
@@ -348,7 +369,7 @@ class AdminQuery:
     def SAmericaResidentBB(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a=model.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Location.0':{'$gte':-55,'$lte':12},
+            a=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Location.0':{'$gte':-55,'$lte':12},
             'Resident-Abroad-Address.Location.1':{'$gte':-81,'$lte':-35}}).collation({'locale': "en", 'strength': 2}).count() 
         return a
 
@@ -357,7 +378,7 @@ class AdminQuery:
         name = self.name
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            a=model.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.country_ro':name}).collation({'locale': "en", 'strength': 2}).count()
+            a=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.country_ro':name}).collation({'locale': "en", 'strength': 2}).count()
         return a
 
     #Returns documents updated by the user in the past week
@@ -366,7 +387,7 @@ class AdminQuery:
             model=Models.MyMongoDB()
             cur_date=datetime.datetime.now()
             last_week=cur_date-timedelta(weeks=1)
-            a=model.diasporaList.find({'Date-Last-Updated':{'$gte':last_week,'$lte':cur_date}}).sort({'Date-Last-Updated':-1}).limit(50)
+            a=model.db.diasporaList.find({'Date-Last-Updated':{'$gte':last_week,'$lte':cur_date}}).sort({'Date-Last-Updated':-1}).limit(50)
         return a
 
     #Returns documents added ie registrations in the past week
@@ -375,22 +396,22 @@ class AdminQuery:
             model=Models.MyMongoDB()
             cur_date=datetime.datetime.now()
             last_week=cur_date-timedelta(weeks=1)
-            a=model.diasporaList.find({'Date-Added':{'$gte':last_week,'$lte':cur_date}}).sort({'Date-Added':-1}).limit(50)
+            a=model.db.diasporaList.find({'Date-Added':{'$gte':last_week,'$lte':cur_date}}).sort({'Date-Added':-1}).limit(50)
         return a
 
     #returns Top 4 interests of Residents overseas from the database info
     def InterestsCount(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            edu_count=model.diasporaList.find({'Areas-of-Interest':'Education'}).count()
-            sprt_count=model.diasporaList.find({'Areas-of-Interest':'Sports'}).count()
-            inv_count=model.diasporaList.find({'Areas-of-Interest':'Investment'}).count()
-            med_count=model.diasporaList.find({'Areas-of-Interest':'Medical'}).count()
-            vol_count=model.diasporaList.find({'Areas-of-Interest':'Volunteerism'}).count()
-            re_count=model.diasporaList.find({'Areas-of-Interest':'Real-Estate'}).count()
-            cult_count=model.diasporaList.find({'Areas-of-Interest':'Culture'}).count()
-            gen_count=model.diasporaList.find({'Areas-of-Interest':'Geneology'}).count()
-            oth_count=model.diasporaList.find({'Areas-of-Interest':'Other'}).count()
+            edu_count=model.db.diasporaList.find({'Areas-of-Interest':'Education'}).count()
+            sprt_count=model.db.diasporaList.find({'Areas-of-Interest':'Sports'}).count()
+            inv_count=model.db.diasporaList.find({'Areas-of-Interest':'Investment'}).count()
+            med_count=model.db.diasporaList.find({'Areas-of-Interest':'Medical'}).count()
+            vol_count=model.db.diasporaList.find({'Areas-of-Interest':'Volunteerism'}).count()
+            re_count=model.db.diasporaList.find({'Areas-of-Interest':'Real-Estate'}).count()
+            cult_count=model.db.diasporaList.find({'Areas-of-Interest':'Culture'}).count()
+            gen_count=model.db.diasporaList.find({'Areas-of-Interest':'Geneology'}).count()
+            oth_count=model.db.diasporaList.find({'Areas-of-Interest':'Other'}).count()
 
             interest_dict={'Education':edu_count,'Sports':sprt_count,'Investment':inv_count,'Medical':med_count,
             'Volunteerism':vol_count,'Real-Estate':re_count,'Culture':cult_count,'Geneology':gen_count,'Other':oth_count}
@@ -408,15 +429,15 @@ class AdminQuery:
     def InterestsCountFr(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            edu_count=model.diasporaList.find({'Areas-of-Interest-fr':'Education'}).count()
-            sprt_count=model.diasporaList.find({'Areas-of-Interest-fr':'Sports'}).count()
-            inv_count=model.diasporaList.find({'Areas-of-Interest-fr':'Investment'}).count()
-            med_count=model.diasporaList.find({'Areas-of-Interest-fr':'Medical'}).count()
-            vol_count=model.diasporaList.find({'Areas-of-Interest-fr':'Volunteerism'}).count()
-            re_count=model.diasporaList.find({'Areas-of-Interest-fr':'Real-Estate'}).count()
-            cult_count=model.diasporaList.find({'Areas-of-Interest-fr':'Culture'}).count()
-            gen_count=model.diasporaList.find({'Areas-of-Interest-fr':'Geneology'}).count()
-            oth_count=model.diasporaList.find({'Areas-of-Interest-fr':'Other'}).count()
+            edu_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Education'}).count()
+            sprt_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Sports'}).count()
+            inv_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Investment'}).count()
+            med_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Medical'}).count()
+            vol_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Volunteerism'}).count()
+            re_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Real-Estate'}).count()
+            cult_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Culture'}).count()
+            gen_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Geneology'}).count()
+            oth_count=model.db.diasporaList.find({'Areas-of-Interest-fr':'Other'}).count()
 
             interest_dict={'Education':edu_count,'Sports':sprt_count,'Investment':inv_count,'Medical':med_count,
             'Volunteerism':vol_count,'Real-Estate':re_count,'Culture':cult_count,'Geneology':gen_count,'Other':oth_count}
@@ -435,19 +456,19 @@ class AdminQuery:
     def JobClassCount(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            adv_count=model.diasporaList.find({'Occupation.Job-Class':'Advertising,Promotions,Marketing'}).count()
-            AE_count=model.diasporaList.find({'Occupation.Job-Class':'Architecture & Enginering'}).count()
-            busin_count=model.diasporaList.find({'Occupation.Job-Class':'Business'}).count()
-            edu_count=model.diasporaList.find({'Occupation.Job-Class':'Education'}).count()
-            fin_count=model.diasporaList.find({'Occupation.Job-Class':'Finance'}).count()
-            heal_count=model.diasporaList.find({'Occupation.Job-Class':'Healthcare'}).count()
-            info_count=model.diasporaList.find({'Occupation.Job-Class':'Information Technology'}).count()
-            math_count=model.diasporaList.find({'Occupation.Job-Class':'Mathematics'}).count()
-            sci_count=model.diasporaList.find({'Occupation.Job-Class':'Science'}).count()
-            soc_count=model.diasporaList.find({'Occupation.Job-Class':'Social Services'}).count()
-            oth_count=model.diasporaList.find({'Occupation.Job-Class':'Other'}).count()
+            adv_count=model.db.diasporaList.find({'Occupation.Job-Class':'Advertising,Promotions,Marketing'}).count()
+            AE_count=model.db.diasporaList.find({'Occupation.Job-Class':'Architecture & Engineering'}).count()
+            busin_count=model.db.diasporaList.find({'Occupation.Job-Class':'Business'}).count()
+            edu_count=model.db.diasporaList.find({'Occupation.Job-Class':'Education'}).count()
+            fin_count=model.db.diasporaList.find({'Occupation.Job-Class':'Finance'}).count()
+            heal_count=model.db.diasporaList.find({'Occupation.Job-Class':'Healthcare'}).count()
+            info_count=model.db.diasporaList.find({'Occupation.Job-Class':'Information Technology'}).count()
+            math_count=model.db.diasporaList.find({'Occupation.Job-Class':'Mathematics'}).count()
+            sci_count=model.db.diasporaList.find({'Occupation.Job-Class':'Science'}).count()
+            soc_count=model.db.diasporaList.find({'Occupation.Job-Class':'Social Services'}).count()
+            oth_count=model.db.diasporaList.find({'Occupation.Job-Class':'Other'}).count()
 
-            job_dict={'Advertising,Promotions,Marketing':adv_count,'Architecture & Enginering':AE_count,'Business':busin_count,
+            job_dict={'Advertising,Promotions,Marketing':adv_count,'Architecture & Engineering':AE_count,'Business':busin_count,
             'Education':edu_count,'Finance':fin_count,'Healthcare':heal_count,'Information Technology':info_count,
             'Mathematics':math_count,'Science':sci_count,'Scoial Services':soc_count,'Other':oth_count}
             k = Counter(job_dict) 
@@ -465,11 +486,11 @@ class AdminQuery:
     def StudyAreaCount(self):
         if 'adminuser' in session:
             model=Models.MyMongoDB()
-            hum_count=model.diasporaList.find({'Occupation.Field-of-Study':'Humanities and Social Sciences'}).count()
-            NS_count=model.diasporaList.find({'Occupation.Field-of-Study':'Natural Sciences'}).count()
-            FS_count=model.diasporaList.find({'Occupation.Field-of-Study':'Formal Sciences'}).count()
-            PAS_count=model.diasporaList.find({'Occupation.Field-of-Study':'Professions and Applied Sciences'}).count()
-            oth_count=model.diasporaList.find({'Occupation.Field-of-Study':'Other'}).count()
+            hum_count=model.db.diasporaList.find({'Occupation.Field-of-Study':'Humanities and Social Sciences'}).count()
+            NS_count=model.db.diasporaList.find({'Occupation.Field-of-Study':'Natural Sciences'}).count()
+            FS_count=model.db.diasporaList.find({'Occupation.Field-of-Study':'Formal Sciences'}).count()
+            PAS_count=model.db.diasporaList.find({'Occupation.Field-of-Study':'Professions and Applied Sciences'}).count()
+            oth_count=model.db.diasporaList.find({'Occupation.Field-of-Study':'Other'}).count()
 
             area_count={'Humanities and Social Sciences':hum_count,'Natural Sciences':NS_count,'Formal Sciences':FS_count,
             'Professions and Applied Sciences':PAS_count,'Other':oth_count}

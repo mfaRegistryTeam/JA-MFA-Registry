@@ -12,6 +12,7 @@ from datetime import timedelta
 from flask.helpers import flash
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
+import datetime
 
 
 class User:
@@ -55,14 +56,14 @@ class DatabaseStruct:
             result=list(r)
             #list hold no more than 3 elements
             if len(q[Variables.databaseLabels().History])>3:
-                history.update(
+                history.update_one(
                 {Variables.databaseLabels().EmailAddress : session['email']},
                                 
                 {'$pop':{Variables.databaseLabels().History:-1    }}) 
 
             # as time goes on the latest 3 versions of a users information will be stored.
             if len(q[Variables.databaseLabels().History])<=3:
-                history.update(
+                history.update_one(
                 {Variables.databaseLabels().EmailAddress : session['email']},
                                 
                 {'$push':{
@@ -71,7 +72,7 @@ class DatabaseStruct:
                         '$sort': {Variables.databaseLabels().LastUpdated : -1 }             
                     
                     }
-                    
+                     
                     } 
                 })          
 
@@ -80,19 +81,24 @@ class DatabaseStruct:
         hashpass=bcrypt.hashpw(password.encode('UTF-8'), bcrypt.gensalt() )
         model=MyMongoDB()
         users=model.db.users
+        timestamp = datetime.datetime.now() 
         history=model.db.Historical
         HistoryList=[]
         if users.find_one({Variables.databaseLabels().EmailAddress:email}) is None:
             users.insert_one({
                 Variables.databaseLabels().Username : username,
                 Variables.databaseLabels().Password: hashpass,
-                Variables.databaseLabels().EmailAddress :email
+                Variables.databaseLabels().EmailAddress :email,
+                'Status':False,
+                'Added': timestamp              
                 })         
            # This history collection is created once for the user at the same time his user document is created
             history.insert_one({
                 Variables.databaseLabels().EmailAddress : email,
                 Variables.databaseLabels().History: HistoryList
                 })
+        
+       
            
 
     def InsertAdmin(self):     
@@ -158,14 +164,14 @@ class DatabaseStruct:
         
         timestamp = datetime.datetime.now() 
 
-        hashpass=bcrypt.hashpw(request.form.get('password').encode('UTF-8'), bcrypt.gensalt() )
+        
         col = MyMongoDB()
         diasporaList=col.db.diasporaList
-        if diasporaList.find_one({Variables.databaseLabels().EmailAddress:request.form.get('email')}) is not None:
+        if diasporaList.find_one({Variables.databaseLabels().EmailAddress:session['email']}) is None:
             diasporaList.insert_one({
-                Variables.databaseLabels().Username : request.form.get('username'),
-                Variables.databaseLabels().EmailAddress : request.form.get('email'),
-                Variables.databaseLabels().Password: hashpass,
+                # Variables.databaseLabels().Username : request.form.get('username'),
+                # Variables.databaseLabels().EmailAddress : request.form.get('email'),
+                # Variables.databaseLabels().Password: hashpass,
 
                 Variables.databaseLabels().Name:{
                     Variables.databaseLabels().Firstname: request.form.get('first_name'),
@@ -175,6 +181,7 @@ class DatabaseStruct:
                 },                
                 Variables.databaseLabels().Gender: request.form.get('gender'), 
                 Variables.databaseLabels().DOB: DOB,  
+                Variables.databaseLabels().Nationality: request.form.get('nationality'), 
 
                 Variables.databaseLabels().Occupation:{
                     Variables.databaseLabels().Type: request.form.get('occupation'),
@@ -191,14 +198,11 @@ class DatabaseStruct:
                 Variables.databaseLabels().PassportNumber: request.form.get('passport_num'),
                 Variables.databaseLabels().IssuedPassportCountry: request.form.get('pp_country'),
 
-                Variables.databaseLabels().Nationality: request.form.get('nationality'),                
-                Variables.databaseLabels().PhoneNumber: request.form.get('phone_num'),
-
-                Variables.databaseLabels().WeChatID:request.form.get('we_chat'),
+                Variables.databaseLabels().WeChatID:request.form.get('we_chat'),             
+                Variables.databaseLabels().PhoneNumber: request.form.get('phone_num'),                
 
                 Variables.databaseLabels().Address:{
                     Variables.databaseLabels().Street:request.form.get('street'),
-                    Variables.databaseLabels().Parish: request.form.get('parish'),
                     Variables.databaseLabels().CityorTown: request.form.get('city_town'),
                     Variables.databaseLabels().Country:request.form.get('country')
                 },
@@ -220,8 +224,7 @@ class DatabaseStruct:
                 Variables.databaseLabels().BarbadosAddress:{
                     Variables.databaseLabels().Street:request.form.get('street_bb'),
                     Variables.databaseLabels().CityorTown:request.form.get('city_town_bb'),
-                    Variables.databaseLabels().Parish: request.form.get('parish_bb'),
-                    
+                    Variables.databaseLabels().Parish: request.form.get('parish_bb'),                    
 
                 },  
 
@@ -249,15 +252,14 @@ class DatabaseStruct:
                 Variables.databaseLabels().PhoneNumberAbroad:[
                     {Variables.databaseLabels().ResidentialAbroad:request.form.get('residential_abroad')},
                     {Variables.databaseLabels().MobileAbroad:request.form.get('mobile_abroad')},
-                    {Variables.databaseLabels().WhatsappAbroad:request.form.get('WA_abroad')}],
+                    {Variables.databaseLabels().WhatsappAbroad:request.form.get('WA_abroad')}],                
                 
-                Variables.databaseLabels().AbroadPhone: request.form.get('abroad_phone'),
 
-                Variables.databaseLabels().WeChatID: request.form.get('we_chat'),
+                Variables.databaseLabels().WeChatID: request.form.get('we_chat_ab'),
 
                 Variables.databaseLabels().AbroadEmail: request.form.get('abroad_email'),
-
-                #Resisents Overseas
+               
+                #Residents Overseas
 
                 Variables.databaseLabels().ResidenceAbroadDetails:{
                     Variables.databaseLabels().Street:request.form.get('street_ro'),
@@ -273,15 +275,15 @@ class DatabaseStruct:
                     {Variables.databaseLabels().MobileRes:request.form.get('mobile_ro')},
                     {Variables.databaseLabels().WhatsappRes:request.form.get('WA_ro')}],
 
-
-                Variables.databaseLabels().AreasofInterest:request.form.getlist('AOI'),
+                Variables.databaseLabels().AreasofInterest:request.form.get('AOI'),
 
                 #Friends of Barbados
-                Variables.databaseLabels().KnowledgeofBB:request.form.getlist('KBB'),
-                Variables.databaseLabels().AreasofInterestFr:request.form.getlist('AOI_fr'),
+                Variables.databaseLabels().KnowledgeofBB:request.form.get('KBB'),
+                Variables.databaseLabels().AreasofInterestFr:request.form.get('AOI_fr'),
 
                 Variables.databaseLabels().DateAdded : timestamp,
-                Variables.databaseLabels().LastUpdated:timestamp
+                Variables.databaseLabels().LastUpdated:timestamp,
+                'Emailed_last': timestamp
                     })  
 #-------------------------------------------------------------------------------------------------------------------
 #----------------------------------------------------------------------------------------------------------------------
@@ -321,319 +323,319 @@ class DatabaseStruct:
         if diasporaList.find_one({Variables.databaseLabels().EmailAddress:request.form.get('email')}) is not None:
 
             if request.form.get('first_name') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Name.First':request.form.get('first_name')}})
             
             if request.form.get('middle_name') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Name.Middle':request.form.get('middle_name')}})
 
             if request.form.get('last_name') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Name.Last':request.form.get('last_name')}})
 
             # if request.form.get('gender') is not None:
-            #     diasporaList.Update(
+            #     diasporaList.update_one(
             #         {Variables.databaseLabels().EmailAddress : request.form.get('email')},
             #         {'$set':{Variables.databaseLabels().Gender:request.form.get('gender')}})
 
             if DOB is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().DOB:DOB}})
 
             if request.form.get('occupation') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Occupation.Type':request.form.get('occupation')}})
 
             if request.form.get('field_study') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Occupation.Field-of-Study':request.form.get('field_study')}})
 
             if request.form.get('field_study_level') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Occupation.Level':request.form.get('field_study_level')}})
 
             if request.form.get('edu_inst') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Occupation.Educational-Institution':request.form.get('edu_inst')}})
 
             if request.form.get('job_class') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Occupation.Job-Class':request.form.get('job_class')}})
 
 
             if request.form.get('job_title') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Occupation.Job-Title':request.form.get('job_title')}})
 
             if request.form.get('workplace_name') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Occupation.Workplace-Name':request.form.get('workplace_name')}})
 
             
 
             if  request.form.get('passport_num') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().PassportNumber: request.form.get('passport_num')}})
 
             if  request.form.get('pp_country') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().IssuedPassportCountry: request.form.get('pp_country')}})                
 
             if request.form.get('nationality') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().Nationality:request.form.get('nationality')}})
 
             if request.form.get('we_chat') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().WeChatID:request.form.get('we_chat')}})
 
             if request.form.get('phone_num') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().PhoneNumber:request.form.get('phone_num')}})
 
             if request.form.get('street') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Address.Street':request.form.get('street')}})
 
             if request.form.get('parish') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Address.State':request.form.get('parish')}})
 
             if request.form.get('city_town') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Address.City/Town':request.form.get('city_town')}})
 
             if request.form.get('country') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Address.Country':request.form.get('country')}})
 
             if request.form.get('emerg_firstname') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Details.Firstname':request.form.get('emerg_firstname')}})
 
             if request.form.get('emerg_lastname') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Details.Lastname':request.form.get('emerg_lastname')}})
 
             if request.form.get('emerg_rel') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Details.Relationship':request.form.get('emerg_rel')}})
 
             if request.form.get('emerg_phone') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Details.Phone':request.form.get('emerg_phone')}})
 
             if request.form.get('emerg_email') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Details.Email':request.form.get('emerg_email')}})
 
             if  request.form.get('classification') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().Classification : request.form.get('classification')}})  
 
         #Citizen Travelling
 
             if  request.form.get('radio') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().PurposeofTravel : request.form.get('radio')}})  
 
             if   request.form.get('POT_des') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().POTdescription :  request.form.get('POT_des')}})                    
                                 
 
             if request.form.get('street_bb') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Address-in-Barbados.Street':request.form.get('street_bb')}})            
 
             if request.form.get('city_town_bb') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Address-in-Barbados.City/Town':request.form.get('city_town_bb')}})
 
             if request.form.get('parish_bb') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Address-in-Barbados.Parish':request.form.get('parish_bb')}})        
 
             if request.form.get('street_abroad') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Destination-Address.Street':request.form.get('street_abroad')}})    
                
             if request.form.get('city_town_abroad') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Destination-Address.City/Town':request.form.get('city_town_abroad')}}) 
 
             if request.form.get('state_abroad') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Destination-Address.State':request.form.get('state_abroad')}})
 
             if request.form.get('country_abroad') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Destination-Address.Country':request.form.get('country_abroad')}})
 
             if request.form.get('firstname_ab') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Abroad.Firstname':request.form.get('firstname_ab')}})
 
             if request.form.get('lastname_ab') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Abroad.Lastname':request.form.get('lastname_ab')}})
             
             if request.form.get('emerg_phone_ab') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Abroad.Phone':request.form.get('emerg_phone_ab')}})
 
             if request.form.get('emerg_email_ab') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Abroad.Email':request.form.get('emerg_email_ab')}})
 
             if request.form.get('emerg_rel_ab') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Emergency-Contact-Abroad.Relationship':request.form.get('emerg_rel_ab')}})
 
             if expected_departure is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Travel-Date-Details.Expected-DepDate':expected_departure}})
 
             if expected_return is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Travel-Date-Details.Expected-ReturnDate':expected_return}})
 
                     
             if request.form.get('residential_abroad') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Phone-Number-Abroad.Residential-Phone-Abroad':request.form.get('residential_abroad')}})
 
             if request.form.get('mobile_abroad') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Phone-Number-Abroad.Mobile-Abroad':request.form.get('mobile_abroad')}})
 
 
             if request.form.get('WA_abroad') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Phone-Number-Abroad.Whatsapp-Abroad':request.form.get('WA_abroad')}})
 
 
             if request.form.get('abroad_phone') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().AbroadPhone:request.form.get('abroad_phone')}})
 
 
             if request.form.get('abroad_email') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{Variables.databaseLabels().AbroadEmail:request.form.get('abroad_email')}})              
 
      #Residents Overseas
 
             if request.form.get('street_ro') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residence-Abroad-Address.Street':request.form.get('street_ro')}})
 
             if request.form.get('state_ro') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residence-Abroad-Address.State':request.form.get('state_ro')}})
 
             if request.form.get('city_town_ro') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residence-Abroad-Address.City/Town':request.form.get('city_town_ro')}})
 
             if country is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residence-Abroad-Address.Country':country}})
 
             if location is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residence-Abroad-Address.Location.0':location.latitude}})
 
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residence-Abroad-Address.Location.1':location.longitude}})
 
             if request.form.get('residential_ro') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residents-Abroad-Phone.Residential-Phone-Abroad':request.form.get('residential_ro')}})
 
             if request.form.get('mobile_ro') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residents-Abroad-Phone.Mobile-Res':request.form.get('mobile_ro')}})
 
             if request.form.get('WA_ro') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                     {'$set':{'Residents-Abroad-Phone.Whatsapp-Res':request.form.get('WA_ro')}})
 
             if request.form.getlist('AOI') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
-                    {'$set':{Variables.databaseLabels().AreasofInterest:request.form.getlist('AOI')}})
+                    {'$set':{Variables.databaseLabels().AreasofInterest:request.form.get('AOI')}})
 
  #Friends of Barbados            
 
             if request.form.getlist('KBB') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
-                    {'$set':{Variables.databaseLabels().KnowledgeofBB:request.form.getlist('KBB')}})
+                    {'$set':{Variables.databaseLabels().KnowledgeofBB:request.form.get('KBB')}})
             
             if request.form.getlist('AOI_fr') is not None:
-                diasporaList.Update(
+                diasporaList.update_one(
                     {Variables.databaseLabels().EmailAddress : request.form.get('email')},
-                    {'$set':{Variables.databaseLabels().AreasofInterest:request.form.getlist('AOI_fr')}}) 
+                    {'$set':{Variables.databaseLabels().AreasofInterest:request.form.get('AOI_fr')}}) 
 
-            diasporaList.Update(
+            diasporaList.update_one(
                 {Variables.databaseLabels().EmailAddress : request.form.get('email')},
                 {'$set':{Variables.databaseLabels().LastUpdated:updatedtimestamp}})
  
