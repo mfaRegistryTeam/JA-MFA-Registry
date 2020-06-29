@@ -11,13 +11,32 @@ $(function() {
         labels: {
             previous: '<i class="zmdi zmdi-arrow-left"></i>',
             next: '<i class="zmdi zmdi-arrow-right"></i>',
-            finish: '<i class="zmdi zmdi-check"></i>',
+            finish: '<i class="zmdi zmdi-check" ></i>    ',
         },
     })
 });
 
 
+
+/*Attempt at setting min date for calendar */
+
 $(document).ready(function() {
+
+  // var today = new Date();
+  // var dd = today.getDate();
+  // var mm = today.getMonth()+1; //January is 0!
+  // var yyyy = today.getFullYear();
+  //  if(dd<10){
+  //         dd='0'+dd
+  //     } 
+  //     if(mm<10){
+  //         mm='0'+mm
+  //     } 
+  
+  // today = new Date(yyyy,dd,mm);
+  // document.getElementById("ret_date").setAttribute("min", today);
+  // document.getElementById("dept_date").setAttribute("min", today);
+
     /* by default hide all radio_content div elements except first element */
     $(".content .radio_content").hide();
     $(".content .radio_content:first-child").show();
@@ -33,6 +52,7 @@ $(document).ready(function() {
 
 
 var FormStuff = {
+    
   
     init: function() {
       // kick it off once, in case the radio is already checked when the page loads

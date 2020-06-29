@@ -49,7 +49,14 @@ def confirmToken(token):
         info = seralizer.loads(token, salt ='email-confirm', max_age = 300)
         users.update_one(
             {Variables.databaseLabels().EmailAddress : info[0]},
-            {'$set':{'Status':True}})          
+            {'$set':{'Status':True}})  
+
+        # This history collection is created once for the user at the same time his user document is verified
+        history=model.db.Historical
+        history.insert_one({
+            Variables.databaseLabels().EmailAddress :info[0],
+            Variables.databaseLabels().History: HistoryList
+            })            
     except SignatureExpired:
         return'<h1>The Signature has expired</h1>'
     

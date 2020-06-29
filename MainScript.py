@@ -44,6 +44,7 @@ elif 'Historical' not in model.db.list_collection_names():
 else:
     pass
 
+
 #Cleans Unverified Users
 r=Queries.AdminQuery()
 r.CleanUserList()
@@ -74,6 +75,19 @@ def Register():
         database.InsertFormData()          
         
     return render_template('register.html')
+
+@app.route('/register', methods=['GET'])
+def Register2():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+        
+    r=Queries.SiteQuery()
+    result=r.find_existing_registered()
+    if result is not None:
+        return redirect(url_for('Account'))
+    
+    return render_template('register.html')
+    
 
 @app.route('/update', methods=['POST','GET'])
 def Update():
@@ -194,8 +208,6 @@ def Account():
         return redirect(url_for("index")) 
 
 
-
-
 @app.route("/error")
 def Error():
     return render_template("error.html")
@@ -242,6 +254,7 @@ def adminlogin():
     else:
         return render_template('adminlogin.html')
 
+
 @app.route('/admin246register642', methods=['POST','GET'])
 def AdminRegister(): 
     if  request.method =='POST':
@@ -278,7 +291,7 @@ def query():
         #Landing page
         return redirect(url_for('adminindex'))       
 
-    
+
 # -------------------------------------------------------------
 
 if __name__ == "__main__":      

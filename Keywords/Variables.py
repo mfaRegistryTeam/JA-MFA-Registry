@@ -31,6 +31,7 @@ class databaseLabels:
     JobClass='Job-Class'
     Jobtitle ='Job-Title'
     Workplace ='Workplace-Name'
+    Other='Other'
     
 
     PassportNumber ='Passport-Number'
@@ -83,6 +84,7 @@ class databaseLabels:
     ResidentialAbroad='Residential-Phone-Abroad'
     MobileAbroad ='Mobile-Abroad'
     WhatsappAbroad='Whatsapp-Abroad'
+    WeChatAB='WeChat-ID Abroad'
 
     ResidenceAbroadDetails='Residence-Abroad-Address'
     Location ='Location'

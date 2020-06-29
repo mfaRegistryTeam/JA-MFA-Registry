@@ -694,6 +694,8 @@
     
         document.getElementById("mainForm").submit();
         console.log('summit 2')
+
+        window.location.href = "http://localhost:5000/myaccount";
     }
 
     /**
