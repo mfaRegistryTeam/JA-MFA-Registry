@@ -203,13 +203,17 @@ class AdminQuery:
         address=request.form.get('address_search')
         country=request.form.get('country_search')
 
+        nationality=request.form.get('nationality_search')        
+        passportcountry=request.form.get('ppissue_search')
+        passportnum=request.form.get('passport_search')
+
+        
+
         emailaddress=request.form.get('email_search')
         we_chat=request.form.get('wechat_search')
         phone=request.form.get('phone_search')       
         
-        nationality=request.form.get('nationality_search')
-        passportnum=request.form.get('passport_search')
-        passportcountry=request.form.get('ppissue_search')
+      
 
         occupation_type=request.form.get('occupation_type_search')
         study_level=request.form.get('study_level_search')
@@ -221,7 +225,7 @@ class AdminQuery:
         classification=request.form.get('class_search')
 
             #citizen travelling        
-        address_parish=request.form.get('bb_parish')
+        address_parish=request.form.get('bb_parish_search')
         dest_country=request.form.get('dest_country_search')
         purpose=request.form.get('purpose_search')
 
@@ -234,7 +238,7 @@ class AdminQuery:
 
 
 
-        ret_date_start=request.form.get('ret_date_st')
+        ret_date_start=request.form.get('ret_date_start')
         exp_ret_st=datetime.datetime(int(ret_date_start[0:4] ),int(ret_date_start[5:7]),int(ret_date_start[8:10]))
 
         ret_date_end=request.form.get('ret_date_end')
@@ -242,13 +246,13 @@ class AdminQuery:
         
 
             #resident overseas
-        res_interests=request.form.getlist('interests_search')
+        res_interests=request.form.get('interest_search')
         res_country=request.form.get('res_country_search')
 
             #friends barbados
-        fr_interests=request.form.getlist('interestsfr_search')
+        fr_interests=request.form.get('interestsfr_search')
         fr_country=request.form.get('countryfr_search')
-        KnowledgeofBB=request.form.getlist('KBB_search')
+        KnowledgeofBB=request.form.get('KBB_search')
 
         var_list=[lastname,firstname,gender,nationality,classification,country,occupation_type,job_class,
         address_parish,dest_country,purpose,res_country,fr_interests,KnowledgeofBB]

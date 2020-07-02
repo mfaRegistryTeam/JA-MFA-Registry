@@ -53,6 +53,7 @@ def confirmToken(token):
 
         # This history collection is created once for the user at the same time his user document is verified
         history=model.db.Historical
+        HistoryList=[]
         history.insert_one({
             Variables.databaseLabels().EmailAddress :info[0],
             Variables.databaseLabels().History: HistoryList

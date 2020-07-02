@@ -82,8 +82,7 @@ class DatabaseStruct:
         model=MyMongoDB()
         users=model.db.users
         timestamp = datetime.datetime.now() 
-        history=model.db.Historical
-        HistoryList=[]
+
         if users.find_one({Variables.databaseLabels().EmailAddress:email}) is None:
             users.insert_one({
                 Variables.databaseLabels().Username : username,
@@ -94,8 +93,7 @@ class DatabaseStruct:
                 })         
            
        
-           
-
+    
     def InsertAdmin(self):     
 
         model=MyMongoDB()
@@ -131,120 +129,234 @@ class DatabaseStruct:
                 Variables.databaseLabels().EmailAddress :request.form.get('email'),
                 Variables.databaseLabels().Password: hashpass,
                 Variables.databaseLabels().Permissions:permission_set 
-         })    
-
-        
+         })              
 
 
     def InsertFormData(self):
         model=MyMongoDB()
        
         dob_string=request.form.get('DOB')
+        if dob_string=='':
+            dob_string='1900-01-01'
+        DOB = datetime.datetime(int(dob_string[0:4]),int(dob_string[5:7]),int(dob_string[8:10]))
+
+
+        geolocator = Nominatim(user_agent="Barbados")
+        country_ro=request.form.get('country_ro')      
+        if country_ro =='' or None:
+            latitude=None
+            longitude=None
+        else:
+            try:
+                location = geolocator.geocode(country_ro,timeout=16000) 
+                latitude=location.latitude
+                longitude=location.longitude  
+            except GeocoderTimedOut as e:    
+                print("Error: geocode failed on input %s with message %s"%(country_ro,e.message))
+                #redirect to another page?
+                pass               
+
+        Firstname=request.form.get('first_name')
+        Middlename=request.form.get('middle_name')
+        Lastname= request.form.get('last_name')      
+        Nationality = request.form.get('nationality')
+        Type= request.form.get('occupation')
+        EducationalInst=request.form.get('edu_inst')
+        
+        Other=request.form.get('other')
+        Jobtitle = request.form.get('job_title')
+        JobClass=request.form.get('job_class')
+        Workplace = request.form.get('workplace_name')
+        PassportNumber=request.form.get('passport_num')
+        IssuedPassportCountry=request.form.get('pp_country')
+        WeChatID= request.form.get('we_chat')           
+        PhoneNumber= request.form.get('phone_num')
+        Street1=request.form.get('street')
+        CityorTown1= request.form.get('city_town')
+        Country1=request.form.get('country')
+
+
+        if Firstname  is None or '':
+            Firstname =None        
+        if Middlename is None or '':
+            Middlename =None 
+        if Lastname is None or '':
+            Lastname =None       
+        if Nationality is None:
+            Nationality=None
+
+        if Type is "Student" or'Employed' or 'Other':
+            # if FieldofStudy == None or "None":
+            #     FieldofStudy=None     
+
+            if EducationalInst is None or "":
+                EducationalInst=None
+       
+            # if Jobtitle is None or "":
+            #     Jobtitle=None
+            # if JobClass == "None":
+            #     JobClass=None
+            # if Workplace is None or "":
+            #     Workplace=None
+
+            # if Other is None or "":
+            #     Other=None 
+     
+        if PassportNumber is None or "":
+            PassportNumber=None
+        if IssuedPassportCountry is None or "":
+            IssuedPassportCountry=None   
+
+        if Street1 is None or "":
+            Street1=None
+        if CityorTown1 is None or "":
+            CityorTown1=None
+        if Country1 is None or "":   
+            Country1=None                    
+                   
+
+        classification=request.form.get('classification')
+        POTdescription=request.form.get('POT_des')
+        PurposeofTravel=request.form.get('radio') 
+
+        Streetbb=request.form.get('street_bb')
+        CityorTownbb=request.form.get('city_town_bb')
+        Parishbb= request.form.get('parish_bb')            
+    
+        Streetab=request.form.get('street_abroad')
+        CityorTownab=request.form.get('city_town_abroad')
+        Stateab= request.form.get('state_abroad')
+        CountryAbroad= request.form.get('country_abroad')
+        
         dept_string=request.form.get('dept_date')
         return_string=request.form.get('ret_date')
 
-        DOB = datetime.datetime(int(dob_string[0:4] ),int(dob_string[5:7]),int(dob_string[8:10]))
+        if dept_string is '':
+            dept_string='1900-01-01'
+        if return_string is '':
+            return_string='1900-01-01'       
 
-        if request.form.get('classification')=="CitizenTO":
-            expected_departure = datetime.datetime(int(dept_string[0:4] ),int(dept_string[5:7]),int(dept_string[8:10]))
-            expected_return = datetime.datetime(int(return_string[0:4] ),int(return_string[5:7]),int(return_string[8:10]))
-        else:
-            expected_return = None
-            expected_departure= None
-
-        country=request.form.get('country_ro')
-        geolocator = Nominatim(user_agent="Barbados-MFA")
-        if country is not None:
-            try:
-                location = geolocator.geocode(country,timeout=15000)   
-            except GeocoderTimedOut as e:
-                print("Error: geocode failed on input %s with message %s"%(country,e.message))
-                pass    
+        expected_departure = datetime.datetime(int(dept_string[0:4] ),int(dept_string[5:7]),int(dept_string[8:10]))
+        expected_return = datetime.datetime(int(return_string[0:4] ),int(return_string[5:7]),int(return_string[8:10]))          
             
         
-        timestamp = datetime.datetime.now() 
-        if request.form.get('job_class')=="None":
-            job_class =None
+        EmergencyConFirstname= request.form.get('emerg_firstname')
+        EmergencyConLastname= request.form.get('emerg_lastname')
+        EmergencyConPhone= request.form.get('emerg_phone')
+        EmergencyConEmail= request.form.get('emerg_email')
+        EmergencyConRel= request.form.get('emerg_rel')                 
+                    
+
+        EmergencyConFirstname_ab= request.form.get('firstname_ab')
+        EmergencyConLastname_ab= request.form.get('lastname_ab')
+        EmergencyConPhone_ab= request.form.get('emerg_phone_ab')
+        EmergencyConEmail_ab= request.form.get('emerg_email_ab')
+        EmergencyConRel_ab= request.form.get('emerg_rel_ab')                 
+                    
+        
+       
+        residential_abroad=request.form.get('residential_abroad')
+        mobile_abroad=request.form.get('mobile_abroad')
+        WA_abroad=request.form.get('WA_abroad')
+        WeChatAB= request.form.get('we_chat_ab')
+        AbroadEmail= request.form.get('abroad_email')
+
+        ResidentialRes=request.form.get('residential_ro')
+        MobileRes=request.form.get('mobile_ro')
+        WhatsappRes=request.form.get('WA_ro') 
+        Street=request.form.get('street_ro'),
+        State= request.form.get('state_ro'),
+        CityorTown= request.form.get('city_town_ro')
 
         AOI=request.form.getlist('AOI')  
         KBB=request.form.getlist('KBB')
-        AOI_fr=request.form.getlist('AOI_fr')        
-        l=[AOI,KBB,AOI_fr]
-        for y in l:
-            if len(y)==0 or y==None:
-                AOI=None
-                AOI_fr=None
-                KBB=None
+        AOI_fr=request.form.getlist('AOI_fr')
 
-        
+        if classification=="CitizenTO" or 'ResidentO' or'Friend':
+            var_list=[PurposeofTravel,POTdescription,CountryAbroad,Streetbb,CityorTownbb,Parishbb,Streetab,CityorTownab,
+            Stateab,EmergencyConFirstname_ab,EmergencyConLastname_ab,EmergencyConPhone_ab,EmergencyConEmail_ab,
+            EmergencyConRel_ab,residential_abroad,mobile_abroad,WA_abroad,WeChatAB,AbroadEmail,ResidentialRes,MobileRes,WhatsappRes,Street,State,CityorTown]              
+            for var in var_list:
+                if var is None or '' or "None":
+                    var=None
+
+            l=[AOI,KBB,AOI_fr]
+            for y in l:
+                if y is [] or None:
+                    AOI=None
+                    AOI_fr=None
+                    KBB=None 
+
         col = MyMongoDB()
+        timestamp = datetime.datetime.now() 
         diasporaList=col.db.diasporaList
         if diasporaList.find_one({Variables.databaseLabels().EmailAddress:session['email']}) is None:
-
 
             diasporaList.insert_one(
                 {
                     Variables.databaseLabels().EmailAddress : session['email'],
                     Variables.databaseLabels().Name:{
-                        Variables.databaseLabels().Firstname: request.form.get('first_name'),
-                        Variables.databaseLabels().Middlename: request.form.get('middle_name'),
-                        Variables.databaseLabels().Lastname: request.form.get('last_name')
+                        Variables.databaseLabels().Firstname: Firstname,
+                        Variables.databaseLabels().Middlename: Middlename,
+                        Variables.databaseLabels().Lastname: Lastname
                         },       
 
                     Variables.databaseLabels().Gender: request.form.get('gender'), 
                     Variables.databaseLabels().DOB: DOB,
-                    Variables.databaseLabels().Nationality: request.form.get('nationality'), 
+                    Variables.databaseLabels().Nationality:Nationality, 
                     Variables.databaseLabels().Occupation:{
-                        Variables.databaseLabels().Type: request.form.get('occupation'),
-                        Variables.databaseLabels().FieldofStudy: request.form.get('field_study'),
+                        Variables.databaseLabels().Type: Type,
+                        Variables.databaseLabels().FieldofStudy: request.form.get('field'),
                         Variables.databaseLabels().StudyLevel: request.form.get('field_study_level'),
-                        Variables.databaseLabels().EducationalInst: request.form.get('edu_inst'),
-                        Variables.databaseLabels().Other: request.form.get('other'),
+                        Variables.databaseLabels().EducationalInst: EducationalInst,
+                        Variables.databaseLabels().Other: Other,
 
-                        Variables.databaseLabels().JobClass: job_class,
-                        Variables.databaseLabels().Jobtitle: request.form.get('job_title'),
-                        Variables.databaseLabels().Workplace: request.form.get('workplace_name')                   
+                        Variables.databaseLabels().JobClass: JobClass,
+                        Variables.databaseLabels().Jobtitle: Jobtitle,
+                        Variables.databaseLabels().Workplace: Workplace                 
                         },
 
-                    Variables.databaseLabels().PassportNumber: request.form.get('passport_num'),
-                    Variables.databaseLabels().IssuedPassportCountry: request.form.get('pp_country'),
-                    Variables.databaseLabels().WeChatID: request.form.get('we_chat'),             
-                    Variables.databaseLabels().PhoneNumber: request.form.get('phone_num'),
+                    Variables.databaseLabels().PassportNumber: PassportNumber,
+                    Variables.databaseLabels().IssuedPassportCountry: IssuedPassportCountry,
+                    Variables.databaseLabels().WeChatID: WeChatID,             
+                    Variables.databaseLabels().PhoneNumber: PhoneNumber,
                     Variables.databaseLabels().Address:{
-                        Variables.databaseLabels().Street:request.form.get('street'),
-                        Variables.databaseLabels().CityorTown: request.form.get('city_town'),
-                        Variables.databaseLabels().Country:request.form.get('country')
+                        Variables.databaseLabels().Street:Street1,
+                        Variables.databaseLabels().CityorTown: CityorTown1,
+                        Variables.databaseLabels().Country:Country1
                         },
                     Variables.databaseLabels().EmergDetails:{
-                        Variables.databaseLabels().EmergencyConFirstname: request.form.get('emerg_firstname'),
-                        Variables.databaseLabels().EmergencyConLastname: request.form.get('emerg_lastname'),
-                        Variables.databaseLabels().EmergencyConRel: request.form.get('emerg_rel'),
-                        Variables.databaseLabels().EmergencyConPhone: request.form.get('emerg_phone'),
-                        Variables.databaseLabels().EmergencyConEmail: request.form.get('emerg_email')                                       
+                        Variables.databaseLabels().EmergencyConFirstname: EmergencyConFirstname,
+                        Variables.databaseLabels().EmergencyConLastname: EmergencyConLastname,
+                        Variables.databaseLabels().EmergencyConRel: EmergencyConRel,
+                        Variables.databaseLabels().EmergencyConPhone: EmergencyConPhone,
+                        Variables.databaseLabels().EmergencyConEmail: EmergencyConEmail                                     
                         },
-                    Variables.databaseLabels().Classification: request.form.get('classification'),
+
+                    Variables.databaseLabels().Classification: classification,
 
 #Citizen travelling abroad
-                    Variables.databaseLabels().PurposeofTravel: request.form.get('radio'),
-                    Variables.databaseLabels().POTdescription: request.form.get('POT_des'),
+                    Variables.databaseLabels().PurposeofTravel: PurposeofTravel,
+                    Variables.databaseLabels().POTdescription:  POTdescription,
                     Variables.databaseLabels().BarbadosAddress:{
-                        Variables.databaseLabels().Street:request.form.get('street_bb'),
-                        Variables.databaseLabels().CityorTown:request.form.get('city_town_bb'),
-                        Variables.databaseLabels().Parish: request.form.get('parish_bb')
+                        Variables.databaseLabels().Street:Streetbb,
+                        Variables.databaseLabels().CityorTown:CityorTownbb,
+                        Variables.databaseLabels().Parish: Parishbb
                         },  
+                                
                     Variables.databaseLabels().AddressAbroad:{
-                        Variables.databaseLabels().Street:request.form.get('street_abroad'),
-                        Variables.databaseLabels().CityorTown:request.form.get('city_town_abroad'),
-                        Variables.databaseLabels().State: request.form.get('state_abroad'),
-                        Variables.databaseLabels().CountryAbroad: request.form.get('country_abroad')
+                        Variables.databaseLabels().Street:Streetab,
+                        Variables.databaseLabels().CityorTown:CityorTownab,
+                        Variables.databaseLabels().State: Stateab,
+                        Variables.databaseLabels().CountryAbroad: CountryAbroad
                         },  
 
                     Variables.databaseLabels().EmergDetailsAbroad:{
-                        Variables.databaseLabels().EmergencyConFirstname: request.form.get('firstname_ab'),
-                        Variables.databaseLabels().EmergencyConLastname: request.form.get('lastname_ab'),
-                        Variables.databaseLabels().EmergencyConPhone: request.form.get('emerg_phone_ab'),
-                        Variables.databaseLabels().EmergencyConEmail: request.form.get('emerg_email_ab'),
-                        Variables.databaseLabels().EmergencyConRel: request.form.get('emerg_rel_ab')                 
+                        Variables.databaseLabels().EmergencyConFirstname: EmergencyConFirstname_ab,
+                        Variables.databaseLabels().EmergencyConLastname: EmergencyConLastname_ab,
+                        Variables.databaseLabels().EmergencyConPhone: EmergencyConPhone_ab,
+                        Variables.databaseLabels().EmergencyConEmail: EmergencyConEmail_ab,
+                        Variables.databaseLabels().EmergencyConRel: EmergencyConRel_ab                
                         },
 
                     Variables.databaseLabels().TravelDates:{                    
@@ -253,42 +365,38 @@ class DatabaseStruct:
                         },     
 
                     Variables.databaseLabels().PhoneNumberAbroad:[
-                        {Variables.databaseLabels().ResidentialAbroad:request.form.get('residential_abroad')},
-                        {Variables.databaseLabels().MobileAbroad:request.form.get('mobile_abroad')},
-                        {Variables.databaseLabels().WhatsappAbroad:request.form.get('WA_abroad')}],                
-                
-
-                    Variables.databaseLabels().WeChatAB: request.form.get('we_chat_ab'),
-                    Variables.databaseLabels().AbroadEmail: request.form.get('abroad_email'),
+                        {Variables.databaseLabels().ResidentialAbroad:residential_abroad},
+                        {Variables.databaseLabels().MobileAbroad:mobile_abroad},
+                        {Variables.databaseLabels().WhatsappAbroad:WA_abroad}],
+                    Variables.databaseLabels().WeChatAB: WeChatAB,
+                    Variables.databaseLabels().AbroadEmail: AbroadEmail,
                
 #Residents Overseas
 
                     Variables.databaseLabels().ResidenceAbroadDetails:{
-                        Variables.databaseLabels().Street:request.form.get('street_ro'),
-                        Variables.databaseLabels().State: request.form.get('state_ro'),
-                        Variables.databaseLabels().CityorTown: request.form.get('city_town_ro'),
-                        Variables.databaseLabels().Country:request.form.get('country_ro'),
-                        Variables.databaseLabels().Location: [location.latitude, location.longitude]   
+                        Variables.databaseLabels().Street:Street,
+                        Variables.databaseLabels().State: State,
+                        Variables.databaseLabels().CityorTown: CityorTown,
+                        Variables.databaseLabels().Country:country_ro,
+                        Variables.databaseLabels().Location: [latitude, longitude]   
                         },
-
                     Variables.databaseLabels().ResidentsAbroadPhone:[
-                        {Variables.databaseLabels().ResidentialRes:request.form.get('residential_ro')},
-                        {Variables.databaseLabels().MobileRes:request.form.get('mobile_ro')},
-                        {Variables.databaseLabels().WhatsappRes:request.form.get('WA_ro')}],
-
-                    Variables.databaseLabels().AreasofInterest:AOI,
+                        {Variables.databaseLabels().ResidentialRes:ResidentialRes},
+                        {Variables.databaseLabels().MobileRes:MobileRes},
+                        {Variables.databaseLabels().WhatsappRes:WhatsappRes}],                   
 
 #Friends of Barbados
+                    Variables.databaseLabels().AreasofInterest:AOI,
                     Variables.databaseLabels().KnowledgeofBB:KBB,
                     Variables.databaseLabels().AreasofInterestFr:AOI_fr,
 
                     Variables.databaseLabels().DateAdded : timestamp,
                     Variables.databaseLabels().LastUpdated:timestamp,
                     'Emailed_last': timestamp
-                    })  
+                                        })  
 
 #-------------------------------------------------------------------------------------------------------------------
-#----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------
 
     def UpdateFormData(self):   
         model=MyMongoDB()
