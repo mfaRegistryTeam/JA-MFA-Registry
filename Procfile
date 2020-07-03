@@ -1,1 +1,1 @@
-web: python MainScript.py
+web: gunicorn MainScript:app --log-file=-
