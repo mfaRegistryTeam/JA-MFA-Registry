@@ -1,8 +1,10 @@
 # Author : Shane Okukenu
 
 class siteLabels:
-    DatabaseName = "Citizens-Database"
-    DatabaseURL = "mongodb://localhost:27017/Citizens-Database"
+    # DatabaseName = "Citizens-Database"
+    DatabaseName = "heroku_qc5l7qqd"
+    DatabaseURL = "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
+    # DatabaseURL = "mongodb://localhost:27017/Citizens-Database"
     SessionType = "mongodb"
 
 class correspondence:
