@@ -10,7 +10,6 @@ class correspondence:
     message='You are already officially registered. If you wish to update your information click Update '
 
 
-
 class databaseLabels:
     Username = 'Username'
     EmailAddress='Email-Address'
