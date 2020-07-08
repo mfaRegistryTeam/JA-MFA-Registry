@@ -586,10 +586,10 @@ def api():
     print("result is: ", result)
     
     res = make_response(json.dumps(result, separators=(',', ':')), 200)
-    res.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
+    res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
 # -------------------------------------------------------------
 
 if __name__ == "__main__":      
-    app.run(debug=True)
+    app.run()
