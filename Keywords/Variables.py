@@ -3,7 +3,7 @@
 class siteLabels:
     DatabaseName = "heroku_qc5l7qqd"
     # DatabaseURL = "mongodb://localhost:27017/Citizens-Database"
-    DatabaseURL= "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd/?retryWrites=true"
+    DatabaseURL= "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=true"
     SessionType = "mongodb"
 
 class correspondence:
