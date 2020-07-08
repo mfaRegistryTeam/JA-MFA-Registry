@@ -3,21 +3,19 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Login</title>
+    <title>Login | Ministry of Foreign Affairs and Foreign Trade</title>
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
-        rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
     <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css?family=Tangerine" rel='stylesheet'>
     <!-- Third party plugin CSS-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"
-        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="icon" href="static/flag.jpg" sizes="16x16">
     <link href="static/css/styles.css" rel="stylesheet" />
@@ -34,13 +32,12 @@
                 <div class="logo-holder">
                     <div class="logo">
                         <div href="/" tabindex="2">
-                            <img src="https://www.foreign.gov.bb/images/logo.png"
-                                alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                            <a href="http://127.0.0.1:5000/">
+                                <img src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                            </a>
                             <a class="navbar-brand js-scroll-trigger" href="#page-top">
                                 <h4 id="mainTitle">Ministry Of Foreign Affairs And Foreign Trade Of Barbados</h4>
-                            </a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                            </a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         </div>
                     </div>
                 </div>
@@ -84,11 +81,16 @@
                 <input id="email" class="form-control" type="text" name="email" placeholder="Email" required></input>
 
                 <label for="password" class="sr-only">Password: </label>
-                <input id="password" class="form-control" type="password" name="password"
-                    placeholder="Password" required></input>
+                <input id="password" class="form-control" type="password" name="password" placeholder="Password" required></input>
+
 
                 <button class="btn btn-lg btn-primary custBtn btn-block" type="submit">Login</button>
+                <br>
+                <a href="http://127.0.0.1:5000/PasswordReset">Forgot Password?</a>
             </form>
+
+            <small style="color: azure;">Don't have an account?  </small>
+            <a href="/signup" style="background-color: #08318c; color: #ffce0d;" type="submit">Signup</a>
         </div>
 
 
@@ -98,6 +100,8 @@
     <footer class="bg-light py-5">
         <div id="footer-main" class="container">
             <div class="small text-center text-muted">Copyright © 2020 BARBADIAN REGISTRATION SYSTEM </div>
+            <div class="small text-center text-muted">Providing information is entirely voluntary and the information will be treated in complete confidence.</div>
+
         </div>
     </footer>
     <!-- Bootstrap core JS-->

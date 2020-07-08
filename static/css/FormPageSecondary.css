@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Exo&display=swap');
+
+.wrapper {
+    background: #f7f7f7;
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.radio_checkbox{
+  align-items: center;
+}
+
+.wrapper .radio_tabs {
+    height: 150px;
+    background-color: #08318c;
+    color: #f7f7f7;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 18px;
+    display: flex;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .radio_tabs label {
+    margin-right: 15px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    padding-left: 28px;
+}
+
+.wrapper .content {
+    width: auto;
+    /* background-color: #08318c; */
+    height: auto;
+    background: #fff;
+    border-radius: 5px;
+    padding: 18px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .content p {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 15px;
+}
+
+/* style for revealing data */
+
+.reveal-if-active {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+  
+.reveal-if-active {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: scale(0.8);
+    transition: 0.5s;
+  }
+
+.reveal-if-active {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    font-size: 16px;
+    transform: scale(0.8);
+    transition: 0.5s;
+  }
+  
+  /* drop down menu for register form */
+  #show-me {
+    display:none;
+  }
+
+  .hide {
+    display: none;
+  }
+  

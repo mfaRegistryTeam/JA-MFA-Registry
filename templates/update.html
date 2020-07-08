@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Update | Ministry of Foreign Affairs and Foreign Trade</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Font-->
+    <link rel="stylesheet" type="text/css" href="static/css/opensans-font.css">
+    <link rel="icon" href="static/flag.jpg" sizes="16x16">
+    <link rel="stylesheet" type="text/css" href="static/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <!-- Main Style Css -->
+    <link rel="stylesheet" href="static/css/FormPageMain.css" />
+    <link rel="stylesheet" href="static/css/FormPageSecondary.css" />
+    <!--Form Utils-->
+    <script type="text/javascript" src="static/js/updateFormUtils.js"></script>
+    <script type="text/javascript" src="static/js/updateFormValues.js"></script>
+</head>
+
+<body>
+    
+<body>
+    <div class="background">
+        <br>
+    </div>
+    <div class="page-content">
+        <div class="form-v1-content">
+            <div class="wizard-form">
+            {% from "__formhelpers.html" import render_field %}
+                <form id="mainForm" class="form-register" action="" enctype="multipart/form-data" method="post">
+                    <div id="form-total">
+                        <!-- SECTION 1 -->
+                        <h2>
+                            <p class="step-icon">
+                                <span>01</span>
+                                <br>
+                                <p><span class="step-text">Personal</span></p>
+                            </p>
+                        </h2>
+                        <section>
+                            <div href="/" tabindex="2">
+                                <br>
+                                <img src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                            </div>
+                            <div class="inner">
+                            <div class='container'>
+                             {% include '_message.html' %}
+                            </div>
+                                <div class="wizard-header">
+                                    <h3 class="heading">Update Personal Infomation</h3>
+                                    <p>Please enter your update infomation and proceed to the next step</p>
+                                    <p>Be sure to reselect important fields (ie. DOB) and other fields relevant to your current situation.</p>
+                                </div>
+                                <!-- row for first name, last name and middle name -->
+                                <div class="form-row">
+                                    <div class="form-holder">
+                                        <fieldset>
+                                            <legend>First Name</legend>
+                                            
+                                            {{ render_field(form.Firstname, class="form-control", placeholder="First Name")}}
+                                    
+                                        </fieldset>
+                                    </div>
+                                    <div class="form-holder">
+                                        <fieldset>
+                                            <legend>Middle Name</legend>
+                                            {{ render_field(form.Middlename, class="form-control", placeholder="Middle Name")}}
+                                        </fieldset>
+                                    </div>
+                                    <div class="form-holder">
+                                        <fieldset>
+                                            <legend>Last Name</legend>
+                                            {{ render_field(form.Lastname, class="form-control",placeholder="Last Name")}}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- Gender Selector -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Gender </legend>
+                                            {% for subfield in form.Gender %}
+                                                    <tr>
+                                                    <td>{{ subfield }}</td>
+                                                     <td>{{ subfield.label }}</td>
+                                                      </tr>
+                                            {% endfor %}
+                                        </fieldset>
+                                    </div>
+                                    <!-- Date of birth-->
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Date of Birth</legend>
+                                            <!--{{ render_field(form.dt, class="form-control",placeholder="2020-05-05" )}}-->
+                                            <input type="date" id="DOB" name="DOB" value="{{session['DOB']|string()}}" max="2100-12-31" required>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- drop down options for passport nationality -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Nationality</legend>
+                                            <select name="nationality" id="nationality" class="dropMenu">
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- OCCUPATION  -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                      
+                                        <h4>What is your Occupation?</h4>
+                                        <!--8
+                                                {% for subfield in form.Type %}
+                                                    <tr>
+                                                    <td>{{ subfield }}</td>
+                                                     <td>{{ subfield.label }}</td>
+                                                      </tr>
+
+                                                
+                                            {% endfor %}
+                                        --> 
+                                    
+
+
+                                        <input type="radio" name="occupation" id="Student" value="Student" onclick="show2();" />Student
+                                        <input type="radio" name="occupation" id="Employed" value="Employed" onclick="show3();" /> Employed
+                                        <input type="radio" name="occupation" id="Other" value="Other" onclick="show4();" />Other
+
+                                        <div id="div2" class="hide">
+                                            <br>
+                                            <!-- student -->
+                                            <!-- student revealed forms -->
+                                            <div class="form-row">
+                                                <div class="form-holder form-holder-2">
+                                                    <fieldset>
+
+                                                        <legend>Field of Study</legend>
+                                                        <select name="field" id="field" class="dropMenu">
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <!-- drop down for level of study -->
+                                                <div class="form-holder form-holder-2">
+                                                    <fieldset>
+                                                        <legend>Study Level</legend>
+                                                        {% for subfield in form.field_study_level %}
+                                                            <tr>
+                                                            <td>{{ subfield }}</td>
+                                                            <td>{{ subfield.label }}</td>
+                                                            </tr>
+                                                
+                                                        {% endfor %}
+                                                    </fieldset>
+                                                </div>
+                                                <!--  input field for job title and job name-->
+                                                <div class="form-holder form-holder-2">
+                                                    <fieldset>
+                                                        <legend>Name of Eductional Insitution </legend>
+                                                        {{ render_field(form.edu_inst, class="form-control")}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="div3" class="hide">
+                                            <br>
+                                            <!-- Employed -->
+                                            <!-- drop down for drop class/category -->
+                                            <div class="form-row">
+                                                <div class="form-holder form-holder-2">
+                                                    <fieldset>
+                                                        <legend>Job Class/Category</legend>
+                                                        <select name="job_class" id="job_class" class="dropMenu">
+                                                        </select>
+                                                    </fieldset>
+                                                </div>
+                                                <!--  input field for job title-->
+                                                <div class="form-holder form-holder-2">
+                                                    <fieldset>
+                                                        <legend>Job Title</legend>
+                                                        {{ render_field(form.Jobtitle, class="form-control")}}
+                                                    </fieldset>
+                                                </div>
+                                                <!--  input field for job name-->
+                                                <div class="form-holder form-holder-2">
+                                                    <fieldset>
+                                                        <legend>Work Place Name</legend>
+                                                         {{ render_field(form.Workplacename, class="form-control" )}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="div4" class="hide">
+                                            <br>
+                                            <!-- other -->
+                                            <!--  input field for other profession-->
+                                            <div class="form-rowr">
+                                                <fieldset>
+                                                    <legend>Other please specify</legend>
+                                                    {{ render_field(form.OcpOther, class="form-control" )}}
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- input field for the passport number -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Passport Number</legend>
+                                            {{ render_field(form.PassportNumber, class="form-control", placeholder="Passport Number")}}
+                    
+                                        </fieldset>
+                                    </div>
+                                    <!-- drop down form for passport countries -->
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Country Passport</legend>
+                                            <select name="pp_country" id="pp_country" class="dropMenu"  required>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- input field for weChat ID -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>WeChat Id</legend>
+                                            {{ render_field(form.WeChat, class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- Phone Number field -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Phone Number</legend>
+                                           {{ render_field(form.PhoneNumber, class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- Address Fieldsssss -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Address: Street</legend>
+                                           {{ render_field(form.Street, class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Address: City/Town </legend>
+                                            {{ render_field(form.CityorTown, class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Country</legend>
+                                            <select name="country" id="country" class="dropMenu">
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- row for Emergency Contact first name, last name-->
+                                <div class="form-row">
+                                    <div class="form-holder">
+                                        <fieldset>
+                                            <legend>Emergency Contact: First Name</legend>
+                                            {{ render_field(form.EmergencyConFirstname, class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                    <div class="form-holder">
+                                        <fieldset>
+                                            <legend>Emergency Contact: Last Name</legend>
+                                            {{ render_field(form.EmergencyConLastname, class="form-control")}}                                        </fieldset>
+                                    </div>
+                                    <!-- Emergency Contact relationship field -->
+                                    <div class="form-holder">
+                                        <fieldset>
+                                            <legend>Emergency Contact: Relaionship</legend>
+                                            {{ render_field(form.EmergencyConRel, class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <!-- Emergency Contact Phone Number field -->
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Emergency Contact: Phone Number</legend>
+                                            {{ render_field(form.EmergencyConPhone, class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                    <!-- Emergency Contact email address field -->
+                                    <div class="form-holder form-holder-2">
+                                        <fieldset>
+                                            <legend>Emergency Contact: Email Address</legend>
+                                            {{ render_field(form.EmergencyConEmail , class="form-control")}}
+                                        </fieldset>
+                                    </div>
+                                </div>
+                        </section>
+                        <!-- section 2 -->
+                        <h2>
+                            <p class="step-icon">
+                                <span>02</span>
+                                <br>
+                                <p><span class="step-text">Classifications</span></p>
+                            </p>
+                        </h2>
+                        <section>
+                            <div href="/" tabindex="2">
+                                <br>
+                                <img src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                            </div>
+                            <div class="inner">
+                                <!-- label for page -->
+                                <div class="wizard-header">
+                                    <h3 class="heading">Update Classifications Information</h3>
+                                    <p>How would you classify yourself? </p>
+                                    <p>(Ensure no fields are selected from the classifications you did not select) </p>
+                                </div>
+                                <!-- radio button to choose form of classification -->
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <div class="wrapper">
+                                            <div class="radio_tabs">
+                                                <label class="radio_wrap" data-radio="radio_1">
+                                                        <input id="CTO_radio" value="CitizenTO" type="radio" name="classification" class="input" onclick="show_CTO_form();">
+                                                        <span class="radio_mark">
+                                                            Barbadian Citizen Traveling Overseas
+                                                        </span>
+                                                    </label>
+                                                <label class="radio_wrap" data-radio="radio_2">
+                                                        <input id="BRO_radio" type="radio" value="ResidentO" name="classification" class="input" onclick="show_BRO_form();">
+                                                        <span class="radio_mark">
+                                                            Barbadian Resident Overseas
+                                                        </span>
+                                                    </label>
+                                                <label class="radio_wrap" data-radio="radio_3">
+                                                        <input id="FOB_radio" type="radio" value="Friend" name="classification" class="input" onclick="show_FOB_form();">
+                                                        <span class="radio_mark">
+                                                            Friend of Barbados
+                                                        </span>
+                                                    </label>
+                                            </div>
+
+                                            <div class="content">
+                                                <!-- Radio button 1 -->
+                                                <!-- Barbadian Citizen Traveling Oversea section -->
+                                                <div  id="CTO_form" class="radio_content radio_1">
+                                                    <div class="form-row">
+                                                        <!-- Barbadian Citizen Traveling Oversea section -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Purpose of Travel</legend>
+                                                                <br>
+                                                                <select name="radio" id="radio" class="dropMenu" >
+                                                                </select>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <!-- show text field when other is choosen -->
+                                                                <div class="form-holder form-holder-2">
+                                                                    <fieldset>
+                                                                        <legend>Other? Please Specify</legend>
+                                                                        {{ render_field(form.POT_des , class="form-control")}}
+                                                                    </fieldset>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <!-- Address Fieldsssss -->
+
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Barbadian Address: Street</legend>
+                                                                 {{ render_field(form.street_bb, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Barbadian Address: City/Town</legend>
+                                                                 {{ render_field(form.city_town_bb, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Barbadian Address: Parish</legend>
+                                                                <select name="parish_bb" id="parish_bb" class="dropMenu" placeholder='Please Select'>
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Address Fields for Destination address -->
+                                                    <div class="form-row">
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Destination Address: Street</legend>
+                                                                {{ render_field(form.street_abroad, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Destination Address: City/Town </legend>
+                                                                {{ render_field(form.city_abroad, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Destination Address: State/Parish/County/Province </legend>
+                                                                {{ render_field(form.state_abroad, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Destination Country</legend>
+                                                                <select name="country_abroad" id="country_abroad" class="dropMenu" placeholder="Please Select">
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- row for Emergency Contact first name, last name-->
+                                                    <div class="form-row">
+                                                        <div class="form-holder">
+                                                            <fieldset>
+                                                                <legend>Emergency Contact Abroad: First Name</legend>
+                                                                {{ render_field(form.EmergencyConFirstnameab, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-holder">
+                                                            <fieldset>
+                                                                <legend>Emergency Contact Abroad: Last Name</legend>
+                                                                {{ render_field(form.EmergencyConLastnameab, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- Emergency Contact relationship field -->
+                                                        <div class="form-holder">
+                                                            <fieldset>
+                                                                <legend>Emergency Contact Abroad: Relaionship</legend>
+                                                                {{ render_field(form.EmergencyConRelab, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <!-- Emergency Contact Phone Number field -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Emergency Contact Abroad: Phone Number</legend>
+                                                                {{ render_field(form.EmergencyConPhoneab, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- Emergency Contact email address field -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Emergency Contact Abroad: Email Address</legend>
+                                                                {{ render_field(form.EmergencyConEmailab, class="form-control")}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Dates feilds  -->
+                                                    <div class="form-row">
+                                                        <!-- Date of depature-->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Expected Date of Departure</legend>
+                                                                <!--{{ render_field(form.dep_date, class="form-control",placeholder="2020-05-05" )}}-->
+                                                                <input type="date" id="dept_date" name="dept_date" value="{{session['dept_date']}}"  max="2100-12-31">
+
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- Date of return-->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Expected Date of Return</legend>
+                                                                <!--{{ render_field(form.ret_date, class="form-control",placeholder="2020-05-05")}}-->
+                                                                <input type="date" id="ret_date" name="ret_date" value="{{session['ret_date']}}" max="2100-12-31">
+                                                            </fieldset>
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                    <!-- Phone Number field -->
+                                                    <div class="form-row">
+                                                        <!-- Residential Phone Number -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend> Residential Phone Abroad</legend>
+                                                                {{ render_field(form.ResPhoneNumberAbroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- Mobile Phone Number -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Mobile Phone Abroad</legend>
+                                                                {{ render_field(form.ResMobileAbroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <!-- Phone -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Whatsapp Phone Number Abraod</legend>
+                                                                 {{ render_field(form.ResWhatsappAbroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- input field for weChat ID -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>WeChat Id</legend>
+                                                                {{ render_field(form.ResWechatAB, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Abroad Email</legend>
+                                                                {{ render_field(form.AbroadEmail, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Radio button 2 -->
+                                                <!-- Barbadian Resident Overseas -->
+                                                <div id="BRO_form" class="radio_content radio_2">
+                                                    <!-- Address Fields for Destination address -->
+                                                    <div class="form-row">
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Address: Street</legend>
+                                                                {{ render_field(form.resstreet_abroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Address: City/Town </legend>
+                                                                {{ render_field(form.rescity_abroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Address: State/Parish/County/Province </legend>
+                                                                {{ render_field(form.resstate_abroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Country</legend>
+                                                                <select name="country_ro" id="country_ro" class="dropMenu" placeholder="Please Select">
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Phone Number field -->
+                                                    <div class="form-row">
+                                                        <!-- Residential Phone Number -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend> Residential Phone Abroad</legend>
+                                                                {{ render_field(form.ResidentialPhoneNumberAbroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- Mobile Phone Number -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Mobile Phone Abroad</legend>
+                                                                {{ render_field(form.MobilePhoneNumberAbroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <!-- Phone -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>Whatsapp Phone Number Abraod</legend>
+                                                                {{ render_field(form.ResidentialWhatsappAbroad, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- input field for weChat ID -->
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset>
+                                                                <legend>WeChat Id</legend>
+                                                                 {{ render_field(form.WechatAB, class="form-control" )}}
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Area of interest -->
+                                                    <div class="form-holder form-holder-2">
+                                                        <fieldset id= "AOI_cn">
+                                                            <legend>Areas of Interest</legend>
+                                                            <p>Please reselect all your Areas of Interest  </p>
+                            
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <!-- Radio button 3 -->
+                                                <!-- friends of barbados -->
+                                                <div id="FOB_form" class="radio_content radio_3">
+                                                    <!-- Area of interest -->
+                                                    <div class="form-row">
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset id="AOI_fr_cn">
+                                                                <legend>Areas of Interest</legend>
+                                                                <p>Please reselect all your Areas of Interest  </p>
+                                                               
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    <!-- how do you know about barbados -->
+                                                    <div class="form-row">
+                                                        <div class="form-holder form-holder-2">
+                                                            <fieldset id= "KBB_cn">
+                                                                <legend>How do you know about Barbados?</legend>
+                                                                <p>Please reselect how did you know of Barbados  </p>
+                                                            
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- section 3 -->
+                        <h2>
+                            <p class="step-icon">
+                                <span>03</span>
+                                <br>
+                                <p><span class="step-text">Finish</span></p>
+                            </p>
+                        </h2>
+                        <section>
+                            <div href="/" tabindex="2">
+                                <br>
+                                <img src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                            </div>
+                            <div class="inner">
+                                <div class="wizard-header">
+                                    <h3 class="heading">All Finished. Please review updates carefully with arrow keys before clicking the tick below.</h3>
+                                    <p></p>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-holder form-holder-2">
+                                        <h1> All complete Press the tick to submit</h1>
+                                        <img src="data:image/svg+xml;base64,
+                                        PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJMYXllcl8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiBoZWlnaHQ9
+                                        IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHdpZHRoPSI1MTIiIGNsYXNzPSIiPjxnPjxnPjxnPjxnIHRyYW5zZm9ybT0ibWF0cml4KDEsIDIuNDY1MTllLTMyLCAtMi40N
+                                        jUxOWUtMzIsIDEsIC04LjUyNjUxZS0xNCwgLTguNTI2NTFlLTE0KSI+PGc+PGc+PGcgaWQ9IlhNTElEXzE0NV8iPjxnPjxnIGlkPSJYTUxJRF8xMjgxXyI+PGcgaWQ9IlhNTEl
+                                        EXzEzMjVfIj48ZyBpZD0iWE1MSURfMTUxNV8iPjxnIGlkPSJYTUxJRF8xNTE2XyI+PGcgaWQ9IlhNTElEXzE1MTdfIj48ZyBpZD0iWE1MSURfMTUxOF8iPjxnIGlkPSJYTUxJRF8
+                                        xNTE5XyI+PGcgaWQ9IlhNTElEXzE1MjBfIj48ZyBpZD0iWE1MSURfMTUyMV8iPjxnIGlkPSJYTUxJRF8xNTIyXyI+PGcgaWQ9IlhNTElEXzE1MjNfIj48ZyBpZD0iWE1MSURfMTU
+                                        yNF8iPjxnIGlkPSJYTUxJRF8xNTI1XyI+PGcgaWQ9IlhNTElEXzE1MjZfIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIGZpbGw9IiNmZWRkNTUiIHI9IjI1NiIgZGF0YS1vcmlna
+                                        W5hbD0iI0ZGQ0UwMCIgY2xhc3M9IiIgc3R5bGU9ImZpbGw6I0ZGQ0UwMCIgZGF0YS1vbGRfY29sb3I9IiNmZWRkNTUiPjwvY2lyY2xlPjwvZz48L2c+PC9nPjwvZz48L2c+PC9nPjwvZ
+                                        z48L2c+PC9nPjwvZz48L2c+PC9nPjwvZz48L2c+PC9nPjwvZz48L2c+PHBhdGggZD0ibTUxMiAyNTZjMC00LjU0NS0uMTIzLTkuMDYxLS4zNTctMTMuNTQ4bC0xMTguMjIxLTExOC4yMjE
+                                        tMjY5LjE5MSAyNjkuMTkxIDExOC4yMjEgMTE4LjIyMWM0LjQ4Ny4yMzQgOS4wMDMuMzU3IDEzLjU0OC4zNTcgMTQxLjM4NSAwIDI1Ni0xMTQuNjE1IDI1Ni0yNTZ6IiBmaWxsPSIjZmNjNjN
+                                        kIiBkYXRhLW9yaWdpbmFsPSIjRkZCMjI5IiBjbGFzcz0iIiBzdHlsZT0iZmlsbDojRkZCMjI5IiBkYXRhLW9sZF9jb2xvcj0iI2ZjYzYzZCI+PC9wYXRoPjxnPjxjaXJjbGUgY3g9IjI1NiIgY
+                                        3k9IjI1NiIgZmlsbD0iIzIzOGNmOCIgcj0iMTkwLjM5NSIgZGF0YS1vcmlnaW5hbD0iIzIzOENGOCIgY2xhc3M9IiIgc3R5bGU9ImZpbGw6IzIzOENGOCIgZGF0YS1vbGRfY29sb3I9IiMyMzhjZ
+                                        jgiPjwvY2lyY2xlPjxwYXRoIGQ9Im00NDYuMzkgMjU2YzAgMTA1LjE1LTg1LjI0IDE5MC4zOS0xOTAuMzkgMTkwLjM5di0zODAuNzhjMTA1LjE1IDAgMTkwLjM5IDg1LjI0IDE5MC4zOSAxOTAuMzl
+                                        6IiBmaWxsPSIjMDc2OGRkIiBkYXRhLW9yaWdpbmFsPSIjMDQ0NThGIiBjbGFzcz0iIiBzdHlsZT0iZmlsbDojMDQ0NThGIiBkYXRhLW9sZF9jb2xvcj0iIzA3NjhkZCI+PC9wYXRoPjxnPjxwYXRoIGQ9I
+                                        m0yNDMuNjEgMzQ1Ljg4My0xMTAuMTM4LTk3LjY3IDQzLjEyNy00OC42MzIgNjQuNjcgNTcuMzQ5IDkyLjE0OS05MC44MTMgNDUuNjI1IDQ2LjI5N3oiIGZpbGw9IiNmZmYiIGRhdGEtb3JpZ2luYWw9IiNGRk
+                                        YiIGNsYXNzPSIiIGRhdGEtb2xkX2NvbG9yPSIjZmZmIiBzdHlsZT0iZmlsbDojZmZmIj48L3BhdGg+PC9nPjxnPjxwYXRoIGQ9Im0zNzkuMDQgMjEyLjQxLTEyMy4wNCAxMjEuMjZ2LTkxLjI2bDc3LjQyLTc2LjI5ei
+                                        IgZmlsbD0iI2VhZTFkYyIgZGF0YS1vcmlnaW5hbD0iI0VBRTFEQyIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBzdHlsZT0iZmlsbDojZWFlMWRjIiBkYXRhLW9sZF9jb2xvcj0iI2VhZTFkYyI+PC9wYXRoPjwvZz48L2c+PC9n
+                                        PjwvZz48L2c+PC9nPjwvZz4gPC9zdmc+" />
+                                        <!-- <img style="width: 500px; height: 500px;" src="https://image.flaticon.com/icons/svg/2932/2932879.svg"> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                </form>
+                </div>
+                </div>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="static/js/jquery.steps.js"></script>
+            <script src="static/js/update_main.js"></script>
+            <script type="text/javascript">
+            form_setup();
+            populate_countries("pp_country", "{{session['Country-of-Issued-Passport']}}", true);
+            populate_countries("nationality", "{{session['Nationality']}}", true);
+            populate_countries("country", "{{session['Country']}}", true);
+            populate_countries("country_abroad", "{{session['country_abroad']}}", true);
+            populate_countries("country_ro", "{{session['country_ro']}}", true);
+            populate_job_classes("job_class", "{{session['job_class']}}");
+            populate_fields_of_study("field", "{{session['field']}}");
+            populate_purpose_of_travel("radio", "{{session['POT']}}");
+            populate_bb_parishes("parish_bb", "{{session['parishbb']}}");
+            populate_areas_of_interest("AOI_cn","AOI" ,"{{session['AreasofInterest']}}");
+            populate_areas_of_interest("AOI_fr_cn", "AOI_fr","{{session['AreasofInterestfr']}}");
+            populate_kbb("KBB_cn", "KBB","{{session['KnowledgeOfBB']}}");
+            display_occupation_form("{{session['Type']}}");
+            display_classification_form("{{session['Classification']}}");
+            </script>
+
+</body>
+
+</html>

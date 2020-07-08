@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>AdminView Information | Ministry of Foreign Affairs and Foreign Trade</title>
+    <link rel="icon" href="static/flag.jpg" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    
+
+    <!-- main css -->
+    <link rel="stylesheet" href="{{url_for('static', filename= '/css/ViewInfostyle.css') }}">
+
+</head>
+
+<body>
+    <!--================Home Banner Area =================-->
+    <section class="home_banner_area">
+        <div class="container box_1620">
+            <div class="banner_inner d-flex align-items-center">
+                <div class="banner_content">
+                    <div class="media">
+                        <div class="d-flex">
+                            <!-- <img src="img/personal.jpg" alt=""> -->
+                            <img id="logobb" src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                        </div>
+                        <div class="media-body">
+                            <div class="personal_text">
+                                <h3>  {{queryresult[3]}} {{queryresult[1]}} {{queryresult[2]}}</h3>
+                                <h4>Important</h4>
+                                <p>The information displayed on this page is an accurate representation of the data that has been provided to the Ministry of Foreign Affairs and Foreign Trade. It is critical to ensure that the information displayed is kept private and secure at all times. </p>
+                                <h4>Personal Information</h4>
+                                <div class="heading">                    
+                                    <hr>
+                                </div>
+                                <ul class="list basic_info">
+                                    <li><i class="lnr lnr-calendar-full"></i> Date of Birth (y/m/d) :  {{queryresult[5][0:10]}}  </li>
+                                    <li><i class="lnr lnr-phone-handset"></i> Gender : {{queryresult[4]}} </li>
+                                    <li><i class="lnr lnr-envelope"></i> Nationality (Birth) : {{queryresult[6]}}</li>
+                                    <li><i class="lnr lnr-home"></i> Passport Number : {{queryresult[7]}}</li>
+                                    <li><i class="lnr lnr-home"></i> Country of Issued Passport : {{queryresult[8]}}</li>
+                                        <br>
+                                    <h4>Address Information</h4>
+                                    <li><i class="lnr lnr-calendar-full"></i> Street : {{queryresult[11]}}</li>
+                                    <li><i class="lnr lnr-phone-handset"></i> City/Town : {{queryresult[12]}} </li>
+                                    <li><i class="lnr lnr-envelope"></i> Country : {{queryresult[13]}}</li>                                    
+                                        <br>
+                                    <h4>Contact Information</h4>
+                                    <li><i class="lnr lnr-calendar-full"></i> Email Address : {{queryresult[0]}}</li>
+                                    <li><i class="lnr lnr-phone-handset"></i> Phone Number : {{queryresult[10]}} </li>
+                                    <li><i class="lnr lnr-envelope"></i> WeChat ID : {{queryresult[9]}}</li>
+                                        <br>
+                                    <h4>Emergency Contact Information</h4>
+                                    <li><i class="lnr lnr-calendar-full"></i> First Name : {{queryresult[14]}}</li>
+                                    <li><i class="lnr lnr-phone-handset"></i> Last Name : {{queryresult[15]}} </li>
+                                    <li><i class="lnr lnr-envelope"></i>Relationship : {{queryresult[16]}}</li>
+                                    <li><i class="lnr lnr-envelope"></i>Phone Number : {{queryresult[17]}}</li>
+                                    <li><i class="lnr lnr-envelope"></i>Email Address : {{queryresult[18]}}</li>
+                                </ul>
+                                <hr>  
+                                
+                                <div class="heading">
+                                    <h4>Occupation Information</h4>
+                                    <hr>
+                                </div>
+                                {% if queryresult[20]=='Student' %} 
+                                <ul class="list basic_info">
+                                    <li><i class="lnr lnr-calendar-full"></i>Occupation : {{queryresult[20]}}</li>
+                                    <li><i class="lnr lnr-phone-handset"></i>Education Field : {{queryresult[21]}}</li>
+                                    <li><i class="lnr lnr-envelope"></i> Education Level : {{queryresult[22]}}</li>
+                                    <li><i class="lnr lnr-home"></i> Educational Institution : {{queryresult[23]}}</li>                                  
+                                </ul>
+                                {% elif queryresult[20]=='Employed' %}
+                                <ul class="list basic_info">
+                                    <li><i class="lnr lnr-calendar-full"></i>Job Category : {{queryresult[25]}}</li>
+                                    <li><i class="lnr lnr-phone-handset"></i>Job Title : {{queryresult[26]}}</li>
+                                    <li><i class="lnr lnr-envelope"></i> Workplace Name : {{queryresult[27]}}</li>                                                                       
+                                </ul>
+                                {% else %}
+                                <ul class="list basic_info">
+                                    <li><i class="lnr lnr-calendar-full"></i>Other Selected Detail: {{queryresult[24]}}</li>
+                                
+                                {%endif%}
+                                </ul>
+                                                                    
+                                <hr>
+
+                                <div class="heading">
+                                    <h4>Classification Information</h4>
+                                                                        
+                                    <ul class="list basic_info">
+                                        {% if queryresult[19]=='CitizenTO' %}
+                                        <li><i class="lnr lnr-calendar-full"></i>Category Selected : Barbadian Citizen Travelling Overseas</li>
+                                        <br>
+                                        <li><i class="lnr lnr-calendar-full"></i>Purpose of Travel : {{queryresult[28]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Description (optional) : {{queryresult[29]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Barbadian Address-Street : {{queryresult[30]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Barbadian Address-City/Town : {{queryresult[31]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Barbadian Address-Parish : {{queryresult[32]}}</li>
+                                        <br>
+
+                                        <li><i class="lnr lnr-calendar-full"></i>Destination Address-Street : {{queryresult[33]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Destination Address-City/Town : {{queryresult[34]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Destination Address-State/Parish/County/Province : {{queryresult[35]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Destination Address-Country : {{queryresult[36]}}</li>                                        
+                                        <br>
+
+                                        <li><i class="lnr lnr-calendar-full"></i>Emergency Contact Firstname :{{queryresult[37]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Emergency Contact Lastname :{{queryresult[38]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Emergency Contact Phone Number:{{queryresult[39]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Emergency Contact Email :{{queryresult[40]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Emergency Contact Relationship :{{queryresult[41]}}</li>
+
+                                        <br>
+                                        <li><i class="lnr lnr-calendar-full"></i>Expected Date of Departure :{{queryresult[42]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Expected Date of Return:{{queryresult[43]}}</li>
+
+                                        <br>
+                                        <li><i class="lnr lnr-calendar-full"></i>Residential Phone When Away : {{queryresult[44]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Mobile Phone : {{queryresult[45]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Whatsapp Number : {{queryresult[46]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>WeChat ID : {{queryresult[47]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Additional Email:{{queryresult[48]}}</li>                                   
+                                        <br>
+
+                                        {% elif queryresult[19]=='ResidentO' %}       
+                                        <li><i class="lnr lnr-calendar-full"></i>Category Selected : Citizen of Barbados Resident Overseas</li> 
+                                        <li><i class="lnr lnr-calendar-full"></i> Address-Street : {{queryresult[49]}}</li>                                        
+                                        <li><i class="lnr lnr-calendar-full"></i>Address-State/Parish/County/Province : {{queryresult[50]}}</li>
+                                        <li><i class="lnr lnr-phone-handset"></i> Address-City/Town : {{queryresult[51]}} </li>
+                                        <li><i class="lnr lnr-envelope"></i> Address-Country : {{queryresult[52]}}</li> 
+                                        <br>
+                                        <li><i class="lnr lnr-calendar-full"></i>Phone Number: {{queryresult[53]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Mobile Phone : {{queryresult[54]}}</li>
+                                        <li><i class="lnr lnr-calendar-full"></i>Whatsapp Number : {{queryresult[55]}}</li>
+
+                                        <li><i class="lnr lnr-calendar-full"></i>Areas of Interest: {{queryresult[56]}}</li>
+                                        
+                                        <br>
+
+                                        {%elif queryresult[19]=='Friend'%}
+                                        <li><i class="lnr lnr-calendar-full"></i>How I know of Barbados : {{queryresult[57]}}</li> 
+                                        <li><i class="lnr lnr-calendar-full"></i>Areas of Interest: {{queryresult[58]}}</li>
+                                        
+                                        {%else%}  
+                                        <li><i class="lnr lnr-calendar-full"></i>Category Selected : Not Selected</li>
+                                        {%endif%}                                  
+                                   </ul>   
+                                   <hr>     
+                                   <br>                            
+                                </div>
+                                
+                                                                 
+                            
+                              <ul class="list basic_info">
+                                   
+                                <h4> Document Tracking (y/m/d) </h4>
+                                <li><i class="lnr lnr-calendar-full"></i> Date Last Updated: {{queryresult[60][0:16]}} hrs</li>
+                                <li><i class="lnr lnr-phone-handset"></i> Date First Added: {{queryresult[59][0:16]}} hrs</li>                                                                     
+                                 
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+</body>
+
+</html>

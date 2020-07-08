@@ -1,26 +1,112 @@
-<!-- Author Shane Okukenu -->
-
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <link rel="icon" href="static/flag.jpg" sizes="16x16">
-    <title>Admin Login</title>
+    <title>Administrator | Ministry of Foreign Affairs and Trade of Barbados</title>
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Tangerine" rel='stylesheet'>
+    <!-- Third party plugin CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="static/css/Adminstyles.css" rel="stylesheet" />
+    <link href="static/css/AdminsigninLogin.css" rel="stylesheet" />
+    <!-- <link href="css/formStyle.css" rel="stylesheet" /> -->
 </head>
-<body>
-<h1>Admin Login</h1>  
 
-    <form action="{{ url_for('adminlogin')}}" method="post">
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
+<body id="page-top">
 
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username"><br>
-        
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="submit" value="Submit">
-    </form>
-    
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container">
+            <div class="container">
+                <div class="logo-holder">
+                    <div class="logo">
+                        <div href="/" tabindex="2">
+                            <img src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                            <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                                <h4 id="mainTitle">Ministry Of Forign Affairs And Forign Trade Of Babados</h4>
+                            </a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- <div id="yellow">
+
+            </div> -->
+    </nav>
+
+
+    <!-- Slide show code -->
+    <header class="intro">
+        <div class="intro-slideshow">
+            <!-- images for background slide show -->
+            <img src="https://miro.medium.com/max/1400/1*cQZhys1PMCiH2mJzqOSHTA.jpeg">
+            <img src="https://cdn.pixabay.com/photo/2013/02/21/19/07/barbados-84562_960_720.jpg">
+            <img src="https://cdn.pixabay.com/photo/2013/02/21/19/07/tropical-84537_960_720.jpg">
+            <img src="https://cdn.pixabay.com/photo/2016/07/28/20/27/clearwater-villa-beach-1549544_960_720.jpg">
+            <img src="https://cdn.pixabay.com/photo/2013/02/21/19/07/tropical-84537_960_720.jpg">
+            <img src="https://miro.medium.com/max/1400/1*cQZhys1PMCiH2mJzqOSHTA.jpeg">
+            <img src="https://cdn.pixabay.com/photo/2013/02/21/19/07/tropical-84537_960_720.jpg">
+            <img src="https://cdn.pixabay.com/photo/2016/07/28/20/27/clearwater-villa-beach-1549544_960_720.jpg">
+            <img src="https://miro.medium.com/max/1400/1*cQZhys1PMCiH2mJzqOSHTA.jpeg">
+            <img src="https://ssl.tzoo-img.com/images/tzoo.98833.0.729646.Barbados.jpg?width=1280">
+            <img src="https://cdn.pixabay.com/photo/2013/02/21/19/07/tropical-84537_960_720.jpg">
+            <img src="https://cdn.pixabay.com/photo/2016/07/28/20/27/clearwater-villa-beach-1549544_960_720.jpg">
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <div class="box">
+            <h4 class="h3 mb-3 text-white font-weight-normal">Please Login: Admin</h4>
+            <hr style="height:2px;border-width:0;color:#08318c;background-color:#08318c">
+            <form class="form-signin" method="post">
+                <label for="email" class="sr-only">Email</label>
+                <input id="email" class="form-control" type="text" name="email" placeholder="Email"></input>
+
+                <label for="email" class="sr-only">UserName</label>
+                <input id="email" class="form-control" type="text" name="username" placeholder="Username"></input>
+
+                <label for="password" class="sr-only">Password: </label>
+                <input id="password" class="form-control" type="password" name="password" placeholder="Password"></input>
+
+                <button class="btn btn-lg btn-primary custBtn btn-block" type="submit">Login</button>
+            </form>
+        </div>
+
+
+    </header>
+
+    <!-- Footer-->
+    <footer class="bg-light py-5">
+        <div id="footer-main" class="container">
+            <div class="small text-center text-muted">Copyright © 2020 BARBADIAN REGISTRATION SYSTEM </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="static/js/scripts.js"></script>
+
+
 </body>
+
 </html>
