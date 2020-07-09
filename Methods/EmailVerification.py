@@ -9,6 +9,8 @@ from Keywords import Variables
 from datetime import datetime
 from Models import Models
 import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 app = Flask(__name__)
@@ -24,8 +26,59 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = email #os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = password #os.environ.get('MAIL_PASSWORD')
 
-mail =Mail(app)
+mail = Mail(app)
 
+def formatBodyLink(subject, body, link, sender, recipient):
+    print(body)
+    msg= MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = recipient
+
+    html = """
+    <html>
+    <head></head>
+    <body>""" + body + '<br>'+'<a href='+link+'>'+'Please Click here to Activate Account'+'</a>' + """
+    </body>
+    </html>
+    """
+    plainText = body + " " + link
+
+    msg.attach(MIMEText(plainText,"plain"))
+    msg.attach(MIMEText(html, "html"))
+
+    return msg.as_string()
+    
+def formatBody(subject, body, sender, recipient):
+    msg= MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = recipient
+
+    html = """
+    <html>
+    <head></head>
+    <body>""" + body + """
+    </body>
+    </html>
+    """
+    plainText = body
+
+    msg.attach(MIMEText(plainText,"plain"))
+    msg.attach(MIMEText(html, "html"))
+
+    return msg.as_string()
+
+def sendEmail(subject,recipient,body):
+    try:
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.ehlo()
+        server.starttls()
+        server.login(email,password)
+        server.sendmail(recipient, recipient, body)
+        server.quit()
+    except Exception as e:
+        print(e, "email failed to send", sep='\n')
 
 def createEmailtoken(email):
     list=[email]
@@ -35,10 +88,9 @@ def createEmailtoken(email):
 
 #function to send emails to specified users with a link
 def Send(subject,link,recipient,body):
-    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
-    msg.html = body+'<br>'+'<a href='+link+'>'+'Please Click here to Activate Account'+'</a>'
-    with app.app_context():
-        mail.send(msg)
+    msg = formatBodyLink(subject,body,link,email,recipient)
+    t = '<br>'+'<a href='+link+'>'+'Please Click here to Activate Account'+'</a>'
+    sendEmail(subject,recipient,msg)
     return render_template("login.html")
 
 
@@ -59,7 +111,7 @@ def confirmToken(token):
             Variables.databaseLabels().History: HistoryList
             })            
     except SignatureExpired:
-        return render_template("errortimeout.html")
+        return'<h1>The Signature has expired</h1>'
     
     return redirect(url_for('Login'))
 
@@ -76,10 +128,9 @@ def Register(email,password,username):
                                         #Password Change
 
 def Send1(subject,link,recipient,body):
-    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
-    msg.html = body+'<br>'+'<a href='+link+'>'+'Please Click here to continue password change'+'</a>'
-    with app.app_context():
-        mail.send(msg)
+    msg = formatBodyLink(subject, body, link, email, recipient)
+    t= '<br>'+'<a href='+link+'>'+'Please Click here to continue password change'+'</a>'
+    sendEmail(subject,recipient,msg)
     return redirect(url_for('Login'))
 
 def createPasswordtoken(email):
@@ -109,10 +160,8 @@ def confirm_password(token):
 
 
 def Sendmail(recipient,subject,body):
-    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
-    msg.html = body+'<br>'
-    with app.app_context():
-        mail.send(msg)
+    msg = formatBody(subject, body, email, recipient)
+    sendEmail(subject,recipient,msg)
     return "sent"
 
 def EmailReminder(x):    

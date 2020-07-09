@@ -58,7 +58,10 @@ class AdminQuery:
         pass
 
     def CleanUserList(self):
-        threading.Timer(60.0, self.CleanUserList).start()        
+        mThread = threading.Timer(60.0, self.CleanUserList)
+        mThread.setDaemon(True)
+        mThread.start()
+  
         model=Models.MyMongoDB()  
         cur_date=datetime.datetime.now()
         five_minutes_ago=cur_date-timedelta(minutes=4) 
