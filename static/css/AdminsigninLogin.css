@@ -55,3 +55,36 @@
 .custBtn {
     margin-top: 3em;
 }
+
+@media only screen and (max-width: 1300px) {
+    .box {
+        background-color: #000;
+        padding: 5em;
+        border-radius: 15px;
+        margin: auto;
+        opacity: 0.8;
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .box {
+        background-color: #000;
+        padding: 5em;
+        border-radius: 15px;
+        margin: auto;
+        opacity: 0.8;
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 590px) {
+    .box {
+        background-color: #000;
+        padding: 5em;
+        border-radius: 15px;
+        margin: auto;
+        opacity: 0.8;
+        width: 90%;
+    }
+}

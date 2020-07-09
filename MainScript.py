@@ -1,7 +1,7 @@
 # Author: Shane Okukenu
 
 # Importing libraries
-from flask import Flask, redirect, url_for, render_template, session,request,jsonify, make_response
+from flask import Flask, redirect, url_for, render_template, session,request,jsonify,make_response
 from flask_pymongo import PyMongo
 from bson.json_util import dumps
 from pymongo import MongoClient
@@ -19,11 +19,12 @@ from flask.helpers import flash
 import geocoder
 from geopy.geocoders import Nominatim
 from Models.forms import RegisterForm
+import pymongo
 
 
 
 app = Flask(__name__) 
-mysecret=os.urandom(24)
+mysecret= 'o\x9e\xe6\x88:@L\xae\xa0\xf3,T\xfb\xc7\x1f\xf4\x12\xb2\xdd\x0c\x05\xcb>\x87'
 app.secret_key = mysecret  
 
 
@@ -36,24 +37,41 @@ SESSION_TYPE = Variables.siteLabels().SessionType
 
 #Creation of collections
 model=Models.MyMongoDB()
-if 'user_admin' not in model.db.list_collection_names():
-    adminuser=model.db["user_admin"]
-elif 'users' not in model.db.list_collection_names():
-    user=model.db["users"]
-elif 'diasporaList' not in model.db.list_collection_names():
-    diasporaList=model.db["diasporaList"]
-elif 'tempquery' not in model.db.list_collection_names():
-    diasporaList=model.db["tempquery"]
-elif 'Historical' not in model.db.list_collection_names():
-    history=model.db["Historical"]        
-else:
-    pass
+
+adminuser=model.db.user_admin
+user=model.db.users
+diasporaList=model.db.diasporaList
+tempquery=model.db.tempquery
+Historical=model.db.Historical
+
+
+if diasporaList.find_one({}) is None:
+    diasporaList.insert_one({Variables.databaseLabels().EmailAddress : 'test@yahoo.com'})
+    diasporaList.delete_many({})
+
+if Historical.find_one({}) is None:
+    Historical.insert_one({Variables.databaseLabels().EmailAddress : 'test@yahoo.com'})
+    Historical.delete_many({})
+
+if tempquery.find_one({}) is None:
+    tempquery.insert_one({Variables.databaseLabels().EmailAddress : 'test@yahoo.com'})
+    tempquery.delete_many({})
+
+if user.find_one({}) is None:
+    user.insert_one({Variables.databaseLabels().EmailAddress : 'test@yahoo.com'})
+    user.delete_many({})
+    
+if adminuser.find_one({}) is None:
+    adminuser.insert_one({Variables.databaseLabels().EmailAddress : 'test@yahoo.com'})
+    adminuser.delete_many({})
+
+
+
 
 
 #Cleans Unverified Users
 r=Queries.AdminQuery()
 r.CleanUserList()
-
 
 # Main routing modules
 @app.route('/')
@@ -431,6 +449,10 @@ def Account():
 def Error():
     return render_template("error403.html")
 
+@app.route("/errortimeout")
+def ErrorTimeout():
+    return render_template("errortimeout.html")
+
 
 @app.route('/logout')
 def logout():
@@ -443,6 +465,8 @@ def logout():
         return redirect(url_for('index'))
 
 
+
+
 #-------------------------------------------------------------------------
 @app.route("/admin")
 def adminindex():
@@ -453,17 +477,16 @@ def adminindex():
          return redirect(url_for("adminlogin"))
 
 
-@app.route("/admin246login642", methods=['POST','GET'])
+@app.route("/admin246login642",methods=['POST','GET'])
 def adminlogin():
     if 'adminuser' in session and model.db.user_admin.find_one({Variables.databaseLabels.Username:session['adminuser']}) is not None:
         return redirect(url_for('admindashboard'))
     admin_exists=Queries.SiteQuery()
     result=admin_exists.find_admin()
-
-    if result :
+    if result:
         if bcrypt.checkpw(request.form.get('password').encode('UTF-8'), result[Variables.databaseLabels.Password]):
-            session['adminuser'] = result[Variables.databaseLabels.Username]
-            # Add session to adminators as well
+            session['adminuser']=result[Variables.databaseLabels.Username]
+            # Add session to adminators as well
             q=Queries.AdminQuery()
             q.Indexing()
             q.AutoEmail()
@@ -471,14 +494,46 @@ def adminlogin():
             a=q.DatabaseTotal()
             print(a)
             return redirect(url_for('admindashboard'))
-        
         else:
             return render_template('adminerror.html')
-            
     else:
         return render_template('adminlogin.html')
 
+@app.route("/api")
+def api():
+    adminquery = Queries.AdminQuery()  
 
+    total_reg = adminquery.DatabaseTotal()
+    total_abroad = adminquery.DatabaseCitizensTravellingBB()
+    frens_bbos = adminquery.DatabaseOverseasResidentBB()
+
+    countries = ("St Barthelemy", "Barbados", "Denmark", "Curaco", "St Lucia")
+
+    map_mark_cnt = {c : v for c, v in ((entry, adminquery.CountryMarker(entry)) for entry in countries)}
+
+    result = \
+    f"""
+    total_reg:{total_reg},
+    total_study_abr: {total_abroad},
+    frens_bbos: {frens_bbos},
+    markers: {map_mark_cnt}
+
+    """ \
+        .replace('\n', '')
+    # result = {"total_reg": total_reg, 
+    # "total_study_abr": total_abroad,
+    # "frens_bbos": frens_bbos,
+    # "markers": map_mark_cnt}
+
+    print("result is: ", result)
+    
+    res = make_response(json.dumps(result, separators=(',', ':')), 200)
+    res.headers['Access-Control-Allow-Origin'] = '*'
+    return res
+
+
+
+       
 # @app.route('/admin246register642', methods=['POST','GET'])
 # def AdminRegister(): 
 #     if  request.method =='POST':
@@ -539,9 +594,8 @@ def query():
             querycol.insert_one(item)
         
         return redirect(url_for('admindemo'))
-
+        
     return render_template('query.html')
-
 
 
 @app.route("/queryresult", methods=['POST','GET'])
@@ -554,42 +608,11 @@ def admindemo():
     a = querylist.find()
     userquerylist = list(a)
     
-    return render_template('AdminTable.html', title='Admin', userquerylist = userquerylist)      
+    return render_template('AdminTable.html', title='Admin', userquerylist = userquerylist)     
+ 
 
 
-@app.route("/api")
-def api():
-    adminquery = Queries.AdminQuery()  
-
-    total_reg = adminquery.DatabaseTotal()
-    total_abroad = adminquery.DatabaseCitizensTravellingBB()
-    frens_bbos = adminquery.DatabaseOverseasResidentBB()
-
-    countries = ("St Barthelemy", "Barbados", "Denmark", "Curaco", "St Lucia")
-
-    map_mark_cnt = {c : v for c, v in ((entry, adminquery.CountryMarker(entry)) for entry in countries)}
-
-    result = \
-    f"""
-    total_reg:{total_reg},
-    total_study_abr: {total_abroad},
-    frens_bbos: {frens_bbos},
-    markers: {map_mark_cnt}
-
-    """ \
-        .replace('\n', '')
-    # result = {"total_reg": total_reg, 
-    # "total_study_abr": total_abroad,
-    # "frens_bbos": frens_bbos,
-    # "markers": map_mark_cnt}
-
-    print("result is: ", result)
-    
-    res = make_response(json.dumps(result, separators=(',', ':')), 200)
-    res.headers['Access-Control-Allow-Origin'] = '*'
-    return res
-
-# -------------------------------------------------------------
+# -------------------------------------------------------------------
 
 if __name__ == "__main__":      
-    app.run()
+    app.run(debug=True)

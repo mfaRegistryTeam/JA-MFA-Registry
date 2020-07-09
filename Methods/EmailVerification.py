@@ -9,104 +9,24 @@ from Keywords import Variables
 from datetime import datetime
 from Models import Models
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-
-import os
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
-
-
 
 
 app = Flask(__name__)
 
-# email = 'mfa.registry.team@gmail.com'
-from_email_addr = os.environ.get('MFA_REGISTRY_EMAIL')
-
-def send_heroku_mail(to_email_addr, subject, text=None, html=None):
-    print(to_email_addr, from_email_addr, sep='|')
-    mail_msg = Mail(from_email_addr, to_email_addr, subject, plain_text_content="It works bois!!" )
-
-    try:
-        api = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        response = api.send(mail_msg)
-
-        if response.status_code != 200:
-            print("Something went wrong")
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
-        else:
-            return "Success"
-
-    except Exception as e:
-        print(e)
-
-
-
-# password = 'valiantl3adershane'
+email = 'mfa.registry.team@gmail.com'
+password = 'valiantl3adershane'
 seralizer = URLSafeTimedSerializer('ThisNeedstoChange')
 
-# app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
-# app.config['MAIL_PORT'] = 587
-# app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
 
-# app.config['MAIL_USERNAME'] = email #os.environ.get('MAIL_USERNAME')
-# app.config['MAIL_PASSWORD'] = password #os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_USERNAME'] = email #os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = password #os.environ.get('MAIL_PASSWORD')
 
-# mail = Mail(app)
+mail =Mail(app)
 
-def formatBodyLink(subject, body, link, sender, recipient):
-    msg= MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = recipient
-
-    html = """
-    <html>
-    <head></head>
-    <body>""" + body + '<br>'+'<a href='+link+'>'+'Please Click here to Activate Account'+'</a>' + """
-    </body>
-    </html>
-    """
-    plainText = body + " " + link
-
-    msg.attach(MIMEText(plainText,"plain"))
-    msg.attach(MIMEText(html, "html"))
-
-    return msg.as_string()
-    
-def formatBody(subject, body, sender, recipient):
-    msg= MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = recipient
-
-    html = """
-    <html>
-    <head></head>
-    <body>""" + body + """
-    </body>
-    </html>
-    """
-    plainText = body
-
-    msg.attach(MIMEText(plainText,"plain"))
-    msg.attach(MIMEText(html, "html"))
-
-    return msg.as_string()
-
-def sendEmail(subject,recipient,body):
-    try:
-        server = smtplib.SMTP('smtp.gmail.com:587')
-        server.ehlo()
-        server.starttls()
-        server.login(email,password)
-        server.sendmail(recipient, recipient, body)
-        server.quit()
-    except Exception as e:
-        print(e, "email failed to send", sep='\n')
 
 def createEmailtoken(email):
     list=[email]
@@ -116,10 +36,10 @@ def createEmailtoken(email):
 
 #function to send emails to specified users with a link
 def Send(subject,link,recipient,body):
-    html_msg = formatBodyLink(subject,body,link, os.environ.get('MFA_REGISTRY_EMAIL'),recipient)
-    t = '<br>'+'<a href='+link+'>'+'Please Click here to Activate Account'+'</a>'
-    send_heroku_mail(recipient, subject,html=html_msg )
-    # sendEmail(subject,recipient,msg)
+    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
+    msg.html = body+'<br>'+'<a href='+link+'>'+'Please Click here to Activate Account'+'</a>'
+    with app.app_context():
+        mail.send(msg)
     return render_template("login.html")
 
 
@@ -140,7 +60,7 @@ def confirmToken(token):
             Variables.databaseLabels().History: HistoryList
             })            
     except SignatureExpired:
-        return'<h1>The Signature has expired</h1>'
+        return render_template("errortimeout.html")
     
     return redirect(url_for('Login'))
 
@@ -157,9 +77,10 @@ def Register(email,password,username):
                                         #Password Change
 
 def Send1(subject,link,recipient,body):
-    msg = formatBodyLink(subject, body, link, email, recipient)
-    t= '<br>'+'<a href='+link+'>'+'Please Click here to continue password change'+'</a>'
-    sendEmail(subject,recipient,msg)
+    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
+    msg.html = body+'<br>'+'<a href='+link+'>'+'Please Click here to continue password change'+'</a>'
+    with app.app_context():
+        mail.send(msg)
     return redirect(url_for('Login'))
 
 def createPasswordtoken(email):
@@ -189,8 +110,10 @@ def confirm_password(token):
 
 
 def Sendmail(recipient,subject,body):
-    msg = formatBody(subject, body, email, recipient)
-    sendEmail(subject,recipient,msg)
+    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
+    msg.html = body+'<br>'
+    with app.app_context():
+        mail.send(msg)
     return "sent"
 
 def EmailReminder(x):    

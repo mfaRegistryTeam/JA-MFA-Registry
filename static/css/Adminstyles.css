@@ -23,6 +23,25 @@
 }
 
 
+/* Syles for the slide show in the landing page */
+
+.carousel-item {
+    height: 60vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.blackBackground {
+    background: #08318c;
+    opacity: 0.8;
+    border-radius: 6px;
+}
+
+
 /* hr style  */
 
 
@@ -82,7 +101,7 @@ body {
 }
 
 .intro {
-    height: 100vh;
+    height: 120vh;
     position: relative;
     display: flex;
     justify-content: center;
@@ -116,6 +135,7 @@ body {
 
 .intro .intro-header {
     border-radius: 0.5rem;
+    width: 90%;
     margin: 20px;
     padding: 2rem 2.5rem;
     padding-left: 20px;
@@ -123,15 +143,18 @@ body {
 }
 
 .intro h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-bottom: 0.75rem;
 }
 
 .intro p {
-    font-size: 1.75rem;
+    font-size: 1.2rem;
 }
 
-@media (max-width: 700px) {
+
+/* @media that controls how the main page intro messsage looks */
+
+@media (max-width: 1200px) {
     html {
         font-size: 12px;
     }
@@ -139,7 +162,22 @@ body {
         padding: 1.5rem 2rem;
     }
     .intro h1 {
-        font-size: 2.5rem;
+        font-size: 3em;
+    }
+    .intro p {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 1100px) {
+    html {
+        font-size: 12px;
+    }
+    .intro-header {
+        padding: 1.5rem 2rem;
+    }
+    .intro h1 {
+        font-size: 3em;
     }
     .intro p {
         font-size: 1.25rem;
@@ -731,27 +769,19 @@ pre code {
 }
 
 @media (min-width: 576px) {
-    .container {
-        max-width: 540px;
-    }
+    .container {}
 }
 
 @media (min-width: 768px) {
-    .container {
-        max-width: 720px;
-    }
+    .container {}
 }
 
 @media (min-width: 992px) {
-    .container {
-        max-width: 960px;
-    }
+    .container {}
 }
 
 @media (min-width: 1200px) {
-    .container {
-        max-width: 1140px;
-    }
+    .container {}
 }
 
 .container-fluid,
@@ -768,26 +798,20 @@ pre code {
 
 @media (min-width: 576px) {
     .container-sm,
-    .container {
-        max-width: 540px;
-    }
+    .container {}
 }
 
 @media (min-width: 768px) {
     .container-md,
     .container-sm,
-    .container {
-        max-width: 720px;
-    }
+    .container {}
 }
 
 @media (min-width: 992px) {
     .container-lg,
     .container-md,
     .container-sm,
-    .container {
-        max-width: 960px;
-    }
+    .container {}
 }
 
 @media (min-width: 1200px) {
@@ -795,9 +819,7 @@ pre code {
     .container-lg,
     .container-md,
     .container-sm,
-    .container {
-        max-width: 1140px;
-    }
+    .container {}
 }
 
 .row {
@@ -2649,7 +2671,7 @@ fieldset:disabled a.btn {
 .btn-primary {
     color: #fff;
     background-color: #08318c;
-    border-color: #08318c;
+    border-color: #ffce0d;
 }
 
 .btn-primary:hover {

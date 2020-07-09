@@ -41,6 +41,25 @@
     border-radius: 6px;
 }
 
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 60vh;
+        min-height: 20;
+        background: no-repeat center center scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .blackBackground {
+        background: #08318c;
+        opacity: 0.8;
+        border-radius: 6px;
+    }
+    .d-none {}
+}
+
+
 /* hr style  */
 
 
@@ -7080,14 +7099,6 @@ button.bg-dark:focus {
     display: block;
     clear: both;
     content: "";
-}
-
-.d-none {
-    display: none !important;
-}
-
-.d-inline {
-    display: inline !important;
 }
 
 .d-inline-block {

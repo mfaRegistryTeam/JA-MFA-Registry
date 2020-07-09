@@ -9,8 +9,6 @@ from pymongo import MongoClient
 from datetime import timedelta
 from collections import Counter
 from Models import Models
-from geopy.geocoders import Nominatim
-from geopy.exc import GeocoderTimedOut
 from Methods import EmailVerification
 import threading
 
@@ -58,10 +56,10 @@ class AdminQuery:
         pass
 
     def CleanUserList(self):
-        mThread = threading.Timer(60.0, self.CleanUserList)
-        mThread.setDaemon(True)
-        mThread.start()
-  
+        mthread=threading.Timer(60.0, self.CleanUserList) 
+        mthread.setDaemon(True)   
+        mthread.start()
+        
         model=Models.MyMongoDB()  
         cur_date=datetime.datetime.now()
         five_minutes_ago=cur_date-timedelta(minutes=4) 
@@ -482,50 +480,16 @@ class AdminQuery:
         return count
 
     #Takes string type of country name that matches the exact pattern in the html dropdown
-    def CountryMarker(self):
+    def CountryMarker(self,name):
         model=Models.MyMongoDB()
         querycol=model.db
         querycol=querycol.diasporaList
-        countries = [
-    "Barbados","Canada","United Kingdom","United States of America","Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla",
-    "Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Belarus","Belgium","Belize",
-    "Benin","Bermuda","Bhutan","Bolivia","Bonaire","Bosnia & Herzegovina","Botswana","Brazil","British Indian Ocean Ter","Brunei","Bulgaria","Burkina Faso",
-    "Burundi","Cambodia","Cameroon","Canary Islands","Cape Verde","Cayman Islands","Central African Republic","Chad","Channel Islands","Chile","China",
-    "Christmas Island","Cocos Island","Colombia","Comoros","Congo","Cook Islands","Costa Rica","Cote DIvoire","Croatia","Cuba","Curaco","Cyprus",
-    "Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia",
-    "Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Ter","Gabon","Gambia","Georgia",
-    "Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guinea","Guyana","Haiti","Honduras","Hong Kong","Hungary",
-    "Iceland","Indonesia","India","Iran","Iraq","Isle of Man","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea North",
-    "Korea South","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia",
-    "Madagascar","Malaysia","Malawi","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Midway Islands",
-    "Moldova","Monaco","Mongolia","Montserrat","Morocco","Mozambique","Myanmar","Nambia","Nauru","Nepal","Netherland Antilles","Netherlands","Nevis",
-    "New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Norway","Oman","Pakistan","Palau Island","Palestine","Panama",
-    "Papua New Guinea","Paraguay","Peru","Phillipines","Pitcairn Island","Poland","Portugal","Puerto Rico","Qatar","Republic of Montenegro","Republic of Serbia",
-    "Reunion","Romania","Russia","Rwanda","St Barthelemy","St Eustatius","St Helena","St Kitts-Nevis","St Lucia","St Maarten","St Pierre & Miquelon",
-    "St Vincent & Grenadines","Saipan","Samoa","Samoa American","San Marino","Sao Tome & Principe","Saudi Arabia","Senegal","Seychelles","Sierra Leone",
-    "Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","Spain","Sri Lanka","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria",
-    "Tahiti","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tokelau","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos Is",
-    "Tuvalu","Uganda","Ukraine","United Arab Erimates","Uraguay","Uzbekistan","Vanuatu","Vatican City State","Venezuela","Vietnam","Virgin Islands (Brit)",
-    "Virgin Islands (USA)","Wake Island","Wallis & Futana Is","Yemen","Zaire","Zambia","Zimbabwe"]
-
-        lst=[]
-        geolocator = Nominatim(user_agent="Barbados")    
-        for country in countries:
-            result=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Country':country})
-            count =0                
-            try:
-                location = geolocator.geocode(country,timeout=16000) 
-                latitude=location.latitude
-                longitude=location.longitude  
-            except GeocoderTimedOut as e:    
-                print("Error: geocode failed on input %s with message %s"%(country,e.message))
-                #redirect to another page?
-                pass                           
-            for item in result:
-                print(item)
-                count+=1  
-                lst.append([country,(latitude,longitude),count]) 
-            return lst
+        result=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Country':name})
+        count =0            
+        for item in result:
+            print(item)
+            count+=1   
+        return count
 
     #Returns documents updated by the user in the past week
     def WeeklyUpdated(self):

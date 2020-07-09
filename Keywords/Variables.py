@@ -1,13 +1,17 @@
 # Author : Shane Okukenu
 
 class siteLabels:
-    DatabaseName = "heroku_qc5l7qqd"
+   
+    # DatabaseName = "Citizens-Database"
     # DatabaseURL = "mongodb://localhost:27017/Citizens-Database"
-    DatabaseURL= "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
     SessionType = "mongodb"
+    DatabaseName = "heroku_qc5l7qqd"
+    DatabaseURL = "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
+
 
 class correspondence:
     message='You are already officially registered. If you wish to update your information click Update '
+
 
 
 class databaseLabels:

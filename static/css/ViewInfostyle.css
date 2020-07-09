@@ -59,9 +59,7 @@ Table of Content:
 
 /*----------------------------------------------------*/
 
-h4{
-
-}
+h4 {}
 
 .heading {
     padding-top: 1em;
@@ -445,27 +443,42 @@ button:focus {
     position: relative;
     padding-left: 10em;
     padding-right: 10em;
+    padding-bottom: 5em;
     padding-top: 2em;
     bottom: -50px;
     background: #fff;
     box-shadow: 0px 20px 80px 0px rgba(153, 153, 153, 0.3);
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
     .home_banner_area .box_1620 {
         min-height: 700px;
         border-radius: 12px;
         position: relative;
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 2em;
+        padding-right: 2em;
         padding-top: 2em;
-        padding: 2em;
+        padding-bottom: 5em;
         bottom: -50px;
         background: #fff;
         box-shadow: 0px 20px 80px 0px rgba(153, 153, 153, 0.3);
     }
 }
 
+@media (min-width: 1300px) {
+    .home_banner_area .box_1620 {
+        min-height: 700px;
+        border-radius: 12px;
+        position: relative;
+        padding-left: 20em;
+        padding-right: 20em;
+        padding-top: 2em;
+        padding-bottom: 5em;
+        bottom: -50px;
+        background: #fff;
+        box-shadow: 0px 20px 80px 0px rgba(153, 153, 153, 0.3);
+    }
+}
 
 .home_banner_area .banner_inner {
     position: relative;
@@ -2097,9 +2110,10 @@ button:focus {
     }
 }
 
-b{
-    color:black;
+b {
+    color: black;
 }
+
 sup,
 sub,
 u,
@@ -3734,9 +3748,9 @@ h6 {
     border-radius: 10px;
 }
 
-hr{
+hr {
     background-color: #08318c;
-    color:  #08318c;
+    color: #08318c;
 }
 
 .personal_text h3 {

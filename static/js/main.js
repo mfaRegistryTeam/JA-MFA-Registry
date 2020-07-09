@@ -97,7 +97,7 @@ $(document).ready(function() {
             $("#residential_ro").prop("required", true);
             $("#mobile_ro").prop("required", true);
             $("#WA_ro").prop("required", true);
-            $("#AOI").prop("required", true);
+            $("#AOI").prop("required", false);
 
             $("#AOI_fr").prop("required", false);
             $("#KBB").prop("required", false);
@@ -124,22 +124,22 @@ $(document).ready(function() {
 
         } else if ($(this).val() == 'Friend') {
             // alert('type B');
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
-            $("#AOI_fr").prop("required", true);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
+            $("#AOI_fr").prop("required", false);
 
-            $("#KBB").prop("required", true);
-            $("#KBB").prop("required", true);
-            $("#KBB").prop("required", true);
-            $("#KBB").prop("required", true);
-            $("#KBB").prop("required", true);
-            $("#KBB").prop("required", true);
+            $("#KBB").prop("required", false);
+            $("#KBB").prop("required", false);
+            $("#KBB").prop("required", false);
+            $("#KBB").prop("required", false);
+            $("#KBB").prop("required", false);
+            $("#KBB").prop("required", false);
 
             $("#radio").prop("required", false);
             $("#street_bb").prop("required", false);
