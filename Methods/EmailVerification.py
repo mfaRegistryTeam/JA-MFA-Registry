@@ -71,7 +71,8 @@ def Register(email,password,username):
     link = url_for('emailVerificationhandler', token = regtoken, _external=True)
     subject = "Confirm Ministry of Foreign Affairs and Trade Barbados National Registry Account"
     body = '<h3>Good day / evening </h3><p>This has been sent for email address confirmation and the activation of a recently created National Registry Account. Please click the link to activate account</p>'
-    return Send(subject,link,email,body)
+    #return Send(subject,link,email,body)
+    return link
 
 #-------------------------------------------------------------------------------------------------------
                                         #Password Change

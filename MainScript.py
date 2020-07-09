@@ -425,9 +425,10 @@ def SigningUp():
     result=user_exists.find_existing_user()     
     if result is None:
         if request.form.get('password')==request.form.get('confirm_password') and request.form.get('password')  is not None:
-             EmailVerification.Register(request.form.get('email'),request.form.get('password'),request.form.get('username'))
+             link = EmailVerification.Register(request.form.get('email'),request.form.get('password'),request.form.get('username'))
              
-             return render_template('login.html')
+             #return render_template('login.html')
+             return redirect(link)
         else:
             return render_template('signup.html') 
     else:
@@ -471,7 +472,9 @@ def logout():
 @app.route("/admin")
 def adminindex():
     if 'adminuser' in session:
-         return redirect(url_for("admindashboard"))
+        return redirect(url_for('query'))
+
+        #  return redirect(url_for("admindashboard"))
     else:
          #Admin login page
          return redirect(url_for("adminlogin"))
@@ -493,7 +496,8 @@ def adminlogin():
 
             a=q.DatabaseTotal()
             print(a)
-            return redirect(url_for('admindashboard'))
+            return redirect(url_for('query'))
+            #return redirect(url_for('adminlogin'))
         else:
             return render_template('adminerror.html')
     else:
