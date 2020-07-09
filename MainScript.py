@@ -468,7 +468,21 @@ def logout():
 
 
 
+
+
 #-------------------------------------------------------------------------
+
+@app.route('/adminlogout')
+def adminlogout():
+    if 'adminuser' in session:
+        session.pop('adminuser', None)    
+
+        return redirect(url_for('adminlogin'))         
+    else:
+        #Landing page
+        return redirect(url_for('adminlogin'))     
+
+
 @app.route("/admin")
 def adminindex():
     if 'adminuser' in session:
@@ -538,27 +552,28 @@ def api():
 
 
        
-# @app.route('/admin246register642', methods=['POST','GET'])
-# def AdminRegister(): 
-#     if  request.method =='POST':
-#         existing_user=Queries.SiteQuery()        
-#         result=existing_user.find_admin()
-#         if result is None:
-#             if request.form.get('password')==request.form.get('confirm_password'):               
-#                 database=Models.DatabaseStruct()
-#                 database.InsertAdmin()
+@app.route('/admin246register642', methods=['POST','GET'])
+def AdminRegister(): 
+    if  request.method =='POST':
+        existing_user=Queries.SiteQuery()        
+        result=existing_user.find_admin()
+        if result is None:
+            if request.form.get('password')==request.form.get('confirm_password'):               
+                database=Models.DatabaseStruct()
+                database.InsertAdmin()
                 
-#                 return redirect(url_for('adminlogin'))
-#             #error regarding password matching or email verification
-#         return redirect(url_for('error'))
+                return redirect(url_for('adminlogin'))
+            #error regarding password matching or email verification
+        return redirect(url_for('error'))
         
-#     return render_template('adminregister.html')
+    return render_template('adminregister.html')
 
 
 @app.route("/adminDashboard")
 def admindashboard():
     if 'adminuser' in session:
-        return render_template("AdminDash.html")
+        # return render_template("AdminDash.html")
+        return redirect(url_for("query")) 
     else:
         #Landing page
         return redirect(url_for("adminlogin")) 
