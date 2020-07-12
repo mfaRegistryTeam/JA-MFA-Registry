@@ -11,6 +11,8 @@ from collections import Counter
 from Models import Models
 from Methods import EmailVerification
 import threading
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
 
 
 
@@ -314,13 +316,13 @@ class AdminQuery:
             pass
         if fr_interests is not None:  
                     
-            query.update({Variables.databaseLabels().AreasofInterestFr:{'$all':fr_interests}})
+            query.update({Variables.databaseLabels().AreasofInterestFr:{'$all':[fr_interests]}})
         
         if KnowledgeofBB is None:
             pass
         if KnowledgeofBB is not None:
             
-            query.update({Variables.databaseLabels().KnowledgeofBB:{'$all':KnowledgeofBB}})
+            query.update({Variables.databaseLabels().KnowledgeofBB:{'$all':[KnowledgeofBB]}})
 
        
          
@@ -421,8 +423,8 @@ class AdminQuery:
         model=Models.MyMongoDB()
         querycol=model.db
         querycol=querycol.diasporaList
-        result=querycol.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':7,'$lte':84},
-            'Resident-Abroad-Address.Location.1':{'$gte':-180,'$lte':-20}})
+        result=querycol.find({'Classification':'ResidentO','Residence-Abroad-Address.Location.0':{'$gte':7,'$lte':84},
+            'Residence-Abroad-Address.Location.1':{'$gte':-180,'$lte':-20}})
         count = 0            
         for item in result:
             print(item)
@@ -433,8 +435,8 @@ class AdminQuery:
         model=Models.MyMongoDB()
         querycol=model.db
         querycol=querycol.diasporaList
-        result=querycol.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':35,'$lte':72},
-        'Resident-Abroad-Address.Location.1':{'$gte':-25,'$lte':65}})       
+        result=querycol.find({'Classification':'ResidentO','Residence-Abroad-Address.Location.0':{'$gte':35,'$lte':72},
+        'Residence-Abroad-Address.Location.1':{'$gte':-25,'$lte':65}})       
         count =0     
         for item in result:
             print(item)
@@ -445,8 +447,8 @@ class AdminQuery:
         model=Models.MyMongoDB()
         querycol=model.db
         querycol=querycol.diasporaList
-        result=querycol.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':-10,'$lte':80},
-        'Resident-Abroad-Address.Location.1':{'$gte':-170,'$lte':25}})
+        result=querycol.find({'Classification':'ResidentO','Residence-Abroad-Address.Location.0':{'$gte':-10,'$lte':80},
+        'Residence-Abroad-Address.Location.1':{'$gte':-170,'$lte':25}})
         count =0            
         for item in result:
             print(item)
@@ -457,8 +459,8 @@ class AdminQuery:
         model=Models.MyMongoDB()
         querycol=model.db
         querycol=querycol.diasporaList
-        result=model.db.diasporaList.find({'Classification':'ResidentO','Resident-Abroad-Address.Location.0':{'$gte':-37,'$lte':35},
-        'Resident-Abroad-Address.Location.1':{'$gte':-17,'$lte':50}})
+        result=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Location.0':{'$gte':-37,'$lte':35},
+        'Residence-Abroad-Address.Location.1':{'$gte':-17,'$lte':50}})
         count =0            
         for item in result:
             print(item)
@@ -471,7 +473,7 @@ class AdminQuery:
         querycol=model.db
         querycol=querycol.diasporaList
         result=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Location.0':{'$gte':-55,'$lte':12},
-        'Resident-Abroad-Address.Location.1':{'$gte':-81,'$lte':-35}})
+        'Residence-Abroad-Address.Location.1':{'$gte':-81,'$lte':-35}})
         count =0            
         for item in result:
             print(item)
@@ -484,12 +486,45 @@ class AdminQuery:
         model=Models.MyMongoDB()
         querycol=model.db
         querycol=querycol.diasporaList
-        result=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Country':name})
-        count =0            
-        for item in result:
-            print(item)
-            count+=1   
-        return count
+        lst=[]
+        countries = [
+            "Barbados","Canada","United Kingdom","United States of America","Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla",
+            "Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Belarus","Belgium","Belize",
+            "Benin","Bermuda","Bhutan","Bolivia","Bonaire","Bosnia & Herzegovina","Botswana","Brazil","British Indian Ocean Ter","Brunei","Bulgaria","Burkina Faso",
+            "Burundi","Cambodia","Cameroon","Canary Islands","Cape Verde","Cayman Islands","Central African Republic","Chad","Channel Islands","Chile","China",
+            "Christmas Island","Cocos Island","Colombia","Comoros","Congo","Cook Islands","Costa Rica","Cote DIvoire","Croatia","Cuba","Curaco","Cyprus",
+            "Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia",
+            "Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Ter","Gabon","Gambia","Georgia",
+            "Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guinea","Guyana","Haiti","Honduras","Hong Kong","Hungary",
+            "Iceland","Indonesia","India","Iran","Iraq","Isle of Man","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea North",
+            "Korea South","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia",
+            "Madagascar","Malaysia","Malawi","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Midway Islands",
+            "Moldova","Monaco","Mongolia","Montserrat","Morocco","Mozambique","Myanmar","Nambia","Nauru","Nepal","Netherland Antilles","Netherlands","Nevis",
+            "New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Norway","Oman","Pakistan","Palau Island","Palestine","Panama",
+            "Papua New Guinea","Paraguay","Peru","Phillipines","Pitcairn Island","Poland","Portugal","Puerto Rico","Qatar","Republic of Montenegro","Republic of Serbia",
+            "Reunion","Romania","Russia","Rwanda","St Barthelemy","St Eustatius","St Helena","St Kitts-Nevis","St Lucia","St Maarten","St Pierre & Miquelon",
+            "St Vincent & Grenadines","Saipan","Samoa","Samoa American","San Marino","Sao Tome & Principe","Saudi Arabia","Senegal","Seychelles","Sierra Leone",
+            "Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","Spain","Sri Lanka","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria",
+            "Tahiti","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tokelau","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos Is",
+            "Tuvalu","Uganda","Ukraine","United Arab Erimates","Uraguay","Uzbekistan","Vanuatu","Vatican City State","Venezuela","Vietnam","Virgin Islands (Brit)",
+            "Virgin Islands (USA)","Wake Island","Wallis & Futana Is","Yemen","Zaire","Zambia","Zimbabwe"]
+
+        for country in countries:
+            geolocator = Nominatim(user_agent="Barbados")
+            try:
+                location = geolocator.geocode(country,timeout=16000) 
+                latitude=location.latitude
+                longitude=location.longitude  
+            except GeocoderTimedOut as e:    
+                print("Error: geocode failed on input %s with message %s"%(country,e.message))
+                #redirect to another page?
+                pass            
+            result=model.db.diasporaList.find({'Classification':'ResidentO','Residence-Abroad-Address.Country':country})
+            count =0            
+            for item in result:                
+                count+=1   
+            lst.append([country,(latitude,longitude),count])
+        return lst
 
     #Returns documents updated by the user in the past week
     def WeeklyUpdated(self):
@@ -498,7 +533,7 @@ class AdminQuery:
         querycol=querycol.diasporaList
         cur_date=datetime.datetime.now()
         last_week=cur_date-timedelta(weeks=1)
-        a=querycol.find({'Date-Last-Updated':{'$gte':last_week,'$lte':cur_date}}).sort({'Date-Last-Updated':-1}).limit(50)
+        a=querycol.find({'Date-Last-Updated':{'$gte':last_week,'$lte':cur_date}}).sort([('Date-Last-Updated',-1)]).limit(50)
         lst=[]
         for item in a:
             lst.append(item)
@@ -511,7 +546,7 @@ class AdminQuery:
         querycol=querycol.diasporaList
         cur_date=datetime.datetime.now()
         last_week=cur_date-timedelta(weeks=1)
-        a=querycol.find({'Date-Added':{'$gte':last_week,'$lte':cur_date}}).sort({'Date-Added':-1}).limit(50)
+        a=querycol.find({'Date-Added':{'$gte':last_week,'$lte':cur_date}}).sort([('Date-Added',-1)]).limit(50)
         lst=[]
         for item in a:
             lst.append(item)

@@ -93,8 +93,9 @@ def ChangePassword(email):
     changetoken = createPasswordtoken(email)
     plink = url_for('PasswordChangehandler', token = changetoken, _external=True)
     subject = "Barbados MFA Registry Account Password Change Request"
-    body = '<h3>Good day / evening </h3><p>This email has been sent to confirm you wish to change your Registry Account password.</p>'    
-    return Send1(subject,plink,email,body)
+    body = '<h3>Good day / evening </h3><p>This email has been sent to confirm you wish to change your Registry Account password.</p>' 
+    return plink   
+    # return Send1(subject,plink,email,body)
 
 
 def confirm_password(token):
@@ -120,6 +121,6 @@ def Sendmail(recipient,subject,body):
 def EmailReminder(x):    
     email = x
     subject = "Barbados MFA Registry Account Update Reminder"
-    body = '<h3>Good day / evening </h3><p>This is an email notification indicating it has been approximately 6 months since your last update. Please visit #urlhere to ensure your account information is current</p>'
+    body = '<h3>Good day / evening </h3><p>This is an email notification indicating it has been approximately 6 months since your last update. Please visit https://mfa-registry.herokuapp.com/, to ensure your account information is current</p>'
     #add link to bring user directly to site
     return Sendmail(email,subject,body)

@@ -369,14 +369,17 @@ def Login():
 @app.route('/PasswordReset', methods=['POST','GET'])
 def password():
     if 'username' in session:
-        return redirect(url_for('index'))    
+        return redirect(url_for('index'))  
+
     email=request.form.get('email') 
     if email is not None:
         user=Queries.SiteQuery
         result=user.find_existing_user
         if result is not None:
-            EmailVerification.ChangePassword(email)
-            return redirect(url_for('index'))
+            # EmailVerification.ChangePassword(email)
+            plink = EmailVerification.ChangePassword(email)
+            return redirect(plink)
+            # return redirect(url_for('index'))
     else:
         return render_template('pchange1.html')  
 
@@ -496,6 +499,7 @@ def adminindex():
 
 @app.route("/admin246login642",methods=['POST','GET'])
 def adminlogin():
+
     if 'adminuser' in session and model.db.user_admin.find_one({Variables.databaseLabels.Username:session['adminuser']}) is not None:
         return redirect(url_for('admindashboard'))
     admin_exists=Queries.SiteQuery()
@@ -506,10 +510,10 @@ def adminlogin():
             # Add session to adminators as well
             q=Queries.AdminQuery()
             q.Indexing()
+            
             q.AutoEmail()
+           
 
-            a=q.DatabaseTotal()
-            print(a)
             return redirect(url_for('query'))
             #return redirect(url_for('adminlogin'))
         else:
@@ -543,7 +547,7 @@ def api():
     # "frens_bbos": frens_bbos,
     # "markers": map_mark_cnt}
 
-    print("result is: ", result)
+    # print("result is: ", result)
     
     res = make_response(json.dumps(result, separators=(',', ':')), 200)
     res.headers['Access-Control-Allow-Origin'] = '*'
@@ -589,8 +593,7 @@ def AdminView(email):
     queryresult = database.AdminViewFormData(email)
     if queryresult is None:
         return redirect(url_for('AdminView'))
-    print(queryresult)
-    print(email)    
+    
     return render_template('Adminview.html',queryresult=queryresult)
 
 
