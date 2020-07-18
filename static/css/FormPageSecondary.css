@@ -1,14 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Exo&display=swap');
-
 .wrapper {
     background: #f7f7f7;
-    margin: 10px auto;
+    margin: 10px;
     padding: 5px;
     border-radius: 5px;
 }
 
-.radio_checkbox{
-  align-items: center;
+.radio_checkbox {
+    align-items: center;
 }
 
 .wrapper .radio_tabs {
@@ -21,14 +20,6 @@
     padding: 18px;
     display: flex;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
-}
-
-.wrapper .radio_tabs label {
-    margin-right: 15px;
-    display: block;
-    position: relative;
-    cursor: pointer;
-    padding-left: 28px;
 }
 
 .wrapper .content {
@@ -47,21 +38,22 @@
     margin-bottom: 15px;
 }
 
+
 /* style for revealing data */
 
 .reveal-if-active {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-  }
-  
+}
+
 .reveal-if-active {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
     transform: scale(0.8);
     transition: 0.5s;
-  }
+}
 
 .reveal-if-active {
     opacity: 0;
@@ -70,14 +62,24 @@
     font-size: 16px;
     transform: scale(0.8);
     transition: 0.5s;
-  }
-  
-  /* drop down menu for register form */
-  #show-me {
-    display:none;
-  }
+}
 
-  .hide {
+
+/* drop down menu for register form */
+
+#show-me {
     display: none;
-  }
-  
+}
+
+.hide {
+    display: none;
+}
+
+@media screen and (max-width: 512px) {
+    .wrapper {
+        background: #f7f7f7;
+        margin: 10px auto;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}

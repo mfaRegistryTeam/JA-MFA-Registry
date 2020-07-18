@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Update | Ministry of Foreign Affairs and Foreign Trade</title>
+    <title>Update | Ministry of Foreign Affairs and Foreign Trade of Barbados</title>
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Font-->
@@ -48,14 +48,14 @@
                                     <div class='container'>
                                         {% include '_message.html' %}
                                     </div>
-                                    <div class="wizard-header">
+                                    <div class="wizard-header ">
                                         <h3 class="heading">Update Personal Infomation</h3>
                                         <p>Please enter your update infomation and proceed to the next step</p>
                                         <p>Be sure to reselect important fields (ie. DOB) and other fields relevant to your current situation.</p>
                                     </div>
                                     <!-- row for first name, last name and middle name -->
                                     <div class="form-row">
-                                        <div class="form-holder">
+                                        <div class="form-holder form-holder-2">
                                             <fieldset>
                                                 <legend>First Name</legend>
 
@@ -63,13 +63,13 @@
 
                                             </fieldset>
                                         </div>
-                                        <div class="form-holder">
+                                        <div class="form-holder form-holder-2">
                                             <fieldset>
                                                 <legend>Middle Name</legend>
                                                 {{ render_field(form.Middlename, class="form-control", placeholder="Middle Name")}}
                                             </fieldset>
                                         </div>
-                                        <div class="form-holder">
+                                        <div class="form-holder form-holder-2">
                                             <fieldset>
                                                 <legend>Last Name</legend>
                                                 {{ render_field(form.Lastname, class="form-control",placeholder="Last Name")}}
@@ -268,19 +268,19 @@
                                     </div>
                                     <!-- row for Emergency Contact first name, last name-->
                                     <div class="form-row">
-                                        <div class="form-holder">
+                                        <div class="form-holder form-holder-2">
                                             <fieldset>
                                                 <legend>Emergency Contact: First Name</legend>
                                                 {{ render_field(form.EmergencyConFirstname, class="form-control")}}
                                             </fieldset>
                                         </div>
-                                        <div class="form-holder">
+                                        <div class="form-holder form-holder-2">
                                             <fieldset>
                                                 <legend>Emergency Contact: Last Name</legend>
                                                 {{ render_field(form.EmergencyConLastname, class="form-control")}} </fieldset>
                                         </div>
                                         <!-- Emergency Contact relationship field -->
-                                        <div class="form-holder">
+                                        <div class="form-holder form-holder-2">
                                             <fieldset>
                                                 <legend>Emergency Contact: Relaionship</legend>
                                                 {{ render_field(form.EmergencyConRel, class="form-control")}}
@@ -432,20 +432,20 @@
                                                         </div>
                                                         <!-- row for Emergency Contact first name, last name-->
                                                         <div class="form-row">
-                                                            <div class="form-holder">
+                                                            <div class="form-holder form-holder-2">
                                                                 <fieldset>
                                                                     <legend>Emergency Contact Abroad: First Name</legend>
                                                                     {{ render_field(form.EmergencyConFirstnameab, class="form-control")}}
                                                                 </fieldset>
                                                             </div>
-                                                            <div class="form-holder">
+                                                            <div class="form-holder form-holder-2">
                                                                 <fieldset>
                                                                     <legend>Emergency Contact Abroad: Last Name</legend>
                                                                     {{ render_field(form.EmergencyConLastnameab, class="form-control")}}
                                                                 </fieldset>
                                                             </div>
                                                             <!-- Emergency Contact relationship field -->
-                                                            <div class="form-holder">
+                                                            <div class="form-holder form-holder-2">
                                                                 <fieldset>
                                                                     <legend>Emergency Contact Abroad: Relaionship</legend>
                                                                     {{ render_field(form.EmergencyConRelab, class="form-control")}}
