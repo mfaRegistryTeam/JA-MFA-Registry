@@ -7,7 +7,7 @@ class siteLabels:
     SessionType = "mongodb"
     # DatabaseName = "heroku_qc5l7qqd"
     # DatabaseURL = "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
-    DatabaseURL = "mongodb+srv://JoshuaAlkins:xdYDFnJ2CsppXSmM@cluster0.ogus1.mongodb.net/"+DatabaseName+"?retryWrites=true&w=majority"
+    DatabaseURL = "mongodb+srv://JoshuaAlkins:JA_MFA_password@cluster0.ogus1.mongodb.net/"+"Citizens-Database-JM"+"?retryWrites=true&w=majority"
 
 
 class correspondence:
