@@ -14,12 +14,14 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut
 import datetime
 from pprint import pprint
+from Keywords.Variables import siteLabels
 
 class MyMongoDB:
     def __init__(self):
         #self._client = MongoClient('localhost', 27017)
-        self._client = MongoClient("mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false")
+        self._client = MongoClient(Variables.siteLabels.DatabaseURL)
         self.db = self._client[Variables.siteLabels.DatabaseName]     
+        # old mlabs dburi: "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
 
 class DatabaseStruct:
     def __init__(self):
