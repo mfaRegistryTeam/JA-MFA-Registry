@@ -2,11 +2,11 @@
 
 class siteLabels:
    
-    DatabaseName = "Citizens-Database-JM"
-    DatabaseURL = "mongodb://localhost:27017/Citizens-Database-JM"
+    # DatabaseName = "Citizens-Database-JM"
+    # DatabaseURL = "mongodb://localhost:27017/Citizens-Database-JM"
     SessionType = "mongodb"
-    # DatabaseName = "heroku_qc5l7qqd"
-    # DatabaseURL = "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
+    DatabaseName = "heroku_qc5l7qqd"
+    DatabaseURL = "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
 
 
 class correspondence:

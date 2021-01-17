@@ -17,8 +17,8 @@ from pprint import pprint
 
 class MyMongoDB:
     def __init__(self):
-        self._client = MongoClient('localhost', 27017)
-        # self._client = MongoClient("mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false")
+        #self._client = MongoClient('localhost', 27017)
+        self._client = MongoClient("mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false")
         self.db = self._client[Variables.siteLabels.DatabaseName]     
 
 class DatabaseStruct:
