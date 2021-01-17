@@ -11,7 +11,55 @@ html {
 }
 
 body {
-    background-color: #ffce0d;
+    /* background-color: #fed200; */
+    background-image: url("https://www.teahub.io/photos/full/104-1042092_jamaica-live-hd-jamaica-wallpapers-photos.jpg");
+    background-color: #cccccc;
+}
+
+.button {
+    display: inline-block;
+    border-radius: 8px;
+    background-color: #fed200;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+    width: 110px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.button:hover {
+    background-color: #009c39;
+}
+
+.button:hover span {
+    padding-right: 25px;
+    background-color: #009c39;
+}
+
+.button:hover span:after {
+    opacity: 1;
+    right: 0;
+    background-color: #009c39;
 }
 
 .background {
@@ -64,7 +112,7 @@ body {
         background-image: url('https://cdn.pixabay.com/photo/2016/07/28/20/27/clearwater-villa-beach-1549544_960_720.jpg');
     }
     25% {
-        background-image: url('https://cdn.pixabay.com/photo/2013/02/21/19/07/barbados-84562_960_720.jpg');
+        background-image: url('https://cdn.pixabay.com/photo/2013/02/21/19/07/Jamaica-84562_960_720.jpg');
     }
     50% {
         background-image: url('https://cdn.pixabay.com/photo/2016/07/28/20/27/clearwater-villa-beach-1549544_960_720.jpg');
@@ -95,6 +143,7 @@ body {
     display: inline-block;
     vertical-align: text-top;
     justify-content: center;
+    padding: 2em;
 }
 
 .form-v1-content .wizard-form {
@@ -105,7 +154,7 @@ body {
     display: block;
     width: 100%;
     overflow: hidden;
-    background: #08318c;
+    background: #009c39;
     border-radius: 10px;
     -o-border-radius: 10px;
     -ms-border-radius: 10px;
@@ -117,7 +166,7 @@ body {
     float: top;
     height: 20%SS;
     width: 280px;
-    background: #08318c;
+    background: #009c39;
 }
 
 .form-register .steps ul {
@@ -198,7 +247,7 @@ body {
 .form-register .steps td.current a:active .step-icon,
 .form-register .steps td.done a .step-icon,
 .form-register .steps td.done a:active .step-icon {
-    background: #ffce0d;
+    background: #fed200;
     color: #fff;
     box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.25);
     -o-box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.25);
@@ -235,7 +284,7 @@ body {
 }
 
 .form-register .content .inner {
-    padding: 0 50px;
+    padding: 10 50px;
 }
 
 .form-register .content .wizard-header {
@@ -309,6 +358,7 @@ body {
 
 .inner .form-row #checkbox {
     margin: 10px 0 28px 11px;
+    padding: 10px;
     font-size: 15px;
     color: #666;
     font-weight: 400;
@@ -491,7 +541,7 @@ body {
 .inner .form-row .form-holder input#plan-1:checked+label,
 .inner .form-row .form-holder input#plan-2:checked+label,
 .inner .form-row .form-holder input#plan-3:checked+label {
-    background: #ffce0d;
+    background: #fed200;
 }
 
 .inner .form-row .form-holder select {
@@ -525,7 +575,7 @@ body {
 .actions {
     float: right;
     width: 540px;
-    background: #08318c;
+    background: #009c39;
 }
 
 .actions ul {
@@ -567,17 +617,17 @@ body {
     -ms-align-items: center;
     -moz-align-items: center;
     -webkit-align-items: center;
-    background: #ffce0d;
+    background: #fed200;
     cursor: pointer;
     font-size: 18px;
 }
 
 .actions ul li:hover {
-    background: #ffce0d;
+    background: #fed200;
 }
 
 .actions ul li a {
-    color: #08318c;
+    color: #009c39;
     text-decoration: none;
     padding: 13px 19px;
 }
@@ -677,6 +727,26 @@ body {
         /* margin: 0 -10px; */
         position: relative;
     }
+    .form-v1-content {
+        background: #fff;
+        width: 95%;
+        box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        -o-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        -ms-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+        -o-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        /* margin: 145px 145px 145px 145px; */
+        font-family: 'Open Sans', sans-serif;
+        display: inline-block;
+        vertical-align: text-top;
+        justify-content: center;
+        padding-top: 7em;
+    }
 }
 
 @media screen and (max-width: 520px) {
@@ -711,7 +781,7 @@ body {
     .actions {
         float: right;
         width: 540px;
-        background: #08318c;
+        background: #009c39;
     }
     .form-register .steps td a .step-text {
         color: #ccc;
@@ -725,7 +795,7 @@ body {
     .actions {
         float: right;
         width: 300px;
-        background: #08318c;
+        background: #009c39;
     }
 }
 

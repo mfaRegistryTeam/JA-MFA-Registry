@@ -1,7 +1,2 @@
-# MFA Registry Repo
-
-Submission for SWEN 3004 Web Development.
-
-
-
-
+# JA-MFA
+Website for the Ministry of Foreign Affairs in Jamaica

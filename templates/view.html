@@ -4,8 +4,9 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <title>View Information | Ministry of Foreign Affairs and Foreign Trade of Barbados</title>
+    <title>View Information | Ministry of Foreign Affairs and Foreign Trade of Jamaica</title>
     <link rel="icon" href="static/flag.jpg" sizes="16x16">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="img/favicon.png" type="image/png">
 
@@ -24,13 +25,20 @@
                 <div class="banner_content">
                     <div class="media">
                         <div class="media-body">
-                            <img src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
+                            <img id="coatOfArms" style=" width:100px; height:100px; " src="static\582px-Coat_of_arms_of_Jamaica.svg.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF JAMAICA"/>
+                            <br>
+                            <a class="btn btn-dark btn-xl js-scroll-trigger" href="update">Update this Information </a>
+                            </t></t>
+                            <a class="btn btn-dark btn-xl js-scroll-trigger" href="logout">Logout</a>
+                            <br>
+                            <br>
+
                             <div class="personal_text">
-                                <h3 style="background-color: #08318c; color: beige; border-radius: 10px; align-content: center;"> {{queryresult[3]}} {{queryresult[1]}} {{queryresult[2]}}</h3>
+                                <h3 style="background-color: #009c39; color: beige; border-radius: 10px; align-content: center;"> {{queryresult[3]}} {{queryresult[2]}} {{queryresult[1]}}</h3>
                                 <h4>Important</h4>
                                 <hr>
                                 <h4 style="background-color: white; color: #000; font-size: 13px;">The information displayed on this page is an accurate representation of the data that you have provided to the Ministry of Foreign Affairs and Foreign Trade. It is your responsibility to ensure that the information displayed
-                                    here is accurate at all times as it is the basis on which the Ministry relates to you in relevant matters. This information can be updated as necessary from your account dashboard.</h4>
+                                    here is accurate at all times as it is the basis on which the Ministry relates to you in relevant matters. This information can be updated as necessary from your account.</h4>
 
                                 <h4>Personal Information</h4>
                                 <hr>
@@ -38,116 +46,309 @@
                                     <li><b class="lnr lnr-calendar-full"> Date of Birth (y/m/d) : </b> {{queryresult[5][0:10]}} </li>
                                     <li><b class="lnr lnr-phone-handset">Gender : </b> {{queryresult[4]}} </li>
                                     <li><b class="lnr lnr-envelope">Nationality (Birth) :</b> {{queryresult[6]}}</li>
-                                    <li><b class="lnr lnr-home">Passport Number : </b> {{queryresult[7]}}</li>
-                                    <li><b class="lnr lnr-home">Country of Issued Passport :</b> {{queryresult[8]}}</li>
+                                    <li><b class="lnr lnr-home">Jamaican Passport Number : </b> {{queryresult[7]}}</li>
+                                    <li><b class="lnr lnr-home">Other Nationality :</b> {{queryresult[8]}}</li>
+                                    <li><b class="lnr lnr-home">Other Passport Number :</b> {{queryresult[9]}}</li>                                    
+                                    <li><b class="lnr lnr-home">Marital Status :</b> {{queryresult[12]}}</li>
+
                                     <br>
-                                    <h4>Address Information</h4>
+                                    <h4>Jamaican Address Information</h4>
                                     <hr>
-                                    <li><b class="lnr lnr-calendar-full"> Street : </b>{{queryresult[11]}}</li>
-                                    <li><b class="lnr lnr-phone-handset">City/Town : </b> {{queryresult[12]}} </li>
-                                    <li><b class="lnr lnr-envelope"> Country : </b>{{queryresult[13]}}</li>
+                                    <li><b class="lnr lnr-calendar-full"> Street : </b>{{queryresult[13]}}</li>
+                                    <li><b class="lnr lnr-phone-handset">City/Town : </b> {{queryresult[14]}} </li>
+                                    <li><b class="lnr lnr-envelope"> Parish : </b>{{queryresult[15]}}</li>
                                     <br>
                                     <h4>Contact Information</h4>
                                     <hr>
                                     <li><b class="lnr lnr-calendar-full">Email Address : </b> {{queryresult[0]}}</li>
-                                    <li><b class="lnr lnr-phone-handset">Phone Number :</b> {{queryresult[10]}} </li>
-                                    <li><b class="lnr lnr-envelope"> WeChat ID :</b> {{queryresult[9]}}</li>
+                                    <li><b class="lnr lnr-phone-handset">Phone Number(Whatsapp) :</b> {{queryresult[11]}} </li>
+                                    <li><b class="lnr lnr-envelope"> Landline :</b> {{queryresult[10]}}</li>
                                     <br>
-                                    <h4>Emergency Contact Information</h4>
+                                    <h4>Jamaican Emergency Contact Information</h4>
                                     <hr>
-                                    <li><b class="lnr lnr-calendar-full">First Name :</b> {{queryresult[14]}}</li>
-                                    <li><b class="lnr lnr-phone-handset">Last Name :</b> {{queryresult[15]}} </li>
-                                    <li><b class="lnr lnr-envelope">Relationship : </b>{{queryresult[16]}}</li>
-                                    <li><b class="lnr lnr-envelope">Phone Number :</b> {{queryresult[17]}}</li>
-                                    <li><b class="lnr lnr-envelope">Email Address : </b>{{queryresult[18]}}</li>
+                                    <li><b class="lnr lnr-calendar-full">First Name :</b> {{queryresult[16]}}</li>
+                                    <li><b class="lnr lnr-phone-handset">Last Name :</b> {{queryresult[17]}} </li>
+                                    <li><b class="lnr lnr-envelope">Relationship : </b>{{queryresult[18]}}</li>
+                                    <li><b class="lnr lnr-envelope">Phone Number :</b> {{queryresult[19]}}</li>
+                                    <li><b class="lnr lnr-envelope">Email Address : </b>{{queryresult[20]}}</li>
+                                    <br>
+                                    <h4>Secondary Jamaican Emergency Contact Information</h4>
+                                    <hr>
+                                    <li><b class="lnr lnr-calendar-full">First Name :</b> {{queryresult[21]}}</li>
+                                    <li><b class="lnr lnr-phone-handset">Last Name :</b> {{queryresult[22]}} </li>
+                                    <li><b class="lnr lnr-envelope">Relationship : </b>{{queryresult[23]}}</li>
+                                    <li><b class="lnr lnr-envelope">Phone Number :</b> {{queryresult[24]}}</li>
+                                    <li><b class="lnr lnr-envelope">Email Address : </b>{{queryresult[25]}}</li>
                                 </ul>
 
                                 <br>
                                 <h4>Occupation Information</h4>
-                                <hr> {% if queryresult[20]=='Student' %}
+                                <hr> 
+                                {% if queryresult[26]=='Student' %}
                                 <ul class="list basic_info">
-                                    <li><b class="lnr lnr-calendar-full">Occupation : </b>{{queryresult[20]}}</li>
-                                    <li><b class="lnr lnr-phone-handset">Education Field : </b>{{queryresult[21]}}</li>
-                                    <li><b class="lnr lnr-envelope">Education Level : </b> {{queryresult[22]}}</li>
-                                    <li><b class="lnr lnr-home">Educational Institution :</b> {{queryresult[23]}}</li>
+                                    <li><b class="lnr lnr-calendar-full">Occupation: </b>{{queryresult[26]}}</li>
+                                    <li><b class="lnr lnr-phone-handset">Study Details: </b>{{queryresult[27]}}</li>
+                                    <li><b class="lnr lnr-phone-handset">Institution Address: </b>{{queryresult[28]}}</li>
                                 </ul>
-                                {% elif queryresult[20]=='Employed' %}
+                                {% elif queryresult[26]=='Employed' %}
                                 <ul class="list basic_info">
-                                    <li><b class="lnr lnr-calendar-full">Job Category :</b> {{queryresult[25]}}</li>
-                                    <li><b class="lnr lnr-phone-handset">Job Title :</b> {{queryresult[26]}}</li>
-                                    <li><b class="lnr lnr-envelope"> Workplace Name :</b> {{queryresult[27]}}</li>
+                                    <li><b class="lnr lnr-calendar-full">Occupation: </b>{{queryresult[26]}}</li>
+                                    <li><b class="lnr lnr-calendar-full">Job Category: </b> {{queryresult[29]}}</li>
+                                    <li><b class="lnr lnr-phone-handset">Job Title: </b> {{queryresult[30]}}</li>
+                                    <li><b class="lnr lnr-envelope"> Workplace Details: </b> {{queryresult[31]}}</li>
+                                </ul>
+                                {% elif queryresult[26]=='Unemployed' %}                                
+                                <ul class="list basic_info">
+                                    <li><b class="lnr lnr-calendar-full">Occupation: </b>{{queryresult[26]}}</li>                                
                                 </ul>
                                 {% else %}
                                 <ul class="list basic_info">
-                                    <li><b class="lnr lnr-calendar-full">Other Selected Detail: </b>{{queryresult[24]}}</li>
-
-                                    {%endif%}
+                                    <li><b class="lnr lnr-calendar-full">Other Selected Detail: </b>{{queryresult[32]}}</li>
                                 </ul>
-
-
+                                {%endif%}
 
                                 <br>
-                                <h4>Classification Information</h4>
+                                <h4>Travel Information</h4>
                                 <hr>
-                                <ul class="list basic_info">
-                                    {% if queryresult[19]=='CitizenTO' %}
-                                    <li><b class="lnr lnr-calendar-full">Category Selected : Barbadian Citizen Travelling Overseas</b></li>
-                                    <br>
-                                    <li><b class="lnr lnr-calendar-full">Purpose of Travel :</b> {{queryresult[28]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Description (optional) : </b>{{queryresult[29]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Barbadian Address-Street : </b>{{queryresult[30]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Barbadian Address-City/Town :</b> {{queryresult[31]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Barbadian Address-Parish : </b>{{queryresult[32]}}</li>
-                                    <br>
+                                <ul class="list basic_info">                          
+                                    
+                                    <li><b class="lnr lnr-calendar-full">Purpose of Travel: </b> {{queryresult[33]}}</li>
+                                    <li><b class="lnr lnr-calendar-full">Description (optional): </b>{{queryresult[34]}}</li>
 
-                                    <li><b class="lnr lnr-calendar-full">Destination Address-Street : </b>{{queryresult[33]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Destination Address-City/Town : </b>{{queryresult[34]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Destination Address-State/Parish/County/Province : </b>{{queryresult[35]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Destination Address-Country : </b>{{queryresult[36]}}</li>
-                                    <br>
+                                    <li><b class="lnr lnr-calendar-full">Expected Date of Departure (from Jamaica): </b>{{queryresult[35][0:10]}}</li>
+                                    <li><b class="lnr lnr-calendar-full">Expected Date of Return (to Jamaica): </b> {{queryresult[36][0:10]}}</li>
 
-                                    <li><b class="lnr lnr-calendar-full">Emergency Contact Firstname :</b>{{queryresult[37]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Emergency Contact Lastname :</b>{{queryresult[38]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Emergency Contact Phone Number:</b>{{queryresult[39]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Emergency Contact Email :</b>{{queryresult[40]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Emergency Contact Relationship :</b>{{queryresult[41]}}</li>
 
+                                    <li><b class="lnr lnr-calendar-full">Amount of Stops in Trip (excl. Jamaica): </b>{{queryresult[37]}}</li>
                                     <br>
-                                    <li><b class="lnr lnr-calendar-full">Expected Date of Departure :</b>{{queryresult[42]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Expected Date of Return:</b>{{queryresult[43]}}</li>
+                                   
 
-                                    <br>
-                                    <li><b class="lnr lnr-calendar-full">Residential Phone When Away:</b> {{queryresult[44]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Mobile Phone :</b> {{queryresult[45]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Whatsapp Number :</b> {{queryresult[46]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">WeChat ID : </b>{{queryresult[47]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Additional Email:</b>{{queryresult[48]}}</li>
-                                    <br> {% elif queryresult[19]=='ResidentO' %}
-                                    <li><b class="lnr lnr-calendar-full">Category Selected : Citizen of Barbados Resident Overseas</b></li>
-                                    <li><b class="lnr lnr-calendar-full">Address-Street :</b> {{queryresult[49]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Address-State/Parish/County/Province :</b> {{queryresult[50]}}</li>
-                                    <li><b class="lnr lnr-phone-handset">Address-City/Town : </b> {{queryresult[51]}} </li>
-                                    <li><b class="lnr lnr-envelope">Address-Country :</b> {{queryresult[52]}}</li>
-                                    <br>
-                                    <li><b class="lnr lnr-calendar-full">Phone Number:</b> {{queryresult[53]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Mobile Phone :</b> {{queryresult[54]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Whatsapp Number :</b> {{queryresult[55]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Areas of Interest:</b> {{queryresult[56]}}</li>
-                                    <br> {%elif queryresult[19]=='Friend'%}
-                                    <li><b class="lnr lnr-calendar-full">Category Selected : Friend of Barbados</b></li>
-                                    <li><b class="lnr lnr-calendar-full">How I know of Barbados :</b> {{queryresult[57]}}</li>
-                                    <li><b class="lnr lnr-calendar-full">Areas of Interest:</b> {{queryresult[58]}}</li>
+                                    {% if queryresult[37]=='1' %}
+                                            {% if queryresult[38]=='Airport' %}
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[38]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[39]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[40]}}</li>
+                                            {% elif queryresult[38]=='Short' or queryresult[38]=='Extended' %} 
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[38]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[41]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[42]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[43]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[44]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[45]}}</li>                                               
+                                            {%endif%}
 
-                                    {%else%}
-                                    <li><b class="lnr lnr-calendar-full">Category Selected : Not Selected</b></li>
+                                    {% elif queryresult[37]=='2' %}
+                                            <legend>First Country</legend>
+                                            {% if queryresult[46]=='Airport' %}
+                                                    <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[46]}}</li>
+                                                    <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[47]}}</li>
+                                                    <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[48]}}</li>
+                                            {% elif queryresult[46]=='Short' or queryresult[46]=='Extended' %} 
+                                                    <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[46]}}</li>
+                                                    <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[49]}}</li>
+                                                    <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[50]}}</li>
+                                                    <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[51]}}</li>
+                                                    <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[52]}}</li>
+                                                    <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[53]}}</li>                                                   
+                                            {%endif%}
+
+                                            <legend>Second Country</legend>
+                                            {% if queryresult[54]=='Airport' %}
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[54]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[55]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[56]}}</li>
+                                            {% elif queryresult[54]=='Short' or queryresult[54]=='Extended' %} 
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[54]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[57]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[58]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[59]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[60]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[61]}}</li>                                               
+                                            {%endif%}
+
+                                    {% elif queryresult[37]=='3' %}
+                                            <legend>First Country</legend>
+                                            {% if queryresult[62]=='Airport' %}
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[62]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[63]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[64]}}</li>
+                                            {% elif queryresult[62]=='Short' or queryresult[62]=='Extended' %} 
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[62]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[65]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[66]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[67]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[68]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[69]}}</li>                                               
+                                            {%endif%}
+
+                                            <legend>Second Country</legend>
+                                            {% if queryresult[70]=='Airport' %}
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[70]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[71]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[72]}}</li>
+                                            {% elif queryresult[70]=='Short' or queryresult[70]=='Extended' %} 
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[70]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[73]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[74]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[75]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[76]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[77]}}</li>                                               
+                                            {%endif%}
+
+                                        <legend>Third Country</legend>
+                                        {% if queryresult[78]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[78]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[79]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[80]}}</li>
+                                        {% elif queryresult[78]=='Short' or queryresult[78]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[78]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[81]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[82]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[83]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[84]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[85]}}</li>                                            
+                                        {%endif%}
+
+                                    {% elif queryresult[37]=='4' %}
+                                            <legend>First Country</legend>
+                                            {% if queryresult[86]=='Airport' %}
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[86]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[87]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[88]}}</li>
+                                            {% elif queryresult[86]=='Short' or queryresult[86]=='Extended' %} 
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[86]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[89]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[90]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[91]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[92]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[93]}}</li>                                                
+                                            {%endif%}
+
+                                            <legend>Second Country</legend>
+                                            {% if queryresult[94]=='Airport' %}
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[94]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[95]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[96]}}</li>
+                                            {% elif queryresult[94]=='Short' or queryresult[94]=='Extended' %} 
+                                                <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[94]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[97]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[98]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[99]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[100]}}</li>
+                                                <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[101]}}</li>                                                
+                                            {%endif%}
+
+                                        <legend>Third Country</legend>
+                                        {% if queryresult[102]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[102]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[103]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[104]}}</li>
+                                        {% elif queryresult[102]=='Short' or queryresult[102]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[102]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[105]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[106]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[107]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[108]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[109]}}</li>                                           
+                                        {%endif%}
+
+                                        <legend>Fourth Country</legend>
+                                        {% if queryresult[110]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[110]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[111]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[112]}}</li>
+                                        {% elif queryresult[110]=='Short' or queryresult[110]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[110]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[113]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[114]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[115]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[116]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[117]}}</li>                                           
+                                        {%endif%}
+
+                                    {% elif queryresult[37]=='5' %}
+                                        <legend>First Country</legend>
+                                        {% if queryresult[118]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[118]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[119]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[120]}}</li>
+                                        {% elif queryresult[118]=='Short' or queryresult[118]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[118]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[121]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[122]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[123]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[124]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[125]}}</li>                                           
+                                        {%endif%}
+
+                                        <legend>Second Country</legend>
+                                        {% if queryresult[126]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[126]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[127]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[128]}}</li>
+                                        {% elif queryresult[126]=='Short' or queryresult[126]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[126]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[129]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[130]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[131]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[132]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[133]}}</li>                                            
+                                        {%endif%}
+
+                                     <legend>Third Country</legend>
+                                        {% if queryresult[134]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[134]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[135]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[136]}}</li>
+                                        {% elif queryresult[134]=='Short' or queryresult[134]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[134]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[137]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[138]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[139]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[140]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[141]}}</li>                                           
+                                        {%endif%}
+
+                                     <legend>Fourth Country</legend>
+                                        {% if queryresult[142]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[142]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[143]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[144]}}</li>
+                                        {% elif queryresult[142]=='Short' or queryresult[142]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[142]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[145]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[146]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[147]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[148]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[149]}}</li>                                            
+                                        {%endif%}
+
+                                     <legend>Fifth Country</legend>
+                                        {% if queryresult[150]=='Airport' %}
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[150]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[151]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Quick Emergency Details: </b>{{queryresult[152]}}</li>
+                                        {% elif queryresult[150]=='Short' or queryresult[150]=='Extended' %} 
+                                            <li><b class="lnr lnr-calendar-full">Duration of Stay in Country: </b>{{queryresult[150]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Country: </b>{{queryresult[153]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination Street: </b>{{queryresult[154]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination City: </b>{{queryresult[155]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Destination State/County/Parish/Province: </b>{{queryresult[156]}}</li>
+                                            <li><b class="lnr lnr-calendar-full">Extra Details: </b>{{queryresult[157]}}</li>                                            
+                                        {%else %}
+                                        {%endif%}
+
+                                    {%else %}
                                     {%endif%}
+                                        <br>
+                                        <br>                                 
                                 </ul>
                                 <br>
                                 <h4> Document Tracking (y/m/d) </h4>
                                 <hr>
                                 <ul class="list basic_info">
-                                    <li><b class="lnr lnr-calendar-full">Date Last Updated:</b> {{queryresult[60][0:16]}} hrs</li>
-                                    <li><b class="lnr lnr-phone-handset"> Date First Added:</b> {{queryresult[59][0:16]}} hrs</li>
+                                    <!-- <li><b class="lnr lnr-calendar-full">Date Last Updated:</b> {{queryresult[158][0:16]}} hrs</li> -->
+                                    <li><b class="lnr lnr-phone-handset"> Date Added:</b> {{queryresult[159][0:16]}} hrs</li>
                                 </ul>
                             </div>
 

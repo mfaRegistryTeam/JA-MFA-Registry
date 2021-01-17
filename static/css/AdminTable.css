@@ -1,5 +1,5 @@
 /* .nav-item{
-    background-color: #08318c;
+    background-color: #009c39;
 } */
 
 
@@ -44,13 +44,13 @@ footer {
 }
 
 .fa {
-    color: #08318c;
+    color: #009c39;
 }
 
 #usertable thead {
-    background-color: #08318c;
+    background-color: #009c39;
     color: aliceblue;
-    border: 2px #ffce0d;
+    border: 2px #fed200;
     border-radius: 10px;
 }
 

@@ -6,9 +6,12 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: #172b7c;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ef/Flag_of_Barbados.svg');
-    /* background-repeat: no-repeat; */
+    background-color: #009c39;
+    background: url(https://cdn.britannica.com/20/5120-050-4202E1B8/Flag-Jamaica.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #notfound {
@@ -36,7 +39,7 @@ body {
         text-align: center;
         line-height: 1.4;
         color: #fff;
-        background-color: #08318c;
+        background-color: #009c39;
         opacity: 0.7;
         position: absolute;
         right: 0;
@@ -84,7 +87,7 @@ body {
     right: 0;
     top: 0;
     bottom: 0;
-    background: #ffce0d;
+    background: #fed200;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -137,8 +140,8 @@ body {
     font-family: 'Cabin', sans-serif;
     display: inline-block;
     padding: 10px 25px;
-    background-color: #ffce0d;
-    border: 10px #08318c;
+    background-color: #fed200;
+    border: 10px #009c39;
     border-radius: 40px;
     color: #fff;
     font-size: 14px;

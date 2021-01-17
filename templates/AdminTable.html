@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <link rel="icon" href="static/flag.jpg" sizes="16x16">
-    <title>Admin Results Table | Ministry of Foreign Affairs and Foreign Trade of Barbados</title>
+    <title>Admin Results Table | Ministry of Foreign Affairs and Foreign Trade of Jamaica</title>
 
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.12.1/js/all.js" crossorigin="anonymous"></script>
@@ -39,13 +39,12 @@
                 <div class="logo-holder">
                     <div class="logo">
                         <div href="/" tabindex="2">
-                            <img src="https://www.foreign.gov.bb/images/logo.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF BARBADOS" />
-
+                            <img id="coatOfArms" style=" width:50px; height:50px; " src="static\582px-Coat_of_arms_of_Jamaica.svg.png" alt="MINISTRY OF FOREIGN AFFAIRS AND FOREIGN TRADE OF JAMAICA">
                         </div>
                     </div>
                 </div>
                 <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                    <h4 id="mainTitle">Ministry of Foreign Affairs and Foreign Trade of Barbados</h4>
+                    <h4 id="mainTitle">&nbsp;Ministry of Foreign Affairs and Foreign Trade of Jamaica</h4>
                 </a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             </div>
         </div>
@@ -65,37 +64,41 @@
                         <thead>
                             <tr>
                                 <th>Email Address</th>
-                                <th>Nationality</th>
+                                <th>Country of Birth</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Middle Name</th>
                                 <th>Gender</th>
-                                <th>Phone Number</th>
-                                <th>Passport Number</th>
-                                <th>Date Added</th>
-                                <th>Click </th>
+                                <th>Phone Number (Whatsapp)</th>
+                                <th>Jamaican Passport Number</th>
+                                <th>Date Registered</th>
+                                <!-- <th>Click </th> -->
+                                <th>View</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for userquery in userquerylist %}
                             <tr>
                                 <td>{{userquery['Email-Address']}}</td>
-                                <td>{{userquery['Nationality']}}</td>
+                                <td>{{userquery['Country-of-Birth']}}</td>
                                 <td>{{userquery['Name']['First']}} </td>
                                 <td>{{userquery['Name']['Last']}}</td>
                                 <td>{{userquery['Name']['Middle']}}</td>
                                 <td>{{userquery['Gender']}}</td>
-                                <td>{{userquery['Phone-Number']}}</td>
-                                <td>{{userquery['Passport-Number']}}</td>
-                                <td>{{userquery['Date-Added']}}</td>
-                                <td><a href="{{url_for('AdminView', email=userquery['Email-Address'])}}" class="">Full Profile</a></td>
-                            </tr>
+                                <td>{{userquery['Whatsapp-Number']}}</td>
+                                <td>{{userquery['Jamaican-Passport-Number']}}</td>
+                                <td>{{userquery['Date-Registered']}}</td>                               
+                            <td><a href="{{url_for('AdminView', email=userquery['Email-Address'])}}" class="">Full Profile</a></td>
+                            <td><a href="{{url_for('AdminDelete', email=userquery['Email-Address'])}}" class="">Delete Profile</a></td>
+                            
+                        </tr>
                             {% endfor %}
                             <tfoot>
                             </tfoot>
                         </tbody>
                     </table>
-                    {{raw}}
+                    
                 </div>
             </div>
         </div>
@@ -105,7 +108,7 @@
     <!-- Footer-->
     <footer class="bg-light py-5">
         <div id="footer-main" class="container">
-            <div class="small text-center text-muted">Copyright © 2020 BARBADIAN REGISTRATION SYSTEM </div>
+            <div class="small text-center text-muted">Copyright © 2021 REGISTRATION OF JAMAICAN CITIZENS ON SHORT-TERM or TEMPORARY VISITS ABROAD</div>
         </div>
     </footer>
     <!-- Bootstrap core JS-->

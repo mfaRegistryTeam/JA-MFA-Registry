@@ -2,11 +2,11 @@
 
 class siteLabels:
    
-    # DatabaseName = "Citizens-Database"
-    # DatabaseURL = "mongodb://localhost:27017/Citizens-Database"
+    DatabaseName = "Citizens-Database-JM"
+    DatabaseURL = "mongodb://localhost:27017/Citizens-Database-JM"
     SessionType = "mongodb"
-    DatabaseName = "heroku_qc5l7qqd"
-    DatabaseURL = "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
+    # DatabaseName = "heroku_qc5l7qqd"
+    # DatabaseURL = "mongodb://heroku_qc5l7qqd:or7uuplla29cvq7u647oo7ooap@ds163905.mlab.com:63905/heroku_qc5l7qqd?retryWrites=false"
 
 
 class correspondence:
@@ -19,6 +19,8 @@ class databaseLabels:
     EmailAddress='Email-Address'
     Password = 'Password'
 
+    Logged='Logged'
+
     Name='Name'
     Firstname = 'First' 
     Middlename ='Middle'  
@@ -26,25 +28,26 @@ class databaseLabels:
 
     DOB = 'Date-of-Birth'
     Gender ='Gender'
+    MaritalStatus='Marital-Status'
 
     Occupation ='Occupation'
-    Type='Type'
-    StudyLevel="Level"
-    FieldofStudy ='Field-of-Study'
-    EducationalInst ='Educational-Institution'
+    Type='Type-of-Occupation'
+    StudyDetails ='Study-Details'
+    InstitutionAddress ='Educational-Institution-Address'
     JobClass='Job-Class'
     Jobtitle ='Job-Title'
-    Workplace ='Workplace-Name'
-    Other='Other'
+    WorkplaceDetails ='Workplace-Details'
+    Other='Other-Occupation-Description'
     
+    CountryofBirth='Country-of-Birth'
+    JaPassportNumber ='Jamaican-Passport-Number'
+    OtherNationality='Other-Nationality'
+    OtherPassportNumber='Other-Passport-Number'
 
-    PassportNumber ='Passport-Number'
-    IssuedPassportCountry='Country-of-Issued-Passport'
+    WhatsappNumber ='Whatsapp-Number'
+    Landline='Landline-Number'
+    OtherContacts='OtherContact-Info'
 
-    PhoneNumber ='Phone-Number'
-
-    WeChatID='WeChat-ID'
-    Nationality ='Nationality'
     
     Address ='Address'
     Street='Street'
@@ -52,14 +55,19 @@ class databaseLabels:
     CityorTown ='City/Town'
     Country='Country'    
 
-    EmergDetails:'Emergency-Contact-Details'
-    EmergencyConFirstname ='Firstname'
-    EmergencyConLastname ='Lastname'
-    EmergencyConRel ='Relationship'
-    EmergencyConPhone ='Phone'
-    EmergencyConEmail ='Email'
+    EmergDetails='Emergency-Contact'
 
-    Classification ='Classification'
+    EmergencyConFirstname ='Emergency-Contact-Firstname'
+    EmergencyConLastname ='Emergency-Contact-Lastname'
+    EmergencyConRel ='Emergency-Contact-Relationship'
+    EmergencyConPhone ='Emergency-Contact-Phone'
+    EmergencyConEmail ='Emergency-Contact-Email'   
+
+    EmergencyConFirstname2 ='Second-Emergency-Contact-Firstname'
+    EmergencyConLastname2 ='Second-Emergency-Contact-Lastname'
+    EmergencyConRel2 ='Second-Emergency-Contact-Relationship'
+    EmergencyConPhone2 ='Second-Emergency-Contact-Phone'
+    EmergencyConEmail2 ='Second-Emergency-Contact-Email'       
 
 
     PurposeofTravel='Purpose-of-Travel'
@@ -72,36 +80,39 @@ class databaseLabels:
     AbroadPhone = 'Phone-Abroad'
     AbroadEmail = 'Email-Abroad'
 
-    BarbadosAddress='Address-in-Barbados'
-
-    EmergDetails='Emergency-Contact'
-
-    EmergDetailsAbroad='Emergency-Contact-Abroad'
+    JamaicaAddress='Address-in-Jamaica'
 
     TravelDates ='Travel-Date-Details'
+
+    TwoCountries='Two-Countries'
+    ThreeCountries='Three-Countries'
+    FourCountries='Four-Countries'
+    FiveCountries='Five-Countries'
+
+
+
+    Duration='Duration'
+    QuickDetails='Quick-Details'
+    ExtDetails='Extended-Stay-Details'
+    AmountStops='Amount-of-Stops'
+    CountryOne='Country-One-Single'
+    CountryOne_Multi='Country-One-Multi'
+    CountryTwo='Country-Two'
+    CountryThree='Country-Three'
+    CountryFour='Country-Four'
+    CountryFive ='Country-Five'
+    AirportCountry='Airport-Stopover-Country'
+    ShortExCountry='Short-Ext-Country'
     DepDate='Expected-DepDate'
     ReturnDate='Expected-ReturnDate'
 
 
-    PhoneNumberAbroad='Phone-Number-Abroad'
+   
 
     ResidentialAbroad='Residential-Phone-Abroad'
-    MobileAbroad ='Mobile-Abroad'
-    WhatsappAbroad='Whatsapp-Abroad'
-    WeChatAB='WeChat-ID Abroad'
+    MobileAbroad ='Mobile-Abroad'  
 
-    ResidenceAbroadDetails='Residence-Abroad-Address'
-    Location ='Location'
-    ResidentsAbroadPhone='Residents-Abroad-Phone'
-    ResidentialRes='Residential-Phone-Abroad'
-    MobileRes ='Mobile-Res'
-    WhatsappRes='Whatsapp-Res'
-    
-    AreasofInterestFr='Areas-of-Interest-fr'
-    AreasofInterest='Areas-of-Interest'
-    KnowledgeofBB ='Knowledge-of-BB'
-
-    DateAdded ='Date-Added'
+    DateRegistered ='Date-Registered'
     LastUpdated = 'Date-Last-Updated'
 
     History ='Historical-Records'

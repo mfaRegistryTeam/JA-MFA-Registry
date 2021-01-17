@@ -988,7 +988,7 @@
 
             if (options.enableFinishButton) {
                 buttons += "<li><button name=\"finish\" id=\"finish\" style=\"border-radius:50%;\
-                 color:#08318c; background-color:#ffce0d; text-decoration: none; border: none; visibility: hidden; font-weight:bold; \" type=\"submit\"\
+                 color:#009c39; background-color:#fed200; text-decoration: none; border: none; visibility: hidden; font-weight:bold; \" type=\"submit\"\
                  value=\"submit\" src=\"https://image.flaticon.com/icons/svg/864/864366.svg\">✓</button></li>";
                 // disabled=\"disabled\"
             }

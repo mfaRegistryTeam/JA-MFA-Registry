@@ -36,7 +36,7 @@ def createEmailtoken(email):
 
 #function to send emails to specified users with a link
 def Send(subject,link,recipient,body):
-    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
+    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade of Jamaica Team', recipients=[recipient])
     msg.html = body+'<br>'+'<a href='+link+'>'+'Please Click here to Activate Account'+'</a>'
     with app.app_context():
         mail.send(msg)
@@ -69,8 +69,8 @@ def Register(email,password,username):
     user_instance =Models.DatabaseStruct()
     user_instance.InsertUser(email,password,username)
     link = url_for('emailVerificationhandler', token = regtoken, _external=True)
-    subject = "Confirm Ministry of Foreign Affairs and Trade Barbados National Registry Account"
-    body = '<h3>Good day / evening </h3><p>This has been sent for email address confirmation and the activation of a recently created National Registry Account. Please click the link to activate account</p>'
+    subject = "Confirm Ministry of Foreign Affairs and Trade of Jamaica National Short Term Visit Account"
+    body = '<h3>Good day / evening </h3><p>This has been sent for email address confirmation and the activation of a recently created Short Term Visit Account. Please click the link to activate account</p>'
     #return Send(subject,link,email,body)
     return link
 
@@ -78,7 +78,7 @@ def Register(email,password,username):
                                         #Password Change
 
 def Send1(subject,link,recipient,body):
-    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
+    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade of Jamaica Team', recipients=[recipient])
     msg.html = body+'<br>'+'<a href='+link+'>'+'Please Click here to continue password change'+'</a>'
     with app.app_context():
         mail.send(msg)
@@ -92,7 +92,7 @@ def createPasswordtoken(email):
 def ChangePassword(email):
     changetoken = createPasswordtoken(email)
     plink = url_for('PasswordChangehandler', token = changetoken, _external=True)
-    subject = "Barbados MFA Registry Account Password Change Request"
+    subject = "Confirm Ministry of Foreign Affairs and Trade of Jamaica National Short Term Visit Account Password Change Request"
     body = '<h3>Good day / evening </h3><p>This email has been sent to confirm you wish to change your Registry Account password.</p>' 
     return plink   
     # return Send1(subject,plink,email,body)
@@ -112,7 +112,7 @@ def confirm_password(token):
 
 
 def Sendmail(recipient,subject,body):
-    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade Barbados National Registry Team', recipients=[recipient])
+    msg = Message(subject, sender='Ministry of Foreign Affairs and Trade of Jamaica Short Term Visit Registry Team', recipients=[recipient])
     msg.html = body+'<br>'
     with app.app_context():
         mail.send(msg)
@@ -120,7 +120,8 @@ def Sendmail(recipient,subject,body):
 
 def EmailReminder(x):    
     email = x
-    subject = "Barbados MFA Registry Account Update Reminder"
-    body = '<h3>Good day / evening </h3><p>This is an email notification indicating it has been approximately 6 months since your last update. Please visit https://mfa-registry.herokuapp.com/, to ensure your account information is current</p>'
+    subject = "Ministry of Foreign Affairs and Trade of Jamaica -Short Term Visit Document Update Reminder"
+    body = '<h3>Good day / evening </h3><p>This is an email notification indicating it has been approximately  2 weeks since your last reminder. Please visit https://mfa-registry.herokuapp.com/, to ensure your account information is current. Please be reminded that yor docket will be deleted on the date you have stated as your return date to the island. If you wish to change this you may update this date. Thank you for your cooperation</p>'
+            
     #add link to bring user directly to site
     return Sendmail(email,subject,body)

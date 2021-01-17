@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Exo&display=swap');
+
+
+
 .wrapper {
     background: #f7f7f7;
     margin: 10px;
@@ -12,7 +15,7 @@
 
 .wrapper .radio_tabs {
     height: 150px;
-    background-color: #08318c;
+    background-color: #009c39;
     color: #f7f7f7;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -24,7 +27,7 @@
 
 .wrapper .content {
     width: auto;
-    /* background-color: #08318c; */
+    /* background-color: #009c39; */
     height: auto;
     background: #fff;
     border-radius: 5px;

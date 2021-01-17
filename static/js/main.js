@@ -16,7 +16,313 @@ $(function() {
     })
 });
 
+//hide and show fields for duration of travel 1
+function airportStop() {
+    document.getElementById('airportStopOver').style.display = 'block';
+    document.getElementById('divContent').style.display = 'none';
+    document.getElementById('divContent').style.display = 'none';
+}
 
+function shortStop() {
+    document.getElementById('divContent').style.display = 'block';
+    document.getElementById('airportStopOver').style.display = 'none';
+}
+
+function extendedStop() {
+    document.getElementById('divContent').style.display = 'block';
+    document.getElementById('airportStopOver').style.display = 'none';
+}
+
+// __________________________________________________________________________________
+//hide and show fields for duration of travel 2
+// first country
+function airportStopSF() {
+    document.getElementById('airportStopOverSF').style.display = 'block';
+    document.getElementById('divContentSF').style.display = 'none';
+}
+
+function shortStopSF() {
+    document.getElementById('divContentSF').style.display = 'block';
+    document.getElementById('airportStopOverSF').style.display = 'none';
+}
+
+function extendedStopSF() {
+    document.getElementById('divContentSF').style.display = 'block';
+    document.getElementById('airportStopOverSF').style.display = 'none';
+}
+
+// second country
+function airportStopSS() {
+    document.getElementById('airportStopOverSS').style.display = 'block';
+    document.getElementById('divContentSS').style.display = 'none';
+}
+
+function shortStopSS() {
+    document.getElementById('divContentSS').style.display = 'block';
+    document.getElementById('airportStopOverSS').style.display = 'none';
+}
+
+function extendedStopSS() {
+    document.getElementById('divContentSS').style.display = 'block';
+    document.getElementById('airportStopOverSS').style.display = 'none';
+}
+// __________________________________________________________________________________
+
+// __________________________________________________________________________________
+//hide and show fields for duration of travel 3
+// first country
+function airportStopTF() {
+    document.getElementById('airportStopOverTF').style.display = 'block';
+    document.getElementById('divContentTF').style.display = 'none';
+}
+
+function shortStopTF() {
+    document.getElementById('divContentTF').style.display = 'block';
+    document.getElementById('airportStopOverTF').style.display = 'none';
+}
+
+function extendedStopTF() {
+    document.getElementById('divContentTF').style.display = 'block';
+    document.getElementById('airportStopOverTF').style.display = 'none';
+}
+
+// second country
+function airportStopTS() {
+    document.getElementById('airportStopOverTS').style.display = 'block';
+    document.getElementById('divContentTS').style.display = 'none';
+}
+
+function shortStopTS() {
+    document.getElementById('divContentTS').style.display = 'block';
+    document.getElementById('airportStopOverTS').style.display = 'none';
+}
+
+function extendedStopTS() {
+    document.getElementById('divContentTS').style.display = 'block';
+    document.getElementById('airportStopOverTS').style.display = 'none';
+}
+
+// third country
+function airportStopTT() {
+    document.getElementById('airportStopOverTT').style.display = 'block';
+    document.getElementById('divContentTT').style.display = 'none';
+}
+
+function shortStopTT() {
+    document.getElementById('divContentTT').style.display = 'block';
+    document.getElementById('airportStopOverTT').style.display = 'none';
+}
+
+function extendedStopTT() {
+    document.getElementById('divContentTT').style.display = 'block';
+    document.getElementById('airportStopOverTT').style.display = 'none';
+}
+// __________________________________________________________________________________
+
+// __________________________________________________________________________________
+//hide and show fields for duration of travel 4
+// first country
+function airportStopFF() {
+    document.getElementById('airportStopOverFF').style.display = 'block';
+    document.getElementById('divContentFF').style.display = 'none';
+}
+
+function shortStopFF() {
+    document.getElementById('divContentFF').style.display = 'block';
+    document.getElementById('airportStopOverFF').style.display = 'none';
+}
+
+function extendedStopFF() {
+    document.getElementById('divContentFF').style.display = 'block';
+    document.getElementById('airportStopOverFF').style.display = 'none';
+}
+
+// second country
+function airportStopFS() {
+    document.getElementById('airportStopOverFS').style.display = 'block';
+    document.getElementById('divContentFS').style.display = 'none';
+}
+
+function shortStopFS() {
+    document.getElementById('divContentFS').style.display = 'block';
+    document.getElementById('airportStopOverFS').style.display = 'none';
+}
+
+function extendedStopFS() {
+    document.getElementById('divContentFS').style.display = 'block';
+    document.getElementById('airportStopOverFS').style.display = 'none';
+}
+
+// third country
+function airportStopFT() {
+    document.getElementById('airportStopOverFT').style.display = 'block';
+    document.getElementById('divContentFT').style.display = 'none';
+}
+
+function shortStopFT() {
+    document.getElementById('divContentFT').style.display = 'block';
+    document.getElementById('airportStopOverFT').style.display = 'none';
+}
+
+function extendedStopFT() {
+    document.getElementById('divContentFT').style.display = 'block';
+    document.getElementById('airportStopOverFT').style.display = 'none';
+}
+
+// fourth country
+function airportStopFH() {
+    document.getElementById('airportStopOverFH').style.display = 'block';
+    document.getElementById('divContentFH').style.display = 'none';
+}
+
+function shortStopFH() {
+    document.getElementById('divContentFH').style.display = 'block';
+    document.getElementById('airportStopOverFH').style.display = 'none';
+}
+
+function extendedStopFH() {
+    document.getElementById('divContentFH').style.display = 'block';
+    document.getElementById('airportStopOverFH').style.display = 'none';
+}
+// __________________________________________________________________________________
+
+
+// __________________________________________________________________________________
+//hide and show fields for duration of travel 5
+// first country
+function airportStopHF() {
+    document.getElementById('airportStopOverHF').style.display = 'block';
+    document.getElementById('divContentHF').style.display = 'none';
+}
+
+function shortStopHF() {
+    document.getElementById('divContentHF').style.display = 'block';
+    document.getElementById('airportStopOverHF').style.display = 'none';
+}
+
+function extendedStopHF() {
+    document.getElementById('divContentHF').style.display = 'block';
+    document.getElementById('airportStopOverHF').style.display = 'none';
+}
+
+// second country
+function airportStopHS() {
+    document.getElementById('airportStopOverHS').style.display = 'block';
+    document.getElementById('divContentHS').style.display = 'none';
+}
+
+function shortStopHS() {
+    document.getElementById('divContentHS').style.display = 'block';
+    document.getElementById('airportStopOverHS').style.display = 'none';
+}
+
+function extendedStopHS() {
+    document.getElementById('divContentHS').style.display = 'block';
+    document.getElementById('airportStopOverHS').style.display = 'none';
+}
+
+// third country
+function airportStopHT() {
+    document.getElementById('airportStopOverHT').style.display = 'block';
+    document.getElementById('divContentHT').style.display = 'none';
+}
+
+function shortStopHT() {
+    document.getElementById('divContentHT').style.display = 'block';
+    document.getElementById('airportStopOverHT').style.display = 'none';
+}
+
+function extendedStopHT() {
+    document.getElementById('divContentHT').style.display = 'block';
+    document.getElementById('airportStopOverHT').style.display = 'none';
+}
+
+// fourth country
+function airportStopOH() {
+    document.getElementById('airportStopOverOH').style.display = 'block';
+    document.getElementById('divContentOH').style.display = 'none';
+}
+
+function shortStopOH() {
+    document.getElementById('divContentOH').style.display = 'block';
+    document.getElementById('airportStopOverOH').style.display = 'none';
+}
+
+function extendedStopOH() {
+    document.getElementById('divContentOH').style.display = 'block';
+    document.getElementById('airportStopOverOH').style.display = 'none';
+}
+// fifth country
+function airportStopHH() {
+    document.getElementById('airportStopOverHH').style.display = 'block';
+    document.getElementById('divContentHH').style.display = 'none';
+}
+
+function shortStopHH() {
+    document.getElementById('divContentHH').style.display = 'block';
+    document.getElementById('airportStopOverHH').style.display = 'none';
+}
+
+function extendedStopHH() {
+    document.getElementById('divContentHH').style.display = 'block';
+    document.getElementById('airportStopOverHH').style.display = 'none';
+}
+// __________________________________________________________________________________
+
+//hide and show fields for amount of countries a person will be visting
+function firstStop() {
+    document.getElementById('ammountStop1').style.display = 'block';
+    document.getElementById('ammountStop2').style.display = 'none';
+    document.getElementById('ammountStop3').style.display = 'none';
+    document.getElementById('ammountStop4').style.display = 'none';
+    document.getElementById('ammountStop5').style.display = 'none';
+    document.getElementById('ammountStop6').style.display = 'none';
+}
+
+function secondStop() {
+    document.getElementById('ammountStop1').style.display = 'none';
+    document.getElementById('ammountStop2').style.display = 'block';
+    document.getElementById('ammountStop3').style.display = 'none';
+    document.getElementById('ammountStop4').style.display = 'none';
+    document.getElementById('ammountStop5').style.display = 'none';
+    document.getElementById('ammountStop6').style.display = 'none';
+}
+
+function thirdStop() {
+    document.getElementById('ammountStop1').style.display = 'none';
+    document.getElementById('ammountStop2').style.display = 'none';
+    document.getElementById('ammountStop3').style.display = 'block';
+    document.getElementById('ammountStop4').style.display = 'none';
+    document.getElementById('ammountStop5').style.display = 'none';
+    document.getElementById('ammountStop6').style.display = 'none';
+}
+
+function fourthStop() {
+    document.getElementById('ammountStop1').style.display = 'none';
+    document.getElementById('ammountStop2').style.display = 'none';
+    document.getElementById('ammountStop3').style.display = 'none';
+    document.getElementById('ammountStop4').style.display = 'block';
+    document.getElementById('ammountStop5').style.display = 'none';
+    document.getElementById('ammountStop6').style.display = 'none';
+}
+
+function fifthStop() {
+    document.getElementById('ammountStop1').style.display = 'none';
+    document.getElementById('ammountStop2').style.display = 'none';
+    document.getElementById('ammountStop3').style.display = 'none';
+    document.getElementById('ammountStop4').style.display = 'none';
+    document.getElementById('ammountStop5').style.display = 'block';
+    document.getElementById('ammountStop6').style.display = 'none';
+}
+
+function sixthStop() {
+    document.getElementById('ammountStop1').style.display = 'none';
+    document.getElementById('ammountStop2').style.display = 'none';
+    document.getElementById('ammountStop3').style.display = 'none';
+    document.getElementById('ammountStop4').style.display = 'none';
+    document.getElementById('ammountStop5').style.display = 'none';
+    document.getElementById('ammountStop6').style.display = 'block';
+}
 
 /*Attempt at setting min date for calendar */
 
@@ -57,9 +363,9 @@ $(document).ready(function() {
         if ($(this).val() == 'CitizenTO') {
             // alert('type A');
             $("#radio").prop("required", true);
-            $("#street_bb").prop("required", true);
-            $("#city_town_bb").prop("required", true);
-            $("#parish_bb").prop("required", true);
+            $("#street_jm").prop("required", true);
+            $("#city_town_jm").prop("required", true);
+            $("#parish_jm").prop("required", true);
             $("#street_abroad").prop("required", true);
             $("#city_town_abroad").prop("required", true);
             $("#state_abroad").prop("required", true);
@@ -86,7 +392,7 @@ $(document).ready(function() {
             $("#AOI").prop("required", false);
 
             $("#AOI_fr").prop("required", false);
-            $("#KBB").prop("required", false);
+            $("#KJM").prop("required", false);
 
         } else if ($(this).val() == 'ResidentO') {
             // alert('type B');
@@ -100,12 +406,12 @@ $(document).ready(function() {
             $("#AOI").prop("required", false);
 
             $("#AOI_fr").prop("required", false);
-            $("#KBB").prop("required", false);
+            $("#KJM").prop("required", false);
 
             $("#radio").prop("required", false);
-            $("#street_bb").prop("required", false);
-            $("#city_town_bb").prop("required", false);
-            $("#parish_bb").prop("required", false);
+            $("#street_jm").prop("required", false);
+            $("#city_town_jm").prop("required", false);
+            $("#parish_jm").prop("required", false);
             $("#street_abroad").prop("required", false);
             $("#city_town_abroad").prop("required", false);
             $("#state_abroad").prop("required", false);
@@ -134,17 +440,17 @@ $(document).ready(function() {
             $("#AOI_fr").prop("required", false);
             $("#AOI_fr").prop("required", false);
 
-            $("#KBB").prop("required", false);
-            $("#KBB").prop("required", false);
-            $("#KBB").prop("required", false);
-            $("#KBB").prop("required", false);
-            $("#KBB").prop("required", false);
-            $("#KBB").prop("required", false);
+            $("#KJM").prop("required", false);
+            $("#KJM").prop("required", false);
+            $("#KJM").prop("required", false);
+            $("#KJM").prop("required", false);
+            $("#KJM").prop("required", false);
+            $("#KJM").prop("required", false);
 
             $("#radio").prop("required", false);
-            $("#street_bb").prop("required", false);
-            $("#city_town_bb").prop("required", false);
-            $("#parish_bb").prop("required", false);
+            $("#street_jm").prop("required", false);
+            $("#city_town_jm").prop("required", false);
+            $("#parish_jm").prop("required", false);
             $("#street_abroad").prop("required", false);
             $("#city_town_abroad").prop("required", false);
             $("#state_abroad").prop("required", false);

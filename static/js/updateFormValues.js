@@ -1,14 +1,14 @@
 //List of all countries used in form
 var countries = [
-    "Barbados","Canada","United Kingdom","United States of America","Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla",
-    "Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Belarus","Belgium","Belize",
+    "Jamaica","Canada","United Kingdom","United States of America","Afghanistan","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla",
+    "Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize",
     "Benin","Bermuda","Bhutan","Bolivia","Bonaire","Bosnia & Herzegovina","Botswana","Brazil","British Indian Ocean Ter","Brunei","Bulgaria","Burkina Faso",
     "Burundi","Cambodia","Cameroon","Canary Islands","Cape Verde","Cayman Islands","Central African Republic","Chad","Channel Islands","Chile","China",
     "Christmas Island","Cocos Island","Colombia","Comoros","Congo","Cook Islands","Costa Rica","Cote DIvoire","Croatia","Cuba","Curaco","Cyprus",
     "Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia",
     "Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Ter","Gabon","Gambia","Georgia",
     "Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guinea","Guyana","Haiti","Honduras","Hong Kong","Hungary",
-    "Iceland","Indonesia","India","Iran","Iraq","Isle of Man","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea North",
+    "Iceland","Indonesia","India","Iran","Iraq","Isle of Man","Israel","Italy","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea North",
     "Korea South","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia",
     "Madagascar","Malaysia","Malawi","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Midway Islands",
     "Moldova","Monaco","Mongolia","Montserrat","Morocco","Mozambique","Myanmar","Nambia","Nauru","Nepal","Netherland Antilles","Netherlands","Nevis",
@@ -50,24 +50,29 @@ var job_classes = [
 var purposes_of_travel = [
     "Medical",
     "Conference",
-    "Business",
+    "Business",    
     "Leisure",
+    "Work-Contract",
     "Study"
 ];
 
-//List of barbados parishes used in form
-var bb_parishes = [
-    "Christ Church",
+//List of Jamaica parishes used in form
+var jm_parishes = [
+    "Kingston",
+    "Manchester",
+    "Saint Ann",
     "Saint Andrew",
-    "Saint George",
+    "Clarendon",
+    "Portland",
+    "Saint Catherine",
+    "Saint Elizabeth",
+    "Saint Mary",
+    "Westmoreland",
+    "Hanover",
+    "Trelawny",
     "Saint James",
-    "Saint John",
-    "Saint Joseph",
-    "Saint Lucy",
-    "Saint Michael",
-    "Saint Peter",
-    "Saint Philip",
     "Saint Thomas",
+
 ];
 
 
@@ -84,12 +89,12 @@ var areas_of_interest = [
     "Other"
 ];
 
-//List of ways user may Know about Barbados
-var KBB = [
-    "Tourism",
-    "Business",
-    "Family",
-    "Medical",
-    "Word.of.Mouth",
-    "Other"
-];
+//List of ways user may Know about Jamaica
+// var KJM = [
+//     "Tourism",
+//     "Business",
+//     "Family",
+//     "Medical",
+//     "Word.of.Mouth",
+//     "Other"
+// ];
