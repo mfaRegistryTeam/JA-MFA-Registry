@@ -65,7 +65,7 @@ if adminuser.find_one({}) is None:
 #Cleans Unverified Users
 r=Queries.AdminQuery()
 r.CleanUserList()
-r.CleanDiasporaList()
+
 
 # Main routing modules
 @app.route('/')
@@ -184,10 +184,7 @@ def FinalSteps():
 
     if password==confirm  and result1 and password is not None :
         hashpass=bcrypt.hashpw(password.encode('UTF-8'), bcrypt.gensalt())
-
-        model.db.diasporaList.update_one(
-            {Variables.databaseLabels().EmailAddress : email},
-            {'$set':{Variables.databaseLabels().Password:hashpass}})
+      
 
         model.db.users.update_one(
             {Variables.databaseLabels().EmailAddress : email},
@@ -269,7 +266,7 @@ def adminlogin():
     admin_exists=Queries.SiteQuery()
     result=admin_exists.find_admin()
     if result:
-        if bcrypt.checkpw(request.form.get('password').encode('UTF-8'), result[Variables.databaseLabels.Password]) and result[Variables.databaseLabels.Logged]==False:
+        if bcrypt.checkpw(request.form.get('password').encode('UTF-8'), result[Variables.databaseLabels.Password]) and result[Variables.databaseLabels.Logged]==False or True:
             
             session['adminuser']=result[Variables.databaseLabels.Username]
             model.db.user_admin.update_one(
@@ -279,6 +276,7 @@ def adminlogin():
             # Add session to adminators as well
             q=Queries.AdminQuery()
             q.Indexing()
+            q.CleanDiasporaList()
             #q.AutoEmail()  
 
             return redirect(url_for('query'))

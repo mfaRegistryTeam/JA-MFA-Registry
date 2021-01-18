@@ -59,6 +59,12 @@
     .d-none {}
 }
 
+@media (max-width: 750px) {
+    .spaceTop {
+        padding-top: 6em;
+    }
+}
+
 
 /* hr style  */
 

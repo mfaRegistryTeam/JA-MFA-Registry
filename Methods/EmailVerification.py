@@ -53,12 +53,12 @@ def confirmToken(token):
             {'$set':{'Status':True}})  
 
         # This history collection is created once for the user at the same time his user document is verified
-        history=model.db.Historical
-        HistoryList=[]
-        history.insert_one({
-            Variables.databaseLabels().EmailAddress :info[0],
-            Variables.databaseLabels().History: HistoryList
-            })            
+        # history=model.db.Historical
+        # HistoryList=[]
+        # history.insert_one({
+        #     Variables.databaseLabels().EmailAddress :info[0],
+        #     Variables.databaseLabels().History: HistoryList
+        #     })            
     except SignatureExpired:
         return render_template("errortimeout.html")
     

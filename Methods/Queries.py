@@ -86,7 +86,7 @@ class AdminQuery:
     def AutoEmail(self):
         model=Models.MyMongoDB()
         # 10 days before Expected date of return
-        a=model.db.diasporaList.find({'Expected-ReturnDate':{'$gte':datetime.datetime.now()},'Emailed_last':{'$lte':datetime.datetime.now()+timedelta(days=-14)}}).limit(5000)
+        a=model.db.diasporaList.find({'Expected-ReturnDate':{'$gte':datetime.datetime.now()},'Emailed_last':{'$lte':datetime.datetime.now()+timedelta(days=-14)}}).limit(2000)
         result=list(a)
         email_list=[]
         for x in result:
@@ -128,12 +128,12 @@ class AdminQuery:
         
         
         #6
-        model.db.diasporaList.create_index([ ('Occupation.Type',1),('Address.Country',1),('Country-of-Birth',1),
+        model.db.diasporaList.create_index([ ('Occupation.Type-of-Occupation',1),('Address.Country',1),('Country-of-Birth',1),
                                           ('Gender',1),('Name.Last',1), ('Name.First',1)],
                                           name= "OccupationAllCompoundIndex",
                                           background= True )      
         #7
-        model.db.diasporaList.create_index([ ( 'Occupation.Job-Class',1),('Occupation.Type',1),('Address.Country',1),('Country-of-Birth',1),
+        model.db.diasporaList.create_index([ ( 'Occupation.Job-Class',1),('Occupation.Type-of-Occupation',1),('Address.Country',1),('Country-of-Birth',1),
                                           ('Gender',1),('Name.Last', 1), ('Name.First', 1)],
                                           name="OccupationJobsAllCompoundIndex",
                                           background= True )    
@@ -279,12 +279,11 @@ class AdminQuery:
 
             #1
         if singlecountry is not '':
-            query.update(  { "$or":[{'Country-One-Single.Airport-Stopover-Country':singlecountry},
-                            {'Country-One-Single.Short-Ext-Country':singlecountry}] } )
-            #2 -#5      
-
+            query.update( {"$and":[ { 'Amount-of-Stops':'1'}, { "$or":[{'Country-One-Single.Airport-Stopover-Country':singlecountry},{'Country-One-Single.Short-Ext-Country':singlecountry}] }    ]} )
+            
+            #2 -#5
         if multicountry is not '':
-                query.update(  { "$or":[{'Two-Countries.Country-One-Multi.Airport-Stopover-Country':multicountry},
+                query.update( {"$and":[ { 'Amount-of-Stops':{"$ne":'1'} },{ "$or":[{'Two-Countries.Country-One-Multi.Airport-Stopover-Country':multicountry},
                 {'Two-Countries.Country-One-Multi.Short-Ext-Country':multicountry},
                 {'Two-Countries.Country-Two.Airport-Stopover-Country':multicountry},
                 {'Two-Countries.Country-Two.Short-Ext-Country':multicountry},
@@ -316,7 +315,7 @@ class AdminQuery:
                 {'Five-Countries.Country-Five.Airport-Stopover-Country':multicountry},
                 {'Five-Countries.Country-Five.Short-Ext-Country':multicountry}               
                 
-                 ] } )   
+                 ] } ]} )   
 
         
         if duration is not '':
@@ -371,7 +370,7 @@ class AdminQuery:
         
 
         if occupation_type is not None:
-            query.update( {'Occupation.Type':occupation_type})
+            query.update( {'Occupation.Type-of-Occupation':occupation_type})
 
         if job_class is not '':
             query.update( {'Occupation.Job-Class':job_class})
