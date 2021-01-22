@@ -491,20 +491,26 @@ $(document).ready(function() {
 
 
 //  script for revealing forms for student, employed or others
-function show2() {
+function showStudentOptions() {
     document.getElementById('div2').style.display = 'block';
     document.getElementById('div3').style.display = 'none'
     document.getElementById('div4').style.display = 'none'
 }
 
-function show3() {
+function showEmployedOptions() {
     document.getElementById('div3').style.display = 'block';
     document.getElementById('div2').style.display = 'none'
     document.getElementById('div4').style.display = 'none'
 }
 
-function show4() {
+function showOtherOptions() {
     document.getElementById('div4').style.display = 'block';
     document.getElementById('div3').style.display = 'none'
     document.getElementById('div2').style.display = 'none'
 }
+
+function hideAllOccupationOptions(){
+    document.getElementById('div4').style.display = 'none';
+    document.getElementById('div3').style.display = 'none'
+    document.getElementById('div2').style.display = 'none'
+  }

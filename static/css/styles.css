@@ -66,6 +66,32 @@
 }
 
 
+/* cod to move the into spertate lines  */
+
+#lineForUrl a #title-font {
+    word-wrap: break-word;
+}
+
+.linebreak {
+    word-wrap: break-word;
+}
+
+@media screen and (max-width: 480px) {
+    #lineForUrl a #title-font {
+        max-width: 100%;
+        overflow: visible;
+        display: inline-block;
+        font-size: smaller;
+    }
+    .linebreak {
+        max-width: 100%;
+        overflow: visible;
+        display: inline-block;
+        font-size: smaller;
+    }
+}
+
+
 /* hr style  */
 
 

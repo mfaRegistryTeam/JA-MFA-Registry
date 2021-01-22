@@ -56,7 +56,13 @@
                     </div>
                 </div>
                 <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                    <h4 id="mainTitle">Ministry of Foreign Affairs and Foreign Trade of Jamaica</h4>
+                    <div id="lineForUrl">
+                        <a href="#">
+                            <span id="title-font">
+                            <h4 id="mainTitle">Ministry of Foreign Affairs and Foreign Trade of Jamaica</h4>
+                      </span>
+                        </a>
+                    </div>
                 </a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     {% if diaspora| length > 0 %}
@@ -287,10 +293,11 @@
                                 <div class="form-holder form-holder-2">
 
                                     <legend> 10. What is your Occupation?*</legend>
-                                    <input type="radio" name="occupation" id="Student" value="Student" onclick="show2();" required />Student
-                                    <input type="radio" name="occupation" id="Employed" value="Employed" onclick="show3();" /> Employed
-                                    <input type="radio" name="occupation" id="Unemployed" value="Unemployed" /> Unemployed
-                                    <input type="radio" name="occupation" id="Other" value="Other" onclick="show4();" />Other
+                                    <input type="radio" name="occupation" id="Student" value="Student" onclick="showStudentOptions();" required />Student
+                                    <input type="radio" name="occupation" id="Employed" value="Employed" onclick="showEmployedOptions();" /> Employed
+                                    <input type="radio" name="occupation" id="Unemployed" value="Unemployed" onclick="hideAllOccupationOptions()" /> Unemployed
+                                    <input type="radio" name="occupation" id="Other" value="Other" onclick="showOtherOptions();" />Other
+
 
                                     <div id="div2" class="hide">
                                         <br>
@@ -360,12 +367,12 @@
                                         <br>
                                         <!-- other -->
                                         <!--  input field for other profession-->
-                                        <div class="form-row">
-                                            <fieldset>
-                                                <legend>10c. Other?- please describe (Max 500ch.)</legend>
-                                                {{ render_field(form.other, class="form-control", placeholder="Other")}}
-                                            </fieldset>
-                                        </div>
+
+                                        <fieldset>
+                                            <legend>10c. Other?- please describe (Max 500ch.)</legend>
+                                            {{ render_field(form.other, class="form-control", placeholder="Other")}}
+                                        </fieldset>
+
                                     </div>
                                 </div>
                             </div>
